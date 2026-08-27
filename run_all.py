@@ -13,5 +13,5 @@ if __name__ == "__main__":
     gate2()
     print("\n=== GATE 3: ADAPTATION-GENERATED ATTRACTOR SWEEPS ===")
     gate3()
-    print("\\n=== GATE 4: FAST INTERNAL SEARCH ===")
+    print("\n=== GATE 4: FAST INTERNAL SEARCH ===")
     gate4()
