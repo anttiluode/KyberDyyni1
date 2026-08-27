@@ -230,8 +230,8 @@ def run_case(
 ) -> dict[str, dict[str, float]]:
     rho = rho_schedule(rank, signature)
 
-    basis_a = orthonormal_basis(np.random.default_rng(seed + 1000 + rank))
-    basis_b = orthonormal_basis(np.random.default_rng(seed + 2000 + rank))
+    basis_a = orthonormal_basis(np.random.default_rng(seed + 1000 + rank), rank)
+    basis_b = orthonormal_basis(np.random.default_rng(seed + 2000 + rank), rank)
 
     sa = ar_sources(
         np.random.default_rng(seed + 3000 + 17 * rank),
