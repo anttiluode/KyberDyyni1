@@ -21,6 +21,8 @@ The biological inspiration is the entorhinal–hippocampal theta-sweep literatur
 
 This repo is **not** a hippocampus simulator and does not claim that entorhinal cortex literally stores phase tags in the form used here. The papers motivate architectural tests; the tests must earn the engineering claims.
 
+A strange provenance note: during ChatGPT response comparison on 2026-08-27, two model variants briefly reasoned over the same repository. The selected line is the one now on `main`; useful ideas from the sibling line are preserved explicitly rather than silently blended. See [LINEAGE.md](LINEAGE.md).
+
 ## Motivation
 
 The motivating neuropsychological analogy is the classic observation that severe hippocampal damage can leave much ongoing cognition intact while profoundly impairing formation of new long-term declarative memories.
@@ -88,7 +90,7 @@ Adaptation destabilizes an activity bump and gives it intrinsic mobility. Theta 
 
 KyberDyyni1 steals the **functional decomposition**, not the biological implementation.
 
-The current `ThetaScanner` is deliberately simpler than their continuous-attractor model. Its left/right alternation is engineered. Gate 3 attacks that simplification.
+`ThetaScanner` remains the deliberately simple engineered baseline. Gate 3 now adds `AdaptationRingScanner`, a NumPy mechanism port in which the alternating sweep emerges from recurrent attraction, slow adaptation and theta modulation rather than a parity rule.
 
 ### Vollan et al. 2026
 
@@ -252,9 +254,7 @@ python run_all.py
 python -m unittest discover -s tests
 ```
 
-Results are saved in `results/`.
-
-## Next gates
+Results are saved in `results/`. Saved JSON receipts are the canonical quantitative record. Historical/sibling-model results that were never committed are documented separately in [LINEAGE.md](LINEAGE.md), not mixed into `results/`.
 
 ## Gate 3 — adaptation generates the sweep
 
@@ -285,6 +285,8 @@ no firing-rate adaptation           0.0025 rad                   0.457
 no theta modulation                 0.0135 rad                   0.757
 no recurrent attraction             0.0252 rad                   0.541
 ```
+
+The canonical Gate-3 amplitude metric is **the mean, across theta cycles, of the largest absolute bump displacement reached inside each cycle**. A sibling ChatGPT prototype produced a separate local Gate-3 result around 27° using an uncommitted implementation/measurement. That is useful as an independent qualitative cross-check, but it is not numerically comparable to the saved receipt above. See [LINEAGE.md](LINEAGE.md).
 
 There is no `left`, `right`, cycle parity, or alternating-sign instruction in this scanner. The full system spontaneously settles into large bounded sweeps that reverse side every theta cycle.
 
@@ -332,19 +334,60 @@ It does **not** earn:
 
 If internal trajectory continuity, transition cost, or state-dependent computation does not matter in later tasks, the random/engineered attackers should kill the extra attractor machinery.
 
-### Gate 5 — consolidation from self-generated samples
+## Next gates — consolidated line
 
-Remove the external fast cue. Let internally generated sweeps produce candidate trajectories. Only later consequence is available.
+The response-comparison sibling independently converged on a useful missing experiment: **do not jump directly from "the sweep can search" to "slow learning." First let relevance alter the fast sweep itself, then ask whether repeated successful fast searches become slow priors.** That idea is now part of the canonical roadmap; its local code was never committed.
 
-Ask whether useful internally sampled trajectories slowly become preferred by structural learning.
+### Gate 5 — fast relevance -> slow prior
 
-### Gate 6 — offline / REM-like mode
+Gate 5 joins the pieces that Gates 0–4 tested separately:
+
+```text
+context / stable anchor
+        |
+        v
+self-generated sweep
+        |
+scalar relevance arrives during the sweep
+        |
+        +--> fast retarget / narrow / accelerate
+        |        (no slow weight change yet)
+        |
+later consequence
+        |
+phase/context-local trace
+        |
+        v
+bounded slow prior
+        |
+next encounter starts closer to where experience says to search
+```
+
+This gate has two required halves.
+
+**5A — fast modulation before learning.** Relevance must change direction/sector/frequency immediately while slow weights are frozen. This is the Vollan-shaped part that the current adaptation scanner has not yet earned.
+
+**5B — consolidation after success.** Repeated successful searches must alter bounded slow structure so that a later recurrence of the same context begins with a better prior even when the original fast relevance cue is absent.
+
+Attackers must include the current engineered sweep, random dither, a simple context->target exponential moving average / bandit prior, and a frozen-slow ablation. If an ordinary EMA prior plus random search wins cleanly, the fancy mechanism loses.
+
+The proposed experimental contract is written in [GATE5.md](GATE5.md).
+
+### Gate 6 — continuity must matter
+
+Gate 4 exposed the adaptation scanner's only current advantage over random dither: far lower internal travel. Make that property consequential rather than cosmetic.
+
+Use worlds where probe-to-probe transitions carry state, cost, hysteresis, eligibility, or other path dependence. Then ask whether a continuous sweep beats equally budgeted random proposals.
+
+If path continuity does not improve anything, the attractor machinery remains unnecessary.
+
+### Gate 7 — offline / REM-like mode
 
 Remove external input while keeping the internal scanner alive. Replay or generate trajectories from slow anchors and test whether offline sampling changes later online behavior.
 
 This is an engineering test of a shared online/offline sampler, not a model of REM.
 
-### Gate 7 — coupled fast and slow populations
+### Gate 8 — coupled fast and slow populations
 
 Only after the small gates survive: make the fast scanner and slow structural population recurrently interact rather than remain cleanly separated modules.
 

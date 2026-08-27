@@ -76,3 +76,12 @@ The Ji et al. paper states that the HD and grid networks use fast rate dynamics 
 The authors' public repository `ZilongJi/GridCellThetaSweeps` provides `Network_models.py` and `HD_phase_shift.py`. Gate 3 follows the HD module there, including its circular Gaussian recurrent kernel, rectified activation, divisive global inhibition, adaptation state, theta-modulated Gaussian anchor input, and the demonstration parameters `tau=10`, `tau_v=100`, `mbar=12`, `a=0.4`, `A=3`, `J0=4`, 100 cells, 1-ms dt, 100-ms theta period, and theta modulation strength 0.4.
 
 KyberDyyni does not copy their BrainPy/JAX implementation or full grid-cell network; the repo uses a small NumPy port so the mechanism can be attacked in isolation.
+
+
+## What Gate 4 still does not test from Vollan et al.
+
+Gate 0 demonstrated engineered direction/width/frequency control, and Gate 4 demonstrated useful search with the adaptation-driven scanner. Those are not yet the same result.
+
+The current `AdaptationRingScanner` does **not** yet demonstrate rapid relevance-driven narrowing and frequency changes of its own emergent sweep. The consolidated Gate-5 plan therefore treats this as an explicit missing test rather than assuming the biological observation transfers automatically to the artificial mechanism.
+
+If fast relevance modulation can be implemented only by externally commanding parameters in a way that adds no benefit over the engineered `ThetaScanner`, that is evidence against paying the cost of the attractor mechanism.
