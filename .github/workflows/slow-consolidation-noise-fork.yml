@@ -23,3 +23,5 @@ jobs:
       - run: python -m compileall -q experiments
       - name: Run slow consolidation noise attack
         run: python experiments/fork_slow_consolidation_noise.py
+      - name: Run fast-slow handoff attack
+        run: python experiments/fork_slow_fast_handoff.py
