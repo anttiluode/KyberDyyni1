@@ -1,0 +1,104 @@
+{
+  "settings": {
+    "observed_dimension": 32,
+    "shared_correction_rank": 4,
+    "contexts": 16,
+    "train_views": 3,
+    "test_views": 1,
+    "repeats": 6,
+    "fast_packet_noise_norm": 0.16,
+    "nuisance_norm": 0.08,
+    "success_radius": 0.18,
+    "n_seeds": 64
+  },
+  "results": {
+    "0": {
+      "blind_shared_rendered": {
+        "error": 0.6844349971,
+        "success": 0,
+        "cosine": 0.0347698241
+      },
+      "explicit_view_table_unseen": {
+        "error": 0.6,
+        "success": 0,
+        "cosine": 0
+      },
+      "ridge_calibration": {
+        "error": 0.6,
+        "success": 0,
+        "cosine": 0
+      },
+      "oracle_basis": {
+        "error": 0.0139224787,
+        "success": 1,
+        "cosine": 0.9997703175
+      }
+    },
+    "2": {
+      "ridge_calibration": {
+        "error": 0.3580327301,
+        "success": 0.1171875,
+        "cosine": 0.7357463601
+      },
+      "procrustes_calibration": {
+        "error": 0.5028485922,
+        "success": 0.046875,
+        "cosine": 0.5942318287
+      }
+    },
+    "3": {
+      "ridge_calibration": {
+        "error": 0.2470315614,
+        "success": 0.3725961538,
+        "cosine": 0.8787925275
+      },
+      "procrustes_calibration": {
+        "error": 0.3523692262,
+        "success": 0.1766826923,
+        "cosine": 0.7840841955
+      }
+    },
+    "4": {
+      "ridge_calibration": {
+        "error": 0.1732263999,
+        "success": 0.6341145833,
+        "cosine": 0.9421626729
+      },
+      "procrustes_calibration": {
+        "error": 0.235910173,
+        "success": 0.4283854167,
+        "cosine": 0.9018856302
+      }
+    },
+    "6": {
+      "ridge_calibration": {
+        "error": 0.1076208531,
+        "success": 0.903125,
+        "cosine": 0.9807772269
+      },
+      "procrustes_calibration": {
+        "error": 0.1443532933,
+        "success": 0.8296875,
+        "cosine": 0.9662547315
+      }
+    },
+    "8": {
+      "ridge_calibration": {
+        "error": 0.0883353649,
+        "success": 0.978515625,
+        "cosine": 0.9886956973
+      },
+      "procrustes_calibration": {
+        "error": 0.116434571,
+        "success": 0.951171875,
+        "cosine": 0.9801837172
+      },
+      "oracle_basis": {
+        "error": 0.0137837756,
+        "success": 1,
+        "cosine": 0.999771293
+      }
+    }
+  },
+  "conclusion": "Arbitrary unseen bases do not support zero-shot transfer without a relation signal: raw shared memory and explicit view lookup both fail, while exact basis knowledge is nearly perfect. Once a few paired calibration contexts relate the new basis to a learned reference, ordinary linear alignment solves most of the problem; performance rises sharply around and above the rank-4 shared correction subspace. The next unresolved question is whether correspondence/alignment can be recovered without explicit paired context labels."
+}
