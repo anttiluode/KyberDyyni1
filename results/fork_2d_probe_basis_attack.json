@@ -1,0 +1,396 @@
+{
+  "reliable": {
+    "radial_golden": {
+      "hit_cycle_fraction": 0.9277777777777777,
+      "hit_cycle_fraction_std": 0.024845199749997653,
+      "mean_best_distance": 0.08011255160790433,
+      "mean_best_distance_std": 0.009631168392497324,
+      "mean_relevance": 0.554567588761875,
+      "mean_relevance_std": 0.01243758160717441,
+      "probe_travel_per_ms": 0.022206135869464846,
+      "probe_travel_per_ms_std": 3.469446951953614e-18
+    },
+    "cardinal_cross": {
+      "hit_cycle_fraction": 0.9069444444444444,
+      "hit_cycle_fraction_std": 0.02587213334749604,
+      "mean_best_distance": 0.0903255033130313,
+      "mean_best_distance_std": 0.005478588122743256,
+      "mean_relevance": 0.48863030655565004,
+      "mean_relevance_std": 0.009358652293016327,
+      "probe_travel_per_ms": 0.022222672565639753,
+      "probe_travel_per_ms_std": 3.469446951953614e-18
+    },
+    "diagonal_cross": {
+      "hit_cycle_fraction": 0.9013888888888889,
+      "hit_cycle_fraction_std": 0.022004138219103977,
+      "mean_best_distance": 0.09075673625687812,
+      "mean_best_distance_std": 0.00564838011134335,
+      "mean_relevance": 0.49123048907479294,
+      "mean_relevance_std": 0.00836944840725803,
+      "probe_travel_per_ms": 0.022222672565639773,
+      "probe_travel_per_ms_std": 0.0
+    },
+    "rotating_cross": {
+      "hit_cycle_fraction": 0.9097222222222222,
+      "hit_cycle_fraction_std": 0.029232729416457204,
+      "mean_best_distance": 0.09433300944096164,
+      "mean_best_distance_std": 0.011784752502324395,
+      "mean_relevance": 0.507723897544048,
+      "mean_relevance_std": 0.013112522584721866,
+      "probe_travel_per_ms": 0.02224132721168409,
+      "probe_travel_per_ms_std": 3.469446951953614e-18
+    },
+    "octagon_ring": {
+      "hit_cycle_fraction": 0.11666666666666668,
+      "hit_cycle_fraction_std": 0.03908679799852857,
+      "mean_best_distance": 0.33235242021804884,
+      "mean_best_distance_std": 0.007317204699476624,
+      "mean_relevance": 0.23848349690142465,
+      "mean_relevance_std": 0.0063265265101105994,
+      "probe_travel_per_ms": 0.02238835846212116,
+      "probe_travel_per_ms_std": 3.469446951953614e-18
+    },
+    "spsa_line": {
+      "hit_cycle_fraction": 0.8597222222222224,
+      "hit_cycle_fraction_std": 0.07860423998239456,
+      "mean_best_distance": 0.10146060340218525,
+      "mean_best_distance_std": 0.023644125836833414,
+      "mean_relevance": 0.5386174322967283,
+      "mean_relevance_std": 0.026636230288054022,
+      "probe_travel_per_ms": 0.022226378862191146,
+      "probe_travel_per_ms_std": 5.8000920167512106e-08
+    },
+    "smooth_random_walk": {
+      "hit_cycle_fraction": 0.5388888888888889,
+      "hit_cycle_fraction_std": 0.10526275178609122,
+      "mean_best_distance": 0.21465400337920312,
+      "mean_best_distance_std": 0.04528071436706529,
+      "mean_relevance": 0.5504237795610496,
+      "mean_relevance_std": 0.07143416544316264,
+      "probe_travel_per_ms": 0.022305570088516982,
+      "probe_travel_per_ms_std": 5.469038712814697e-05
+    },
+    "iid_random_unmatched": {
+      "hit_cycle_fraction": 1.0,
+      "hit_cycle_fraction_std": 0.0,
+      "mean_best_distance": 0.055993463816441325,
+      "mean_best_distance_std": 0.004194463063317887,
+      "mean_relevance": 0.3811881399600921,
+      "mean_relevance_std": 0.0041016852276813355,
+      "probe_travel_per_ms": 0.5785053162638673,
+      "probe_travel_per_ms_std": 0.0031582925155806863
+    },
+    "point_estimate": {
+      "hit_cycle_fraction": 0.7972222222222222,
+      "hit_cycle_fraction_std": 0.0760218454633556,
+      "mean_best_distance": 0.1377148998840884,
+      "mean_best_distance_std": 0.019146963200577547,
+      "mean_relevance": 0.7648573635373964,
+      "mean_relevance_std": 0.060183841999572434,
+      "probe_travel_per_ms": 0.0,
+      "probe_travel_per_ms_std": 0.0
+    }
+  },
+  "mixed": {
+    "radial_golden": {
+      "hit_cycle_fraction": 0.8250000000000001,
+      "hit_cycle_fraction_std": 0.1003466214899358,
+      "mean_best_distance": 0.11740940364707697,
+      "mean_best_distance_std": 0.032312048042732584,
+      "mean_relevance": 0.44264710988604095,
+      "mean_relevance_std": 0.03580215790429032,
+      "probe_travel_per_ms": 0.02655092840991495,
+      "probe_travel_per_ms_std": 3.469446951953614e-18
+    },
+    "cardinal_cross": {
+      "hit_cycle_fraction": 0.813888888888889,
+      "hit_cycle_fraction_std": 0.0512949592017205,
+      "mean_best_distance": 0.1178732103724674,
+      "mean_best_distance_std": 0.01944369022303152,
+      "mean_relevance": 0.38775003085484355,
+      "mean_relevance_std": 0.02024083638247298,
+      "probe_travel_per_ms": 0.026557009191257985,
+      "probe_travel_per_ms_std": 3.469446951953614e-18
+    },
+    "diagonal_cross": {
+      "hit_cycle_fraction": 0.7972222222222222,
+      "hit_cycle_fraction_std": 0.06764330923269957,
+      "mean_best_distance": 0.12737430680817963,
+      "mean_best_distance_std": 0.02563959309509415,
+      "mean_relevance": 0.3857504334592759,
+      "mean_relevance_std": 0.02300686353026342,
+      "probe_travel_per_ms": 0.026557009191257985,
+      "probe_travel_per_ms_std": 3.469446951953614e-18
+    },
+    "rotating_cross": {
+      "hit_cycle_fraction": 0.8069444444444445,
+      "hit_cycle_fraction_std": 0.07801303705546454,
+      "mean_best_distance": 0.13031503861875918,
+      "mean_best_distance_std": 0.02901901691309047,
+      "mean_relevance": 0.40604910733958394,
+      "mean_relevance_std": 0.0289744842050341,
+      "probe_travel_per_ms": 0.026591939952425477,
+      "probe_travel_per_ms_std": 3.469446951953614e-18
+    },
+    "octagon_ring": {
+      "hit_cycle_fraction": 0.10000000000000003,
+      "hit_cycle_fraction_std": 0.04249182927993987,
+      "mean_best_distance": 0.3982609926490775,
+      "mean_best_distance_std": 0.011813919637196102,
+      "mean_relevance": 0.15263513570643564,
+      "mean_relevance_std": 0.004946642434800235,
+      "probe_travel_per_ms": 0.026769621075511178,
+      "probe_travel_per_ms_std": 3.469446951953614e-18
+    },
+    "spsa_line": {
+      "hit_cycle_fraction": 0.7180555555555556,
+      "hit_cycle_fraction_std": 0.11988774327534205,
+      "mean_best_distance": 0.16115464673920313,
+      "mean_best_distance_std": 0.051219380726067264,
+      "mean_relevance": 0.4179898299583921,
+      "mean_relevance_std": 0.05076990758882356,
+      "probe_travel_per_ms": 0.02657411292424416,
+      "probe_travel_per_ms_std": 8.814449965460253e-08
+    },
+    "smooth_random_walk": {
+      "hit_cycle_fraction": 0.3263888888888889,
+      "hit_cycle_fraction_std": 0.1085379122475724,
+      "mean_best_distance": 0.37994925052887063,
+      "mean_best_distance_std": 0.10657460897484028,
+      "mean_relevance": 0.3680975307890763,
+      "mean_relevance_std": 0.09213711435247454,
+      "probe_travel_per_ms": 0.026671207598597146,
+      "probe_travel_per_ms_std": 5.9628375719798886e-05
+    },
+    "iid_random_unmatched": {
+      "hit_cycle_fraction": 0.9958333333333332,
+      "hit_cycle_fraction_std": 0.007216878364870345,
+      "mean_best_distance": 0.06825192939627983,
+      "mean_best_distance_std": 0.005025773884788685,
+      "mean_relevance": 0.2885992150789029,
+      "mean_relevance_std": 0.007683188755953834,
+      "probe_travel_per_ms": 0.6916151197497914,
+      "probe_travel_per_ms_std": 0.003997331566479558
+    },
+    "point_estimate": {
+      "hit_cycle_fraction": 0.4055555555555556,
+      "hit_cycle_fraction_std": 0.10007713074806568,
+      "mean_best_distance": 0.3482588436145219,
+      "mean_best_distance_std": 0.09518125529907383,
+      "mean_relevance": 0.5081836803218991,
+      "mean_relevance_std": 0.09981280957490345,
+      "probe_travel_per_ms": 0.0,
+      "probe_travel_per_ms_std": 0.0
+    }
+  },
+  "biased": {
+    "radial_golden": {
+      "hit_cycle_fraction": 0.8513888888888889,
+      "hit_cycle_fraction_std": 0.04433580472086768,
+      "mean_best_distance": 0.1075773399411236,
+      "mean_best_distance_std": 0.015217504320763242,
+      "mean_relevance": 0.5180066459765246,
+      "mean_relevance_std": 0.019949044759854317,
+      "probe_travel_per_ms": 0.022206135869464846,
+      "probe_travel_per_ms_std": 3.469446951953614e-18
+    },
+    "cardinal_cross": {
+      "hit_cycle_fraction": 0.8694444444444444,
+      "hit_cycle_fraction_std": 0.03524604872347089,
+      "mean_best_distance": 0.10566003572861184,
+      "mean_best_distance_std": 0.008391878599378342,
+      "mean_relevance": 0.47036645666760624,
+      "mean_relevance_std": 0.01157113234671896,
+      "probe_travel_per_ms": 0.022222672565639753,
+      "probe_travel_per_ms_std": 3.469446951953614e-18
+    },
+    "diagonal_cross": {
+      "hit_cycle_fraction": 0.8611111111111112,
+      "hit_cycle_fraction_std": 0.03868996743662254,
+      "mean_best_distance": 0.10222596011782858,
+      "mean_best_distance_std": 0.011184755495883778,
+      "mean_relevance": 0.4693406422667988,
+      "mean_relevance_std": 0.013198914629713874,
+      "probe_travel_per_ms": 0.022222672565639773,
+      "probe_travel_per_ms_std": 0.0
+    },
+    "rotating_cross": {
+      "hit_cycle_fraction": 0.8597222222222222,
+      "hit_cycle_fraction_std": 0.033650115109960306,
+      "mean_best_distance": 0.10774909642203229,
+      "mean_best_distance_std": 0.013629242394911345,
+      "mean_relevance": 0.4860942956450735,
+      "mean_relevance_std": 0.015895170611896596,
+      "probe_travel_per_ms": 0.02224132721168409,
+      "probe_travel_per_ms_std": 3.469446951953614e-18
+    },
+    "octagon_ring": {
+      "hit_cycle_fraction": 0.14027777777777778,
+      "hit_cycle_fraction_std": 0.03151890477197282,
+      "mean_best_distance": 0.32393704582267085,
+      "mean_best_distance_std": 0.01174638226168258,
+      "mean_relevance": 0.23807008032479796,
+      "mean_relevance_std": 0.010393873959206901,
+      "probe_travel_per_ms": 0.02238835846212116,
+      "probe_travel_per_ms_std": 3.469446951953614e-18
+    },
+    "spsa_line": {
+      "hit_cycle_fraction": 0.7569444444444445,
+      "hit_cycle_fraction_std": 0.09964249366214131,
+      "mean_best_distance": 0.1454835296610697,
+      "mean_best_distance_std": 0.0422023023546942,
+      "mean_relevance": 0.4911431479904969,
+      "mean_relevance_std": 0.04183088372166402,
+      "probe_travel_per_ms": 0.022226378862191146,
+      "probe_travel_per_ms_std": 5.8000920167512106e-08
+    },
+    "smooth_random_walk": {
+      "hit_cycle_fraction": 0.2972222222222222,
+      "hit_cycle_fraction_std": 0.12282050538574525,
+      "mean_best_distance": 0.38598744759008247,
+      "mean_best_distance_std": 0.11600137889878123,
+      "mean_relevance": 0.37278415285267147,
+      "mean_relevance_std": 0.10817666850193215,
+      "probe_travel_per_ms": 0.022305570088516982,
+      "probe_travel_per_ms_std": 5.469038712814697e-05
+    },
+    "iid_random_unmatched": {
+      "hit_cycle_fraction": 0.9958333333333332,
+      "hit_cycle_fraction_std": 0.009918650595198406,
+      "mean_best_distance": 0.0565511814179532,
+      "mean_best_distance_std": 0.0043312204063397225,
+      "mean_relevance": 0.3720039550599154,
+      "mean_relevance_std": 0.006911854026087809,
+      "probe_travel_per_ms": 0.5785053162638673,
+      "probe_travel_per_ms_std": 0.0031582925155806863
+    },
+    "point_estimate": {
+      "hit_cycle_fraction": 0.051388888888888894,
+      "hit_cycle_fraction_std": 0.060651682113605686,
+      "mean_best_distance": 0.4300721790705338,
+      "mean_best_distance_std": 0.053753830707500866,
+      "mean_relevance": 0.32206747403761826,
+      "mean_relevance_std": 0.07870323291952813,
+      "probe_travel_per_ms": 0.0,
+      "probe_travel_per_ms_std": 0.0
+    }
+  },
+  "loss": {
+    "radial_golden": {
+      "hit_cycle_fraction": 0.8625000000000002,
+      "hit_cycle_fraction_std": 0.04468252206151501,
+      "mean_best_distance": 0.09965015398392495,
+      "mean_best_distance_std": 0.016453097257832883,
+      "mean_relevance": 0.48700510946341957,
+      "mean_relevance_std": 0.029550425074220153,
+      "probe_travel_per_ms": 0.024432014041897782,
+      "probe_travel_per_ms_std": 3.469446951953614e-18,
+      "reacquisition_ms": 30.555555555555557,
+      "reacquisition_ms_std": 34.58305443885759
+    },
+    "cardinal_cross": {
+      "hit_cycle_fraction": 0.8472222222222222,
+      "hit_cycle_fraction_std": 0.06412997989230665,
+      "mean_best_distance": 0.11203115194994957,
+      "mean_best_distance_std": 0.022639880002548757,
+      "mean_relevance": 0.43353835120750944,
+      "mean_relevance_std": 0.02492552132403348,
+      "probe_travel_per_ms": 0.024431076056135374,
+      "probe_travel_per_ms_std": 0.0,
+      "reacquisition_ms": 63.888888888888886,
+      "reacquisition_ms_std": 106.68257983150845
+    },
+    "diagonal_cross": {
+      "hit_cycle_fraction": 0.8236111111111111,
+      "hit_cycle_fraction_std": 0.06471387642900969,
+      "mean_best_distance": 0.11713308877136748,
+      "mean_best_distance_std": 0.02101614749470023,
+      "mean_relevance": 0.43065392136938146,
+      "mean_relevance_std": 0.02576440853708774,
+      "probe_travel_per_ms": 0.024431076056135387,
+      "probe_travel_per_ms_std": 3.469446951953614e-18,
+      "reacquisition_ms": 58.33333333333334,
+      "reacquisition_ms_std": 75.92027982620249
+    },
+    "rotating_cross": {
+      "hit_cycle_fraction": 0.8166666666666665,
+      "hit_cycle_fraction_std": 0.05569427126600951,
+      "mean_best_distance": 0.12340865779704067,
+      "mean_best_distance_std": 0.020435693661672562,
+      "mean_relevance": 0.44100255152309625,
+      "mean_relevance_std": 0.02715769636818392,
+      "probe_travel_per_ms": 0.02447246016641574,
+      "probe_travel_per_ms_std": 3.469446951953614e-18,
+      "reacquisition_ms": 63.888888888888886,
+      "reacquisition_ms_std": 65.91005843169263
+    },
+    "octagon_ring": {
+      "hit_cycle_fraction": 0.12361111111111112,
+      "hit_cycle_fraction_std": 0.044854875727653176,
+      "mean_best_distance": 0.3556854804069813,
+      "mean_best_distance_std": 0.015540938243012977,
+      "mean_relevance": 0.19219086706976074,
+      "mean_relevance_std": 0.007497911222922691,
+      "probe_travel_per_ms": 0.024633177978862737,
+      "probe_travel_per_ms_std": 3.469446951953614e-18,
+      "reacquisition_ms": 313.88888888888886,
+      "reacquisition_ms_std": 195.0585540451196
+    },
+    "spsa_line": {
+      "hit_cycle_fraction": 0.7611111111111112,
+      "hit_cycle_fraction_std": 0.09820927516479827,
+      "mean_best_distance": 0.13979735470041563,
+      "mean_best_distance_std": 0.04280030843360082,
+      "mean_relevance": 0.46280964480831566,
+      "mean_relevance_std": 0.042915094690477926,
+      "probe_travel_per_ms": 0.02445436744951185,
+      "probe_travel_per_ms_std": 6.804877466876689e-08,
+      "reacquisition_ms": 133.33333333333334,
+      "reacquisition_ms_std": 123.22818340454907
+    },
+    "smooth_random_walk": {
+      "hit_cycle_fraction": 0.425,
+      "hit_cycle_fraction_std": 0.1259225217404793,
+      "mean_best_distance": 0.28772413458277996,
+      "mean_best_distance_std": 0.0744468366890421,
+      "mean_relevance": 0.461949603789829,
+      "mean_relevance_std": 0.08044383518809774,
+      "probe_travel_per_ms": 0.02453698681913705,
+      "probe_travel_per_ms_std": 6.372987186144209e-05,
+      "reacquisition_ms": 191.66666666666666,
+      "reacquisition_ms_std": 140.18836534383934
+    },
+    "iid_random_unmatched": {
+      "hit_cycle_fraction": 0.9972222222222222,
+      "hit_cycle_fraction_std": 0.00921284663987611,
+      "mean_best_distance": 0.06107660133423137,
+      "mean_best_distance_std": 0.003697339861080569,
+      "mean_relevance": 0.32674008686573136,
+      "mean_relevance_std": 0.011246612687664052,
+      "probe_travel_per_ms": 0.6367014672424308,
+      "probe_travel_per_ms_std": 0.003502501652280702,
+      "reacquisition_ms": 2.777777777777778,
+      "reacquisition_ms_std": 9.21284663987611
+    },
+    "point_estimate": {
+      "hit_cycle_fraction": 0.6333333333333333,
+      "hit_cycle_fraction_std": 0.08416254115301731,
+      "mean_best_distance": 0.22133541285011027,
+      "mean_best_distance_std": 0.048681336090469506,
+      "mean_relevance": 0.6590442388912849,
+      "mean_relevance_std": 0.07635739235157273,
+      "probe_travel_per_ms": 0.0,
+      "probe_travel_per_ms_std": 0.0,
+      "reacquisition_ms": 138.88888888888889,
+      "reacquisition_ms_std": 70.49209744694177
+    }
+  },
+  "settings": {
+    "n_seeds": 12,
+    "period_ms": 100,
+    "continuous_path_budget": "4 * cue-derived radius per cycle",
+    "same_fast_contrast_rule": true,
+    "slow_weight_changes": 0
+  },
+  "question": "Is the golden radial sampler doing anything beyond a conventional finite-difference / probe-basis operation once the fast contrast recenter rule has been discovered?"
+}

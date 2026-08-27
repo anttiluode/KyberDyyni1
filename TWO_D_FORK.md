@@ -266,3 +266,68 @@ The same fast contrast rule is now driven by:
 If a simple coordinate stencil matches the radial sampler, the digital architecture should use the stencil and keep the biology only as inspiration.
 
 Implementation: `experiments/fork_2d_probe_basis_attack.py`.
+
+
+## Fork 5 result — simple probe bases nearly match radial
+
+The same fast contrast rule was driven by several low-cost probe bases.
+
+```text
+                         radial     cardinal cross   rotating cross
+
+RELIABLE                 92.8%          90.7%           91.0%
+MIXED                    82.5%          81.4%           80.7%
+SYSTEMATIC BIAS          85.1%          86.9%           86.0%
+LOSS / RETURN            30.6 ms        63.9 ms         63.9 ms
+```
+
+All three use essentially the same low path-travel budget.
+
+Other attackers:
+
+- SPSA-like one-direction-per-cycle probing is weaker;
+- matched-travel smooth random walk is much weaker;
+- an octagonal perimeter ring is very poor because it fails to interrogate the center;
+- unmatched IID random remains the coverage upper bound at tens of times the path travel.
+
+So the surviving digital operation is not golden-angle radial sampling specifically.
+
+> **Balanced center-crossing probe directions are enough to expose a useful local relevance gradient around a stable reference.**
+
+The radial sampler remains somewhat more robust in mixed reliability and loss/reacquisition, but the ordinary +/-x, +/-y stencil gets close enough that any claim of a special radial mechanism should be rejected.
+
+Receipt: `results/fork_2d_probe_basis_attack.json`.
+
+## 2-D fork conclusion
+
+The branch now supports a compact architecture:
+
+```text
+approximate stable reference
+        |
+small structured probe basis
+        |
+relative sample relevance
+        |
+fast elastic correction vector
+        |
+        ... repeated contexts ...
+        |
+delayed correctly addressed consequence
+        |
+slow context calibration
+```
+
+What survived:
+
+1. structured low-travel sampling generalizes beyond 1-D;
+2. no single 2-D coverage curve is universally best;
+3. binary miss-driven geometry switching is too crude;
+4. local sample-relative relevance can robustly recenter a noisy/baised reference;
+5. a simple finite-difference-like probe basis nearly matches the richer radial path;
+6. repeated fast calibration can crystallize into delayed slow context calibration;
+7. an explicit EMA table matches the current bounded slow learner.
+
+The next clean attack is dimensionality/cost:
+
+> **As latent dimension grows, does an explicit coordinate probe basis become too expensive, and can structured/random orthogonal probes preserve fast calibration with sublinear or dimension-independent sample cost?**

@@ -1,13 +1,7 @@
 name: two-dimensional-sampling-fork
 
 on:
-  push:
-    branches: [two-dimensional-sampling-fork]
   workflow_dispatch:
-
-concurrency:
-  group: kyberdyyni-2d-sampling-fork
-  cancel-in-progress: true
 
 jobs:
   test:
@@ -20,5 +14,4 @@ jobs:
           python-version: "3.13"
           cache: pip
       - run: python -m pip install -r requirements.txt
-      - name: Run 2-D probe-basis attacker
-        run: python experiments/fork_2d_probe_basis_attack.py
+      - run: python experiments/fork_2d_probe_basis_attack.py
