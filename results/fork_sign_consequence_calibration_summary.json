@@ -1,0 +1,140 @@
+{
+  "settings": {
+    "observed_dimension": 16,
+    "rank": 4,
+    "temporal_sequence_length": 4500,
+    "n_seeds": 48,
+    "calibration_contexts": 32,
+    "test_contexts": 256,
+    "consequence_noise_sigmas": [
+      0,
+      0.01,
+      0.02,
+      0.04
+    ],
+    "correction_norm": 0.6,
+    "success_radius": 0.18
+  },
+  "key_results": {
+    "noise_0": {
+      "bitwise_k1": {
+        "error": 0.1164259022,
+        "success": 0.8662923177,
+        "sign_accuracy": 0.9583333333,
+        "scalar_evals": 8
+      },
+      "bitwise_k2": {
+        "error": 0.0375799943,
+        "success": 1,
+        "sign_accuracy": 1,
+        "scalar_evals": 16
+      },
+      "exhaustive_k2": {
+        "error": 0.0375799943,
+        "success": 1,
+        "sign_accuracy": 1,
+        "scalar_evals": 32
+      },
+      "shuffled_k32": {
+        "error": 0.7394256681,
+        "success": 0.1381022135,
+        "sign_accuracy": 0.515625,
+        "scalar_evals": 256
+      }
+    },
+    "noise_001": {
+      "bitwise_k2": {
+        "error": 0.0679603027,
+        "success": 0.9483235677,
+        "sign_accuracy": 0.984375,
+        "scalar_evals": 16
+      },
+      "bitwise_k4": {
+        "error": 0.0375799943,
+        "success": 1,
+        "sign_accuracy": 1,
+        "scalar_evals": 32
+      },
+      "exhaustive_k4": {
+        "error": 0.0375799943,
+        "success": 1,
+        "sign_accuracy": 1,
+        "scalar_evals": 64
+      },
+      "shuffled_k32": {
+        "error": 0.7440589505,
+        "success": 0.1551920573,
+        "sign_accuracy": 0.5052083333,
+        "scalar_evals": 256
+      }
+    },
+    "noise_002": {
+      "bitwise_k4": {
+        "error": 0.0577462136,
+        "success": 0.9657389323,
+        "sign_accuracy": 0.9895833333,
+        "scalar_evals": 32
+      },
+      "bitwise_k8": {
+        "error": 0.0375799943,
+        "success": 1,
+        "sign_accuracy": 1,
+        "scalar_evals": 64
+      },
+      "exhaustive_k4": {
+        "error": 0.0375799943,
+        "success": 1,
+        "sign_accuracy": 1,
+        "scalar_evals": 64
+      },
+      "shuffled_k32": {
+        "error": 0.7746478998,
+        "success": 0.1066894531,
+        "sign_accuracy": 0.4895833333,
+        "scalar_evals": 256
+      }
+    },
+    "noise_004": {
+      "bitwise_k4": {
+        "error": 0.057970384,
+        "success": 0.9655761719,
+        "sign_accuracy": 0.9895833333,
+        "scalar_evals": 32
+      },
+      "bitwise_k8": {
+        "error": 0.046870453,
+        "success": 0.982828776,
+        "sign_accuracy": 0.9947916667,
+        "scalar_evals": 64
+      },
+      "bitwise_k16": {
+        "error": 0.0375799943,
+        "success": 1,
+        "sign_accuracy": 1,
+        "scalar_evals": 128
+      },
+      "exhaustive_k4": {
+        "error": 0.0375799943,
+        "success": 1,
+        "sign_accuracy": 1,
+        "scalar_evals": 64
+      },
+      "shuffled_k32": {
+        "error": 0.7395397579,
+        "success": 0.1306152344,
+        "sign_accuracy": 0.515625,
+        "scalar_evals": 256
+      }
+    },
+    "oracle_floor": {
+      "transfer_error": 0.0375799943,
+      "success": 1
+    },
+    "paired_vector_once": {
+      "transfer_error": 0.0766203462,
+      "success": 0.9330240885,
+      "sign_accuracy": 0.9791666667
+    }
+  },
+  "conclusion": "Blind temporal alignment reduces the cross-view ambiguity to a handful of global sign bits. Ordinary scalar consequence can resolve and retain those bits: simple bitwise evidence accumulation reaches the oracle transfer floor with 16 scalar evaluations in the noiseless case, 32 at sigma=.01, 64 at .02, and 128 at .04. Shuffled consequence remains at chance sign accuracy and poor transfer. No novel sign learner is needed."
+}

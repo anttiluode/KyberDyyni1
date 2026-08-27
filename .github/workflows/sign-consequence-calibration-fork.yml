@@ -1,0 +1,25 @@
+name: sign-consequence-calibration-fork
+
+on:
+  push:
+    branches: [sign-consequence-calibration-fork]
+  workflow_dispatch:
+
+concurrency:
+  group: kyberdyyni-sign-consequence-calibration-fork
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m compileall -q experiments
+      - name: Run sign consequence calibration attack
+        run: python experiments/fork_sign_consequence_calibration.py
