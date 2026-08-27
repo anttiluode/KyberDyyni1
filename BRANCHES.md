@@ -17,6 +17,7 @@ Consolidation source heads:
 | `cross-basis-transfer-fork` | `3d31aad757d808c395fb739ca317458755e5e8b9` | merged as Gate 10 |
 | `unlabeled-temporal-alignment-fork` | `0cc316c8718eccff35dd530749eaf0aed43060e8` | merged as Gate 11 |
 | `sign-consequence-calibration-fork` | `07f8ba7399c457d6ff47b70b93b9d411b0f88977` | merged as Gate 12 |
+| `rank-scaling-sign-fork` | `5049f6347b3205e2bf1bd7d3ec6e5f1fdfcb76c7` | merged as Gate 13 |
 
 ## Control-law line
 
@@ -126,6 +127,19 @@ Preserved experiment/receipt:
 - `results/fork_sign_consequence_calibration_summary.json`
 
 This line established that the residual sign ambiguity left by blind temporal alignment can be resolved with ordinary scalar consequence. Simple bitwise evidence accumulation reaches the oracle transfer floor; shuffled consequence stays at chance.
+
+## Rank-scaling sign-calibration line
+
+Preserved narrative:
+
+- [RANK_SCALING_FORK.md](RANK_SCALING_FORK.md)
+
+Preserved experiment/receipt:
+
+- `experiments/fork_rank_scaling_sign.py`
+- `results/fork_rank_scaling_sign_summary.json`
+
+This line established that a tiny informed consequence-probe budget can match or beat full O(R) sign probing at higher rank, with particularly strong gains under sparse and heavy-tailed excitation. The earned role is ordinary active measurement allocation, not a new learner.
 
 ## Workflow files
 
