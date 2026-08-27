@@ -113,3 +113,50 @@ Each cycle returns one binary hit/miss consequence. An EMA-like fast miss state 
 The path remains continuous when geometry changes. The nominal movement budget still depends only on cue confidence, so a failure-driven expansion cannot buy extra travel.
 
 Implementation: `experiments/fork_2d_adaptive_geometry.py`.
+
+
+## Fork 2 result — binary miss switching is too crude
+
+The fast miss-state controller really did switch geometry, but it usually hurt.
+
+```text
+RELIABLE
+fixed radial                  90.0%
+adaptive radial -> spiral     72.1%
+
+MIXED
+fixed radial                  61.0%
+adaptive radial -> spiral     43.5%
+
+SYSTEMATIC BIAS
+fixed spiral                  54.0%
+adaptive radial -> spiral     40.7%
+fixed radial                  36.8%
+
+LOSS / RETURN
+fixed radial                  41.7 ms
+adaptive radial -> spiral    194.4 ms
+```
+
+The failure is informative:
+
+> **"I missed" says that the current policy is inadequate, but not how the internal reference is wrong.**
+
+Switching geometry also disrupts useful path persistence.
+
+Receipt: `results/fork_2d_adaptive_geometry.json`.
+
+## Fork 3 — let relevant samples calibrate the fast reference
+
+Instead of using a miss to choose a new path, keep the strong radial sampler and use *where relevant samples occurred* to update a temporary 2-D calibration offset.
+
+Two local rules are attacked:
+
+- hit-only recentering: successful sample offsets pull the fast center;
+- contrast recentering: within one sweep, samples better than the sweep mean pull the fast center while worse samples push against it.
+
+The system is not given target direction or a derivative. The fast offset decays and is never consolidated.
+
+This is the 2-D version of the earlier fast-state steering idea, but with a narrower job: **calibrate an already useful directional cue rather than discover the target from scratch**.
+
+Implementation: `experiments/fork_2d_fast_recenter.py`.
