@@ -1,13 +1,7 @@
 name: structured-sampling-fork
 
 on:
-  push:
-    branches: [structured-sampling-fork]
   workflow_dispatch:
-
-concurrency:
-  group: kyberdyyni-structured-sampling-fork
-  cancel-in-progress: true
 
 jobs:
   test:
@@ -20,5 +14,4 @@ jobs:
           python-version: "3.13"
           cache: pip
       - run: python -m pip install -r requirements.txt
-      - name: Run phase x sweep-direction delayed-credit fork
-        run: python experiments/fork_phase_direction_address.py
+      - run: python experiments/fork_phase_direction_address.py

@@ -1,0 +1,62 @@
+{
+  "oriented_phase": {
+    "accuracy": 0.9554166666666667,
+    "accuracy_std": 0.10589811009749996,
+    "mean_slot_error": 0.04458333333333333,
+    "mean_slot_error_std": 0.10589811009749994,
+    "used_capacity": 11.998886805847967,
+    "used_capacity_std": 0.002519433517132456
+  },
+  "raw_phase": {
+    "accuracy": 0.3690972222222222,
+    "accuracy_std": 0.092021697781851,
+    "mean_slot_error": 1.507291666666667,
+    "mean_slot_error_std": 0.07982701566860405,
+    "used_capacity": 8.525926642119083,
+    "used_capacity_std": 1.0682852497194546
+  },
+  "no_phase": {
+    "accuracy": 0.12458333333333332,
+    "accuracy_std": 0.007880032195835713,
+    "mean_slot_error": 2.34125,
+    "mean_slot_error_std": 0.03573711241417955,
+    "used_capacity": 0.0,
+    "used_capacity_std": 0.0
+  },
+  "shuffled_oriented_phase": {
+    "accuracy": 0.1248611111111111,
+    "accuracy_std": 0.006308369416208761,
+    "mean_slot_error": 2.3404861111111113,
+    "mean_slot_error_std": 0.044936243843944845,
+    "used_capacity": 2.344688173328052,
+    "used_capacity_std": 0.5401760078923562
+  },
+  "explicit_oriented_slot": {
+    "accuracy": 1.0,
+    "accuracy_std": 0.0,
+    "mean_slot_error": 0.0,
+    "mean_slot_error_std": 0.0,
+    "used_capacity": 20.000000000000004,
+    "used_capacity_std": 6.238360200477627e-15
+  },
+  "explicit_raw_slot": {
+    "accuracy": 0.501388888888889,
+    "accuracy_std": 0.013360793482018053,
+    "mean_slot_error": 1.5112500000000002,
+    "mean_slot_error_std": 0.06224531441535716,
+    "used_capacity": 19.993894872706104,
+    "used_capacity_std": 0.009185264482414504
+  },
+  "chance_accuracy": 0.125,
+  "settings": {
+    "n_seeds": 12,
+    "n_contexts": 6,
+    "candidate_events_per_cycle": 8,
+    "delayed_reward_cycles": 4,
+    "train_cycles": 2200,
+    "test_cycles": 1200,
+    "sweep": "continuous cross-cycle shuttle; direction reverses every cycle"
+  },
+  "question": "When a continuous structured sweep reverses direction, can delayed credit still use theta phase as an address, or must phase be bound to the sweep's current direction / coordinate frame?",
+  "interpretation_rule": "If oriented phase succeeds but raw phase does not, the composed address is phase x sweep-direction rather than phase alone. Explicit oriented slots remain the symbolic attacker."
+}

@@ -1,26 +1,16 @@
 # Structured sampling fork
 
-Starting point: the frozen `control-law-fork` conclusion at `7f086f0`.
+Starting point: frozen `control-law-fork` conclusion `7f086f0`.
 
-This fork attacks the operation that survived the previous branch:
+The previous branch ended with:
 
-> **structured low-travel sampling around an uncertain control vector**
+> structured low-travel sampling around an uncertain fast control vector
 
-rather than assuming left/right theta alternation is special.
+This fork asked whether left/right alternation itself was special, then whether the resulting continuous trajectory could compose with delayed local credit.
 
 ## Fork 1 — equal-path closed-cycle schedules
 
-All continuous schedules received:
-
-- equal wall time;
-- 100 probes per 100-ms cycle;
-- the same noisy directional cue;
-- no slow learning;
-- exactly the same per-cycle total-variation/path budget.
-
-IID random remained an intentionally unmatched high-travel upper bound.
-
-Selected hit-cycle means:
+All continuous schedules received equal wall time, 100 probes per 100-ms cycle, the same noisy directional cue, no slow learning, and exactly the same per-cycle total-variation budget.
 
 ```text
 RELIABLE
@@ -31,42 +21,28 @@ sorted VdC coverage             97.2%   travel 0.0113
 one-side alternating            92.5%   travel 0.0113
 
 MIXED RELIABILITY
-IID random                      89.2%
 bilateral sine                  77.8%
 sorted VdC                      76.7%
 bilateral triangle              76.5%
 one-side alternating            71.5%
-
-SYSTEMATIC CUE BIAS
-IID random                      99.5%
-sorted VdC                      74.3%
-bilateral triangle              72.7%
-one-side alternating            66.3%
-axis only                       33.8%
 ```
 
-Conclusion:
+Result:
 
-> **Alternating one side per cycle is not special when every cycle is forced to return to center.**
-
-A bilateral sweep and sorted low-discrepancy coverage use the same path budget better.
+> **One-side-per-cycle alternation is not special if every cycle is artificially forced to return to center.**
 
 Receipt: `results/fork_structured_sequences.json`.
 
-## Fork 2 — let the sampler stay continuous across cycle boundaries
+## Fork 2 — preserve state across cycle boundaries
 
-The first comparison had a hidden artificial cost: every schedule was forced to return to center at the cycle boundary.
+The hidden artificial cost in Fork 1 was the return to center.
 
-Fork 2 lets the sampling offset persist.
-
-The key attacker is a monotonic shuttle:
+Let the endpoint persist:
 
 ```text
 cycle n:      left ----------------------> right
 cycle n+1:   right ----------------------> left
 ```
-
-No return-to-center tax.
 
 Selected results:
 
@@ -75,23 +51,19 @@ RELIABLE
 IID random                      100.0%   travel 0.327
 cross-cycle shuttle              99.17%  travel 0.0111
 closed bilateral                 98.33%
-closed one-side                  92.92%
 
 MIXED RELIABILITY
 IID random                       90.56%
 cross-cycle shuttle              89.31%
 closed bilateral                 78.33%
-closed one-side                  72.36%
 
 SYSTEMATIC CUE BIAS
 IID random                       99.58%
-cross-cycle sine                 95.83%
 cross-cycle shuttle              95.69%
 closed bilateral                 73.89%
-axis only                        36.11%
 
 LOSS / RETURN
-IID random                        0 ms reacquisition
+IID random                        0 ms
 cross-cycle shuttle               5.6 ms
 closed one-side                  19.4 ms
 closed bilateral                 27.8 ms
@@ -99,36 +71,83 @@ axis only                        80.6 ms
 smooth random walk              227.8 ms
 ```
 
-This is substantially stronger than the previous result.
+Result:
 
-> **Persisting the sweep endpoint across cycles makes alternating boundary-to-boundary traversal an extremely path-efficient 1-D coverage law.**
+> **Boundary-to-boundary alternation becomes extremely path-efficient once the sampler is genuinely continuous across cycles.**
 
-It gets close to IID random target coverage while moving roughly thirty times less distance.
+It nearly matches IID random coverage while moving roughly thirty times less distance.
 
 Receipt: `results/fork_cross_cycle_sequences.json`.
 
-## Fork 3 — can phase still address events when the sweep reverses?
+## Fork 3 — phase must live in the trajectory's coordinate frame
 
-The cross-cycle result creates a new problem for Gate 2.
-
-Raw theta phase is not a stable spatial coordinate under a reversing sweep:
+A reversing sweep breaks raw phase as a stable spatial address:
 
 ```text
-left -> right cycle: phase 0.2 = left-ish
-right -> left cycle: phase 0.2 = right-ish
+left -> right: phase 0.2 = left-ish
+right -> left: phase 0.2 = right-ish
 ```
 
-So the next test compares delayed credit using:
+Delayed reward arrived four cycles later. Six recurring contexts preferred different spatial positions among eight within-sweep candidates.
 
-- raw phase;
-- **oriented phase = phase bound to current sweep direction**;
-- no phase;
-- shuffled oriented phase;
-- explicit oriented slot attacker;
-- explicit raw slot attacker.
+```text
+oriented phase
+(phase bound to sweep direction)       95.54%
 
-The question is:
+raw theta phase                        36.91%
 
-> **Does the composed address become phase × sweep-direction rather than phase alone?**
+explicit raw slot                      50.14%
 
-Implementation: `experiments/fork_phase_direction_address.py`.
+no phase                               12.46%
+shuffled oriented phase                12.49%
+
+explicit oriented slot                100.00%
+chance                                 12.50%
+```
+
+The explicit slot attacker still wins perfectly, so there is no claim that phase is uniquely privileged.
+
+The new earned statement is:
+
+> **For a reversing continuous trajectory, delayed local credit needs an address in the trajectory's current coordinate frame. Phase × sweep-direction is sufficient; raw phase is not.**
+
+This refines Gate 2 rather than merely repeating it.
+
+Receipt: `results/fork_phase_direction_address.json`.
+
+## What survived
+
+The fork now gives three connected computational pieces:
+
+```text
+stable / slow reference
+        |
+fast directional uncertainty
+        |
+        v
+continuous boundary-to-boundary shuttle
+        |
+candidate events along trajectory
+        |
+oriented phase / local trajectory address
+        |
+        ... delayed consequence ...
+        |
+slow context-dependent preference
+```
+
+The strongest result is no longer "the brain alternates left/right, so copy it."
+
+It is:
+
+> **If a sampler has to cover a one-dimensional uncertainty interval continuously, carrying its endpoint into the next sweep makes boundary-to-boundary alternation a path-efficient coverage strategy; if delayed consequences must refer back to events on that reversing path, the event address must include the path's orientation.**
+
+## Still not earned
+
+- the Ji attractor is required;
+- theta phase is superior to an explicit symbolic coordinate;
+- this geometry remains optimal in higher-dimensional latent spaces;
+- the learned phase preference is yet the same thing as Gate 5's slow prior that changes where future search begins;
+- a realistic AI workload benefits from this decomposition.
+
+Those are later attacks, not conclusions to smuggle in.
