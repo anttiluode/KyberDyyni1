@@ -15,6 +15,7 @@ Consolidation source heads:
 | `probe-width-control-fork` | `f94942e0fa3fd64c3fa836cfb7d97475dd3c8909` | preserved |
 | `slow-consolidation-noise-fork` | `114e05fdf7f426e978a97801915d95b64767ebb5` | merged as Gate 9 |
 | `cross-basis-transfer-fork` | `3d31aad757d808c395fb739ca317458755e5e8b9` | merged as Gate 10 |
+| `unlabeled-temporal-alignment-fork` | `0cc316c8718eccff35dd530749eaf0aed43060e8` | merged as Gate 11 |
 
 ## Control-law line
 
@@ -98,6 +99,19 @@ Preserved experiment/receipt:
 - `results/fork_cross_basis_transfer_summary.json`
 
 This line established an identifiability boundary for arbitrary unseen latent bases and showed that ordinary ridge/Procrustes alignment solves the low-rank case once enough cross-view calibration contexts relate the new coordinates to the learned reference.
+
+## Unlabeled temporal-alignment line
+
+Preserved narrative:
+
+- [UNLABELED_ALIGNMENT_FORK.md](UNLABELED_ALIGNMENT_FORK.md)
+
+Preserved experiment/receipt:
+
+- `experiments/fork_unlabeled_temporal_alignment.py`
+- `results/fork_unlabeled_temporal_alignment_summary.json`
+
+This line established that independent unpaired streams can reveal cross-view component identity through temporal fingerprints and can reveal orientation when the dynamics contain a sign-sensitive temporal asymmetry. The Gaussian AR control recovers axes but leaves an irreducible sign ambiguity; shuffling time kills the positive result.
 
 ## Workflow files
 
