@@ -1,0 +1,211 @@
+{
+  "settings": {
+    "dimension": 128,
+    "worlds": [
+      "dense_bias",
+      "sparse4_bias"
+    ],
+    "noise_sigmas": [
+      0.01,
+      0.02
+    ],
+    "n_seeds": 10,
+    "contexts": 6,
+    "rounds": 8,
+    "probe_budget": 512,
+    "reward_delay": 2,
+    "success_radius": 0.18
+  },
+  "fork1_naive_fast_handoff": {
+    "dense_bias": {
+      "0.01": {
+        "ema_delayed": {
+          "late_start_error": 0.2382830475,
+          "late_probes_used": 502.5666667,
+          "late_true_success": 0.0166666667,
+          "probe_savings_fraction": -0.2036153831
+        },
+        "kalman_delayed": {
+          "late_start_error": 0.2102223146,
+          "late_probes_used": 489.975,
+          "late_true_success": 0.025,
+          "probe_savings_fraction": -0.1760687874
+        },
+        "frozen": {
+          "late_start_error": 0.6055091983,
+          "late_probes_used": 429.1333333,
+          "late_true_success": 0.3166666667,
+          "probe_savings_fraction": -0.0251667857
+        },
+        "shuffled": {
+          "late_start_error": 0.6950583017,
+          "late_probes_used": 507.3416667,
+          "late_true_success": 0.0083333333
+        }
+      },
+      "0.02": {
+        "ema_delayed": {
+          "late_start_error": 0.1958864164,
+          "late_probes_used": 426.6166667,
+          "late_true_success": 0.0416666667,
+          "late_zero_probe_success": 0.125,
+          "probe_savings_fraction": 0.1651337247
+        },
+        "kalman_delayed": {
+          "late_start_error": 0.1735331767,
+          "late_probes_used": 252.875,
+          "late_true_success": 0.4333333333,
+          "late_zero_probe_success": 0.75,
+          "probe_savings_fraction": 0.5051369863
+        },
+        "frozen": {
+          "late_start_error": 0.6055091983,
+          "late_probes_used": 511.0166667,
+          "late_true_success": 0
+        },
+        "shuffled": {
+          "late_start_error": 0.6921632178,
+          "late_probes_used": 511,
+          "late_true_success": 0
+        }
+      }
+    }
+  },
+  "fork2_cautious_fast_handoff": {
+    "dense_bias": {
+      "0.01": {
+        "kalman_scaled_accept": {
+          "late_start_error": 0.1635340254,
+          "late_final_error": 0.1635070731,
+          "late_probes_used": 30.7416667,
+          "late_true_success": 0.9583333333,
+          "late_zero_probe_success": 0.9583333333,
+          "late_false_halt": 0.025,
+          "probe_savings_fraction": 0.9197080367
+        },
+        "ema_scaled_accept": {
+          "late_start_error": 0.1620381217,
+          "late_final_error": 0.1620237648,
+          "late_probes_used": 24.2416667,
+          "late_true_success": 0.9333333333,
+          "late_zero_probe_success": 0.9583333333,
+          "late_false_halt": 0.0583333333,
+          "probe_savings_fraction": 0.9355973053
+        },
+        "frozen_scaled_accept": {
+          "late_start_error": 0.6055091983,
+          "late_final_error": 0.1771750795,
+          "late_probes_used": 411.3166667,
+          "late_true_success": 0.6333333333,
+          "probe_savings_fraction": -0.0595405516
+        },
+        "shuffled_scaled_accept": {
+          "late_start_error": 0.6657786548,
+          "late_final_error": 0.191444526,
+          "late_probes_used": 463.25,
+          "late_true_success": 0.3833333333,
+          "probe_savings_fraction": -0.1493779015
+        }
+      },
+      "0.02": {
+        "kalman_scaled_accept": {
+          "late_start_error": 0.1726977347,
+          "late_final_error": 0.1870569899,
+          "late_probes_used": 145.6,
+          "late_true_success": 0.5833333333,
+          "late_zero_probe_success": 0.7083333333,
+          "late_false_halt": 0.1583333333,
+          "probe_savings_fraction": 0.7117133281
+        },
+        "ema_scaled_accept": {
+          "late_start_error": 0.1770919108,
+          "late_final_error": 0.1982363313,
+          "late_probes_used": 187.4583333,
+          "late_true_success": 0.4916666667,
+          "late_zero_probe_success": 0.6083333333,
+          "late_false_halt": 0.175,
+          "probe_savings_fraction": 0.62884272
+        },
+        "frozen_scaled_accept": {
+          "late_start_error": 0.6055091983,
+          "late_final_error": 0.2720052997,
+          "late_probes_used": 505,
+          "late_true_success": 0
+        },
+        "shuffled_scaled_accept": {
+          "late_start_error": 0.6587020252,
+          "late_final_error": 0.282433181,
+          "late_probes_used": 505,
+          "late_true_success": 0
+        }
+      }
+    },
+    "sparse4_bias": {
+      "0.01": {
+        "kalman_scaled_accept": {
+          "late_start_error": 0.1636732961,
+          "late_final_error": 0.1638546687,
+          "late_probes_used": 32.525,
+          "late_true_success": 0.9416666667,
+          "late_zero_probe_success": 0.9333333333,
+          "late_false_halt": 0.0333333333,
+          "probe_savings_fraction": 0.9081821286
+        },
+        "ema_scaled_accept": {
+          "late_start_error": 0.1620608319,
+          "late_final_error": 0.162509959,
+          "late_probes_used": 39.9166667,
+          "late_true_success": 0.9083333333,
+          "late_zero_probe_success": 0.9,
+          "late_false_halt": 0.0583333333,
+          "probe_savings_fraction": 0.8878668925
+        },
+        "frozen_scaled_accept": {
+          "late_start_error": 0.6051256584,
+          "late_final_error": 0.1604840844,
+          "late_probes_used": 345.525,
+          "late_true_success": 0.8083333333
+        },
+        "shuffled_scaled_accept": {
+          "late_start_error": 0.6665089089,
+          "late_final_error": 0.188587996,
+          "late_probes_used": 415.9333333,
+          "late_true_success": 0.5
+        }
+      },
+      "0.02": {
+        "kalman_scaled_accept": {
+          "late_start_error": 0.1708745325,
+          "late_final_error": 0.1900456555,
+          "late_probes_used": 144.05,
+          "late_true_success": 0.5833333333,
+          "late_zero_probe_success": 0.7583333333,
+          "late_false_halt": 0.1583333333,
+          "probe_savings_fraction": 0.7148160807
+        },
+        "ema_scaled_accept": {
+          "late_start_error": 0.17844237,
+          "late_final_error": 0.1995293632,
+          "late_probes_used": 189.3833333,
+          "late_true_success": 0.425,
+          "late_zero_probe_success": 0.5333333333,
+          "late_false_halt": 0.2333333333,
+          "probe_savings_fraction": 0.6250461125
+        },
+        "frozen_scaled_accept": {
+          "late_start_error": 0.6051256584,
+          "late_final_error": 0.2581752398,
+          "late_probes_used": 499.7416667,
+          "late_true_success": 0
+        },
+        "shuffled_scaled_accept": {
+          "late_start_error": 0.6636259618,
+          "late_final_error": 0.2777022829,
+          "late_probes_used": 505,
+          "late_true_success": 0
+        }
+      }
+    }
+  },
+  "conclusion": "Slow memory does learn the repeated stable correction, but the legacy fixed-radius fast search can erase that advantage near the solution. A conventional distance-scaled trust region plus one-measurement accept/reject handoff converts the learned prior into large future probe savings. Ordinary EMA and Kalman-style estimators are sufficient; correct context addressing is essential."
+}
