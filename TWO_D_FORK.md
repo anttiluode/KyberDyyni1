@@ -160,3 +160,53 @@ The system is not given target direction or a derivative. The fast offset decays
 This is the 2-D version of the earlier fast-state steering idea, but with a narrower job: **calibrate an already useful directional cue rather than discover the target from scratch**.
 
 Implementation: `experiments/fork_2d_fast_recenter.py`.
+
+
+## Fork 3 result — fast recentering works
+
+The radial trajectory now keeps its geometry and uses relative sample relevance to update an elastic 2-D center correction.
+
+12-seed means:
+
+```text
+                         fixed radial    + fast contrast
+
+RELIABLE                    90.0%            92.8%
+MIXED                       61.0%            82.5%
+SYSTEMATIC BIAS             36.8%            85.1%
+
+LOSS / RETURN
+hit-cycle fraction          78.5%            86.3%
+reacquisition               41.7 ms          30.6 ms
+```
+
+The path travel is unchanged (~0.022–0.027 units/ms).
+
+A hit-only correction is even faster after cue return (~13.9 ms) and strong on reliable cues, but the contrast rule is dramatically more robust to mixed reliability and systematic bias.
+
+The same contrast rule on a matched-travel smooth random walk remains much worse, so the gain is not merely the local update rule.
+
+The IID-random + contrast attacker still wins coverage but pays ~0.58–0.69 units/ms travel.
+
+The 2-D architecture has therefore acquired a useful fast state:
+
+> **structured samples can calibrate an already-useful but noisy/baised control reference through an elastic correction vector without slow learning.**
+
+Receipt: `results/fork_2d_fast_recenter.json`.
+
+## Fork 4 — can repeated fast calibration become slow context calibration?
+
+Six contexts now have stable cue-bias vectors but new target positions on every encounter.
+
+The radial sampler must calibrate each encounter through fast contrast state. A delayed packet containing the successful temporary correction becomes available only after three later encounters.
+
+Compare:
+
+- bounded delayed context calibration;
+- fast-only / frozen slow structure;
+- shuffled delayed context;
+- explicit EMA table attacker.
+
+The slow learner is useful only if later encounters **start** better before the fast sampler has to recenter again.
+
+Implementation: `experiments/fork_2d_fast_slow_calibration.py`.

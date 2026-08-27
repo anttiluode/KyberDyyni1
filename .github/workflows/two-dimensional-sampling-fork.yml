@@ -20,5 +20,5 @@ jobs:
           python-version: "3.13"
           cache: pip
       - run: python -m pip install -r requirements.txt
-      - name: Run 2-D fast-recentering fork
-        run: python experiments/fork_2d_fast_recenter.py
+      - name: Run 2-D fast-to-slow calibration fork
+        run: python experiments/fork_2d_fast_slow_calibration.py
