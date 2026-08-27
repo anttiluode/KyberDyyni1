@@ -704,31 +704,97 @@ Canonical evidence:
 - `experiments/fork_slow_fast_handoff.py`
 - `results/fork_slow_consolidation_summary.json`
 
+## Gate 10 — transfer across changed coordinates
+
+Gate 9 still gave each context an explicit memory row in one fixed latent basis. Gate 10 attacks that loophole directly.
+
+The world contains a rank-4 family of hidden context corrections embedded in a 32-D observed latent space. Each view renders the same hidden correction family through a different random orthonormal basis.
+
+The fast stage is collapsed to a noisy correction packet so this gate isolates the representation/alignment problem rather than re-testing Gate 8/9 search.
+
+Three views are seen during training. A fourth basis is held out completely.
+
+With **zero calibration** on the unseen view:
+
+```text
+blind shared rendered table     error 0.684   success 0%
+explicit context x view table   error 0.600   success 0%
+ordinary ridge                  error 0.600   success 0%
+oracle exact basis              error 0.014   success 100%
+```
+
+This establishes an identifiability boundary rather than an architectural failure:
+
+> **An arbitrary unseen basis cannot be decoded from no relation signal at all.**
+
+Then the new view is given a few calibration contexts whose identity is shared with the learned reference. An ordinary linear map is fitted and tested on the remaining contexts.
+
+The hidden family has rank 4:
+
+```text
+paired calibration contexts     ridge error    success    cosine
+
+0                                  0.600         0.0%      0.000
+2                                  0.358        11.7%      0.736
+3                                  0.247        37.3%      0.879
+4                                  0.173        63.4%      0.942
+6                                  0.108        90.3%      0.981
+8                                  0.088        97.9%      0.989
+
+oracle exact basis                0.014       100.0%      1.000
+```
+
+Orthogonal Procrustes also works, but ordinary ridge is stronger under the noisy finite calibration used here. A simpler view-0 reference performs essentially as well as the more elaborate alignment of all three training views.
+
+So Gate 10 does **not** earn a novel alignment algorithm.
+
+It earns a clean representation result:
+
+> **Slow knowledge can transfer across changing latent bases once the machine has enough information to relate the coordinate systems. For a low-rank correction family, a small set of cross-view correspondences lets ordinary linear alignment re-render the learned correction into an unseen basis.**
+
+Canonical evidence:
+
+- [CROSS_BASIS_FORK.md](CROSS_BASIS_FORK.md)
+- `experiments/fork_cross_basis_transfer.py`
+- `results/fork_cross_basis_transfer_summary.json`
+
+This is the first direct meeting point between the current fast/slow architecture and the earlier Tuesday matrix/source-separation line.
+
 ## Next gate
 
-### Gate 10 — transfer across changed coordinates
+### Gate 11 — discover the alignment without explicit pairs
 
-Gate 9 still gives each context an explicit memory row in one fixed latent basis.
+Gate 10 still hands the aligner something important:
 
-That is a serious loophole.
+```text
+this calibration example in view A
+is the same context as
+that calibration example in view B
+```
 
-The next attack is:
+That correspondence label is exactly what the earlier ICA / IVA / SOBI discussion was trying to avoid.
 
-> **Does the slow information remain useful when the same underlying correction is rendered through changing nuisance coordinates or a changing latent basis?**
+The next question is therefore:
 
-This is where the project reconnects to the Tuesday/IVA-style question instead of becoming merely a context lookup table.
+> **Can the coordinate relation itself be recovered from structure in the signals, without explicit paired context labels?**
 
-Possible attacks:
+A fair attack should separate several possibilities:
 
-- fixed context, random orthogonal latent rotation between episodes;
-- multiple views of one hidden correction with view-specific bases;
-- train slow memory on some bases, test on an unseen basis;
-- explicit oracle alignment / Procrustes attacker;
-- ordinary regression from view features to correction;
-- shared low-rank latent correction plus view-specific rendering;
-- no-transfer context table.
+- PCA / covariance alignment;
+- CCA with paired time but no context labels;
+- orthogonal Procrustes after nearest-neighbor matching;
+- ICA on each view followed by component matching;
+- IVA / shared-source alignment across views;
+- SOBI / AMUSE when temporal dynamics distinguish latent components;
+- shuffled-time and shuffled-view controls.
 
-If the explicit table dies and a boring alignment/regression baseline solves it, use the baseline. If the fast/slow machine can infer a reusable correction across changing coordinate systems from demonstrations and local consequence, then Gate 10 would finally connect the current architecture back to the earlier matrix/source-separation line.
+The strongest version should use the same hidden low-rank correction process rendered through changing bases, but expose only synchronized or temporally related trajectories rather than identity labels.
+
+Kill condition:
+
+> If a standard covariance/CCA/Procrustes pipeline recovers the relation, use it. IVA/SOBI only earn a role if cross-view or temporal dependence solves cases where simpler second-order alignment remains ambiguous.
+
+That would be a much more meaningful place to test the matrix ideas than applying ICA to arbitrary high-dimensional latent coordinates and hoping a semantic axis falls out.
 
 ## Kill conditions
 
@@ -745,6 +811,7 @@ KyberDyyni should be considered unnecessary if ordinary alternatives win cleanly
 - finite-difference / coordinate probing;
 - SPSA and other zeroth-order optimizers;
 - ordinary EMA / online estimation for slow consolidation;
-- ordinary coordinate alignment / regression for cross-basis transfer.
+- ordinary coordinate alignment / regression for cross-basis transfer;
+- ordinary covariance / CCA alignment for unlabeled cross-view transfer.
 
-The point is not to make biology-shaped software. The point is to see whether separating **fast sampling**, **trajectory-relative addressing**, and **slow consolidation** gives us a useful machine that ordinary static-weight thinking obscures.
+The point is not to make biology-shaped software. The point is to see whether separating **fast sampling**, **trajectory-relative addressing**, **slow consolidation**, and now **coordinate relation** gives us a useful machine that ordinary static-weight thinking obscures.
