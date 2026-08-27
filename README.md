@@ -37,17 +37,16 @@ We are not equating a normal artificial neural network with "cortex minus hippoc
 external / cortical anchor A(t)
             |
             v
-      FAST THETA SCANNER H(t)
-      - continuous phase
-      - left/right sampling
-      - fast retargeting
-      - width modulation
-      - frequency modulation
+      FAST STRUCTURED SAMPLER H(t)
+      - continuous trajectory state
+      - low-travel coverage
+      - fast retargeting / uncertainty control
+      - biological theta is one possible generator
             |
             v
-      PHASE BRIDGE E(t)
-      - where in the sweep?
-      - relative to which anchor/context?
+      TRAJECTORY ADDRESS E(t)
+      - where in the unfolding path?
+      - in which path orientation / coordinate frame?
       - local address for later credit
             |
       +-----+------+
@@ -71,7 +70,7 @@ outputs        local traces
 Three timescales are intentionally separated:
 
 1. **Fast state** — can change immediately without learning.
-2. **Phase/context address** — binds an internal sample to its location in an ongoing trajectory.
+2. **Trajectory-relative address** — binds an internal sample to its location in an ongoing trajectory. Gate 2 showed phase can do this in a fixed sweep; Gate 6 shows a reversing sweep requires phase to be oriented by the current trajectory direction.
 3. **Slow structure** — changes only after repeated/delayed consequence.
 
 ## What the papers actually motivate
@@ -251,6 +250,8 @@ python experiments/gate2_phase_address.py
 python experiments/gate3_adaptation_attractor.py
 python experiments/gate4_internal_search.py
 python experiments/gate5_fast_slow_memory.py
+python experiments/fork_cross_cycle_sequences.py
+python experiments/fork_phase_direction_address.py
 python run_all.py
 python -m unittest discover -s tests
 ```
@@ -392,25 +393,107 @@ One important limitation: Gate 5's delayed credit packet is `(context, candidate
 
 The full preregistered contract and interpretation are in [GATE5.md](GATE5.md), and the canonical numbers are in `results/gate5_fast_slow_memory.json`.
 
-## Next gates
+## Gate 6 — persistent structured trajectory + oriented address
 
-### Gate 6 — continuity must matter
+The two experimental forks after Gate 5 were consolidated into one canonical result. Full histories remain in [FORK_CONCLUSION.md](FORK_CONCLUSION.md) and [STRUCTURED_CONCLUSION.md](STRUCTURED_CONCLUSION.md).
 
-Gate 4 exposed the adaptation scanner's only current advantage over random dither: far lower internal travel. Make that property consequential rather than cosmetic.
+### 6A — continuity alone is not enough
 
-Use worlds where probe-to-probe transitions carry state, cost, hysteresis, eligibility, or other path dependence. Then ask whether a continuous sweep beats equally budgeted random proposals.
+Many artificial translations of Vollan-like focus were attacked. A separate fast directional/control signal made structured sampling useful as active sensing, but the Ji-like attractor was not required: a tiny deterministic alternator matched or beat it while using similarly low internal travel.
 
-If path continuity does not improve anything, the attractor machinery remains unnecessary.
+A smooth random walk at a comparable travel budget performed much worse.
 
-### Gate 7 — offline / REM-like mode
+So the useful property is not generic continuity:
 
-Remove external input while keeping the internal scanner alive. Replay or generate trajectories from slow anchors and test whether offline sampling changes later online behavior.
+> **structured low-travel coverage matters; generic smooth motion does not.**
 
-This is an engineering test of a shared online/offline sampler, not a model of REM.
+### 6B — persistence across sweep boundaries matters
 
-### Gate 8 — coupled fast and slow populations
+Under equal per-cycle path budgets, one-side alternation was *not* special if every cycle was forced back to center. Bilateral and sorted low-discrepancy sweeps were better.
 
-Only after the small gates survive: make the fast scanner and slow structural population recurrently interact rather than remain cleanly separated modules.
+Then the artificial reset was removed. The endpoint of one sweep became the start of the next:
+
+```text
+left  ------------------------------> right
+right ------------------------------> left
+```
+
+Across reliable cues, changing reliability, systematic cue bias, and cue loss/return, this cross-cycle shuttle approached IID-random coverage while moving roughly thirty times less distance.
+
+Selected receipts:
+
+```text
+RELIABLE CUE
+IID random, unmatched          100.00% hit   ~0.327 rad/ms
+cross-cycle shuttle             99.17%        ~0.011 rad/ms
+
+MIXED RELIABILITY
+IID random                       90.56%
+cross-cycle shuttle              89.31%
+
+SYSTEMATIC CUE BIAS
+IID random                       99.58%
+cross-cycle shuttle              95.69%
+
+LOSS / RETURN
+IID random                        0 ms reacquisition
+cross-cycle shuttle               5.6 ms
+smooth random walk              227.8 ms
+```
+
+This earns:
+
+> **For a one-dimensional uncertainty interval, carrying trajectory state across sweep boundaries makes boundary-to-boundary traversal an extremely path-efficient coverage law.**
+
+### 6C — phase must be expressed in the trajectory's coordinate frame
+
+The reversing shuttle exposed a loophole in Gate 2. Raw phase no longer has a stable spatial meaning because the same phase occurs on opposite sides in opposite-direction cycles.
+
+With reward delayed four cycles:
+
+```text
+oriented phase = phase bound to sweep direction    95.54%
+raw theta phase                                     36.91%
+explicit raw slot                                    50.14%
+no phase                                             12.46%
+shuffled oriented phase                              12.49%
+explicit oriented slot                              100.00%
+chance                                               12.50%
+```
+
+So Gate 2 is refined:
+
+> **The useful address is a local coordinate in the currently unfolding trajectory. For a reversing 1-D shuttle, phase × sweep-direction is sufficient; raw phase is not.**
+
+The symbolic oriented-slot attacker still wins perfectly, so phase is not claimed to be uniquely privileged.
+
+Canonical evidence:
+
+- `experiments/fork_cross_cycle_sequences.py`
+- `results/fork_cross_cycle_sequences.json`
+- `experiments/fork_phase_direction_address.py`
+- `results/fork_phase_direction_address.json`
+- [GATE6.md](GATE6.md)
+
+## Next gate
+
+### Gate 7 — dimensionality attack
+
+The 1-D result may be geometrically easy. In 2-D there is no single left/right boundary pair.
+
+Attack persistent structured coverage with:
+
+- boustrophedon/raster paths;
+- spirals;
+- Hilbert-like space-filling curves;
+- Lissajous/coupled oscillators;
+- low-discrepancy samples connected by short tours;
+- smooth random walks;
+- IID random proposals.
+
+Match path length, probe count, wall time and compute where possible. Then ask whether a trajectory-relative delayed address can still refer to useful events.
+
+If the result collapses outside one dimension, that is an important boundary rather than something to hide.
 
 ## Kill conditions
 
