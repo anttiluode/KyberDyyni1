@@ -18,6 +18,7 @@ Consolidation source heads:
 | `unlabeled-temporal-alignment-fork` | `0cc316c8718eccff35dd530749eaf0aed43060e8` | merged as Gate 11 |
 | `sign-consequence-calibration-fork` | `07f8ba7399c457d6ff47b70b93b9d411b0f88977` | merged as Gate 12 |
 | `rank-scaling-sign-fork` | `5049f6347b3205e2bf1bd7d3ec6e5f1fdfcb76c7` | merged as Gate 13 |
+| `temporal-separator-scaling-fork` | `1f45f09d147e0058343c479f53a8f95412f86a7e` | merged as Gate 14 |
 
 ## Control-law line
 
@@ -140,6 +141,19 @@ Preserved experiment/receipt:
 - `results/fork_rank_scaling_sign_summary.json`
 
 This line established that a tiny informed consequence-probe budget can match or beat full O(R) sign probing at higher rank, with particularly strong gains under sparse and heavy-tailed excitation. The earned role is ordinary active measurement allocation, not a new learner.
+
+## Temporal-separator scaling line
+
+Preserved narrative:
+
+- [TEMPORAL_SCALING_FORK.md](TEMPORAL_SCALING_FORK.md)
+
+Preserved experiment/receipt:
+
+- `experiments/fork_temporal_separator_scaling.py`
+- `results/fork_temporal_separator_scaling_summary.json`
+
+This line established the upstream boundary for unlabeled temporal alignment: distinct dynamical fingerprints can identify reusable source coordinates, crowded fingerprints fail as finite-window estimation noise approaches the signature gap, and exact equal Gaussian dynamics leave a rotationally ambiguous subspace. Time shuffling destroys source identity while preserving the latent subspace.
 
 ## Workflow files
 
