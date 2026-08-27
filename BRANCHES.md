@@ -13,6 +13,7 @@ Consolidation source heads:
 | `two-dimensional-sampling-fork` | `e1fdc2044bf273836e7c9abac6e99838b2f5028b` | preserved |
 | `high-dimensional-probe-fork` | `ece0e4ee0fce79f800f53988b6541362a73de875` | preserved |
 | `probe-width-control-fork` | `f94942e0fa3fd64c3fa836cfb7d97475dd3c8909` | preserved |
+| `slow-consolidation-noise-fork` | `114e05fdf7f426e978a97801915d95b64767ebb5` | merged as Gate 9 |
 
 ## Control-law line
 
@@ -69,6 +70,20 @@ Preserved experiment/receipt:
 - `results/fork_probe_width_control_summary.json`
 
 This is a negative result: adaptive sweep width did not beat strong fixed-radius attackers in the stationary relevance landscape.
+
+## Slow-consolidation line
+
+Preserved narrative:
+
+- [SLOW_CONSOLIDATION_FORK.md](SLOW_CONSOLIDATION_FORK.md)
+
+Preserved experiment/receipt families:
+
+- `experiments/fork_slow_consolidation_noise.py`
+- `experiments/fork_slow_fast_handoff.py`
+- `results/fork_slow_consolidation_summary.json`
+
+This line established that repeated noisy fast corrections can be amortized into context-specific slow priors, but also exposed a fast/slow handoff failure: an exploratory controller tuned for large residuals can erase a good learned prior. Ordinary distance scaling plus stochastic accept/reject fixed that interaction; ordinary EMA/Kalman slow estimators were sufficient.
 
 ## Workflow files
 
