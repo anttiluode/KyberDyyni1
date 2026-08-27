@@ -20,5 +20,5 @@ jobs:
           python-version: "3.13"
           cache: pip
       - run: python -m pip install -r requirements.txt
-      - name: Run path-matched sequence bakeoff
-        run: python experiments/fork_structured_sequences.py
+      - name: Run cross-cycle sequence fork
+        run: python experiments/fork_cross_cycle_sequences.py
