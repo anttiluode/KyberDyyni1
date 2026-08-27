@@ -3,6 +3,7 @@ from experiments.gate1_fast_slow_consolidation import main as gate1
 from experiments.gate2_phase_address import main as gate2
 from experiments.gate3_adaptation_attractor import main as gate3
 from experiments.gate4_internal_search import main as gate4
+from experiments.gate5_fast_slow_memory import main as gate5
 
 if __name__ == "__main__":
     print("\n=== GATE 0: FAST THETA SCANNER ===")
@@ -15,3 +16,5 @@ if __name__ == "__main__":
     gate3()
     print("\n=== GATE 4: FAST INTERNAL SEARCH ===")
     gate4()
+    print("\n=== GATE 5: FAST STATE -> SLOW MEMORY ===")
+    gate5()
