@@ -1,0 +1,27 @@
+{
+  "delayed_address_intact": {
+    "fast_before_slow": 0.8929583333333333,
+    "fast_before_slow_std": 0.01194961935702463,
+    "no_cue_before_consolidation": 0.50225,
+    "no_cue_before_consolidation_std": 0.011337162343373243,
+    "no_cue_after_consolidation": 0.89118,
+    "no_cue_after_consolidation_std": 0.01278982408010369,
+    "used_slow_capacity": 2.9739192302154125,
+    "used_slow_capacity_std": 0.001909958376113793,
+    "initial_weight_norm": 0.010446645974336095,
+    "initial_weight_norm_std": 0.004039832490169117
+  },
+  "shuffled_delayed_address": {
+    "fast_before_slow": 0.8929583333333333,
+    "fast_before_slow_std": 0.01194961935702463,
+    "no_cue_before_consolidation": 0.50225,
+    "no_cue_before_consolidation_std": 0.011337162343373243,
+    "no_cue_after_consolidation": 0.8878600000000001,
+    "no_cue_after_consolidation_std": 0.013404193373717047,
+    "used_slow_capacity": 1.5930053812289722,
+    "used_slow_capacity_std": 0.08942366442076624,
+    "initial_weight_norm": 0.010446645974336095,
+    "initial_weight_norm_std": 0.004039832490169117
+  },
+  "note": "fast control changes state immediately; slow context structure changes only under delayed local updates"
+}
