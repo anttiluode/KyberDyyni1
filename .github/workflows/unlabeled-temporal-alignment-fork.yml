@@ -1,0 +1,25 @@
+name: unlabeled-temporal-alignment-fork
+
+on:
+  push:
+    branches: [unlabeled-temporal-alignment-fork]
+  workflow_dispatch:
+
+concurrency:
+  group: kyberdyyni-unlabeled-temporal-alignment-fork
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m compileall -q experiments
+      - name: Run unlabeled temporal alignment attack
+        run: python experiments/fork_unlabeled_temporal_alignment.py
