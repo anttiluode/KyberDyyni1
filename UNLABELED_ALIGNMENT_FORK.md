@@ -71,3 +71,134 @@ The strongest possible negative result is useful:
 The architectural question is narrower than the algorithm name:
 
 > **Can dynamics provide the missing correspondence information between changing coordinate systems?**
+
+
+## Result — dynamics can provide correspondence, but sign is a real identifiability boundary
+
+The sawtooth world is the cleanest positive result.
+
+All four hidden components have essentially the same symmetric marginal distribution. Static FastICA therefore has enough non-Gaussianity to recover the **axes**, but the independent views still do not know which recovered axis corresponds to which one in the other view, or which way each axis points.
+
+```text
+sawtooth world
+
+method                         axis recovery   transfer error   success
+
+PCA / zero-lag                    ~0.70            0.855          0.9%
+FastICA static                    ~1.00            0.766          4.4%
+FastICA + temporal match          ~1.00            0.751         10.4%
+FastICA + temporal match
+        + temporal orientation    ~1.00            0.011        100.0%
+
+multi-lag temporal basis          ~0.999           0.773         10.9%
+multi-lag + temporal orientation  ~0.999           0.029        100.0%
+
+paired-time ridge upper bound                       0.00037      100.0%
+```
+
+The missing operation is visible.
+
+The autocorrelation profile identifies **which component is which** across independent runs. But autocorrelation is invariant to multiplying a component by -1, so unsigned temporal matching still cannot transfer an oriented correction vector.
+
+The sawtooth dynamics contain another asymmetry: most increments go one way, followed by occasional reset jumps. The third moment of the increment distribution flips sign when the component is negated.
+
+Using that temporal orientation statistic to choose a canonical sign breaks the final ambiguity.
+
+This is not a SOBI-specific victory. FastICA recovers the sawtooth axes slightly better than the multi-lag decomposition, and **FastICA + the same temporal matching/orientation** gives the lowest blind-transfer error.
+
+So the earned abstraction is:
+
+> **Dynamics can act as a fingerprint for component identity, and a sign-sensitive temporal asymmetry can orient the component.**
+
+## Gaussian AR control — temporal axes without temporal orientation
+
+The Gaussian AR world removes the static non-Gaussian clue.
+
+At any one instant the four latent variables form an approximately isotropic Gaussian. PCA and static FastICA therefore have no stable source axes.
+
+The four components do have distinct autocorrelation time constants.
+
+```text
+Gaussian AR
+
+method                         axis recovery   transfer error   success
+
+PCA / zero-lag                    ~0.70            0.838          0.2%
+FastICA static                    ~0.79            0.814          0.5%
+multi-lag temporal basis          ~0.999           0.801          9.2%
+multi-lag + sign heuristic        ~0.999           0.741         17.0%
+paired-time ridge                                  0.00038      100.0%
+```
+
+This is an important partial success rather than a failure.
+
+The temporal decomposition recovers the axes almost perfectly from dynamics alone.
+
+But a zero-mean Gaussian AR process is exactly symmetric under:
+
+```text
+s_i(t) -> -s_i(t)
+```
+
+Its autocorrelation profile is unchanged. There is no information in the independent unpaired process that says which orientation is "positive" in the other view.
+
+So the transfer map retains one sign bit per recovered component.
+
+That is an identifiability boundary:
+
+> **Second-order dynamics can identify an axis without identifying its orientation.**
+
+## Shuffled-time control
+
+Destroying temporal order kills the result.
+
+```text
+sawtooth with time independently shuffled
+
+FastICA + temporal signed     transfer error 0.858   success 0.3%
+multi-lag temporal signed    transfer error 0.791   success 0.7%
+```
+
+Static FastICA still recovers the non-Gaussian sawtooth axes because shuffling does not alter the marginal distribution, but the cross-view temporal fingerprint and orientation information disappear.
+
+So Gate 11 passes its strongest causal control.
+
+## What Gate 11 earns
+
+The result is more precise than "SOBI works."
+
+```text
+zero-lag structure
+     -> subspace / sometimes axes
+
+marginal non-Gaussianity
+     -> ICA axes, but sign/permutation ambiguity remains
+
+temporal fingerprint
+     -> component identity across independent views
+
+sign-sensitive temporal asymmetry
+     -> component orientation
+```
+
+That gives us the first fully unlabeled cross-basis transfer in this line:
+
+```text
+independent stream A        independent stream B
+        |                           |
+        +---- temporal identity ----+
+        +---- temporal polarity ----+
+                    |
+                    v
+          reusable coordinate map
+```
+
+No synchronized samples and no context-correspondence labels were used.
+
+But the Gaussian control says something equally important: when the source process itself has an exact sign symmetry, no clever algorithm can infer the missing sign from those observations alone.
+
+The next attack should therefore use the machinery KyberDyyni already has instead of inventing another blind separator:
+
+> **Can a few local scalar-consequence probes resolve the small residual sign ambiguity left by temporal source separation, then consolidate those sign bits for future transfer?**
+
+For rank 4, the difficult 16-D matrix relation has now collapsed to four shared binary orientation choices. That is a much smaller fast-search problem.
