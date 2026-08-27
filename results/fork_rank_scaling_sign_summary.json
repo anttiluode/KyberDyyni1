@@ -1,0 +1,165 @@
+{
+  "settings": {
+    "ranks": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "worlds": [
+      "dense",
+      "sparse4",
+      "heavy_tail"
+    ],
+    "noise_sigmas": [
+      0.02,
+      0.04
+    ],
+    "n_seeds": 48,
+    "calibration_contexts": 128,
+    "test_contexts": 512,
+    "active_bits_per_context": 4,
+    "premise": "Temporal alignment already reduced the relation to one global sign bit per component."
+  },
+  "key_results": {
+    "sigma_002": {
+      "dense_rank32": {
+        "k64_full": {
+          "success": 0.9913330078,
+          "error": 0.0035161771,
+          "evals": 4096
+        },
+        "k64_top4": {
+          "success": 0.9917399089,
+          "error": 0.0033740276,
+          "evals": 512
+        },
+        "k64_active4": {
+          "success": 0.9918619792,
+          "error": 0.0034560389,
+          "evals": 512
+        },
+        "k128_full": {
+          "success": 1,
+          "evals": 8192
+        },
+        "k128_active4": {
+          "success": 1,
+          "evals": 1024
+        }
+      },
+      "sparse4_rank32": {
+        "k64_full": {
+          "success": 0.9721679688,
+          "error": 0.0174367229,
+          "evals": 4096
+        },
+        "k64_top4": {
+          "success": 0.9911295573,
+          "error": 0.0054590769,
+          "evals": 512
+        },
+        "k64_active4": {
+          "success": 0.9892171224,
+          "error": 0.0070223443,
+          "evals": 512
+        },
+        "k128_full": {
+          "success": 1,
+          "evals": 8192
+        },
+        "k128_active4": {
+          "success": 1,
+          "evals": 1024
+        }
+      },
+      "heavy_tail_rank32": {
+        "k128_full": {
+          "success": 0.9201660156,
+          "error": 0.0890428746,
+          "sign_accuracy": 0.8743489583,
+          "weighted_sign": 0.991801884,
+          "evals": 8192
+        },
+        "k128_top4": {
+          "success": 0.6661376953,
+          "error": 0.1597718803,
+          "sign_accuracy": 0.7721354167,
+          "weighted_sign": 0.9782377407,
+          "evals": 1024
+        },
+        "k128_active4": {
+          "success": 0.9178059896,
+          "error": 0.0903261388,
+          "sign_accuracy": 0.869140625,
+          "weighted_sign": 0.9918719845,
+          "evals": 1024
+        }
+      }
+    },
+    "sigma_004": {
+      "dense_rank32": {
+        "k128_full": {
+          "success": 0.9246826172,
+          "error": 0.0306984268,
+          "sign_accuracy": 0.994140625,
+          "evals": 8192
+        },
+        "k128_top4": {
+          "success": 0.983601888,
+          "error": 0.0069906622,
+          "sign_accuracy": 0.9986979167,
+          "evals": 1024
+        },
+        "k128_active4": {
+          "success": 0.9608154297,
+          "error": 0.0150342233,
+          "sign_accuracy": 0.9967447917,
+          "evals": 1024
+        }
+      },
+      "sparse4_rank32": {
+        "k128_full": {
+          "success": 0.9893391927,
+          "error": 0.006572105,
+          "evals": 8192
+        },
+        "k128_top4": {
+          "success": 1,
+          "error": 0,
+          "evals": 1024
+        },
+        "k128_active4": {
+          "success": 1,
+          "error": 0,
+          "evals": 1024
+        }
+      },
+      "heavy_tail_rank32": {
+        "k128_full": {
+          "success": 0.7969970703,
+          "error": 0.1297148219,
+          "sign_accuracy": 0.8268229167,
+          "weighted_sign": 0.9827523072,
+          "evals": 8192
+        },
+        "k128_top4": {
+          "success": 0.5901285807,
+          "error": 0.175719219,
+          "sign_accuracy": 0.7591145833,
+          "weighted_sign": 0.9735175208,
+          "evals": 1024
+        },
+        "k128_active4": {
+          "success": 0.8167724609,
+          "error": 0.1274382619,
+          "sign_accuracy": 0.8196614583,
+          "weighted_sign": 0.9846714707,
+          "evals": 1024
+        }
+      }
+    },
+    "control": "Shuffled full-bit evidence stays near 50% sign accuracy and essentially zero high-rank transfer success."
+  },
+  "conclusion": "Residual sign calibration does not require probing every component on every context. At rank 32, four context-selected sign probes per episode can match or beat full O(R) probing with roughly 8x fewer scalar evaluations. In sparse worlds the targeted rule avoids injecting pure noise into inactive bits; in heavy-tail worlds the active exploration discount preserves weak-component coverage better than top-k alone. The learner is ordinary measurement allocation, not a novel plasticity rule."
+}
