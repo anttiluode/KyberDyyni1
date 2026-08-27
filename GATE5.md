@@ -1,105 +1,145 @@
-# Gate 5 plan — fast relevance, delayed consequence, slow prior
+# Gate 5 result — fast relevance, delayed consequence, slow prior
 
-Gate 4 established that the adaptation-generated sweep can perform derivative-free internal search, but it also established an attacker boundary: engineered sweeps and random dither acquire the simple target faster.
+Gate 5 tested the architectural claim that motivated KyberDyyni:
 
-Gate 5 should therefore test the architectural claim that originally motivated KyberDyyni rather than another generic optimizer benchmark.
+> **Can one continuously running machine react to relevance immediately through fast state, then consolidate successful fast searches into bounded slow structure that improves later search—without BPTT?**
 
-> **Can one continuously running machine react to relevance immediately through fast state, then consolidate repeated successful fast searches into bounded slow structure that improves later search?**
+Implementation: `experiments/gate5_fast_slow_memory.py`
+
+Canonical receipt: `results/gate5_fast_slow_memory.json`
 
 ## World
 
-Use several recurring contexts. Each context has a hidden target distribution on the circular latent manifold rather than one permanently fixed target.
+There are six recurring contexts. Each context has a hidden target distribution on a circular latent manifold.
 
-On a first encounter, the machine receives the context but does not know the target location. It must search using only scalar values at self-generated probes.
+On each encounter the system receives the context but not the target location. It samples its own internal probes and receives only scalar relevance:
 
-During the encounter, relevance is available immediately. Final consequence arrives later.
+```text
+value = 0.5 + 0.5 cos(probe - hidden_target)
+```
 
-The scanner is never reset between probe steps. Context switches should not reset its internal dynamical state either unless a control experiment explicitly does so.
+The adaptation attractor uses 64 cells. Its population state is not reset between probe steps. On context changes, the temporary fast offset and focus state decay rather than being used as persistent memory.
 
-## Gate 5A — fast relevance modulation
+Eight independent seeds were evaluated; each seed contains six rounds through the six contexts, with 700 probe steps per encounter.
+
+## Gate 5A — fast temporary computation
 
 Slow structure is frozen.
 
-A relevance signal may alter only fast state/control. Test whether it can change:
-
-- scan direction / anchor bias;
-- effective sweep sector or width;
-- sampling frequency / theta period;
-- exploitation vs exploration behavior.
-
-The pass condition is not merely that parameters change. The modulation must improve an online objective under a matched probe-travel or sample budget.
-
-Required comparisons:
+The fast directional state uses the relation between the self-generated probe displacement and whether that probe was better or worse than a running relevance baseline:
 
 ```text
-adaptation scanner + fast relevance
-adaptation scanner, fixed policy
-engineered theta scanner + fast relevance
-random dither with matched travel/sample budget
+fast_offset += eta * (value - baseline) * (probe - working_anchor)
 ```
 
-If the adaptation scanner needs an externally scripted control that gives no advantage over `ThetaScanner`, the biological mechanism has not earned anything here.
+No slow weight changes.
 
-## Gate 5B — delayed consolidation
-
-After the fast search has produced candidate events, final consequence arrives after a delay.
-
-Use phase/context-local retained traces to update a bounded slow prior. The slow prior should encode only information available through the machine's own successful searches; do not hand it target labels.
-
-On a later recurrence of the same context, remove the original fast relevance cue and measure whether the slow prior improves the *starting search policy*.
-
-The important before/after comparison is:
+Results:
 
 ```text
-first encounter:
-  useful fast behavior can appear before slow learning
-
-later encounter:
-  useful bias is present before the fast search rediscovers it
+                                  first acquisition   success   mean value   travel/step
+axis-only fast state                  92.6 ± 55.4      1.000      0.921       0.0146
+axis + naive focus                   334.1 ±111.0      0.646      0.884       0.0049
+no fast relevance                    700.0 ±  0.0      0.000      0.503       0.0118
 ```
 
-## Attackers
+### Earned
 
-At minimum:
+> **A fast continuously evolving state can perform useful temporary computation while slow structure remains exactly unchanged.**
 
-- frozen slow structure;
-- shuffled context-to-slow-prior mapping;
-- explicit slot/counter addressing where relevant;
-- engineered theta sweep + the same slow learner;
-- random dither + the same slow learner;
-- ordinary context -> target exponential moving average;
-- ordinary contextual bandit / table when the context set is finite.
+### Unexpected boundary
 
-The EMA/table attacker is especially important. If a tiny explicit context prior matches or beats KyberDyyni with less state and no phase machinery, that is the product answer.
+The naive focus mechanism deliberately borrowed the Vollan-shaped idea of faster/narrower sampling: as relevance rises, theta speeds up, adaptation is reduced, and the sensory tether strengthens.
 
-## Metrics
+It **reduces internal travel** but hurts acquisition badly on this task.
 
-Report at least:
+That is useful negative evidence. The biological observation that pursuit narrows and speeds theta sweeps does not imply that our simplistic parameter translation is a good generic optimizer.
 
-- first-encounter acquisition steps;
-- repeated-context acquisition steps;
-- improvement from first to repeated encounter;
-- success fraction;
-- tracking error;
-- probe travel per step;
-- samples used;
-- slow capacity used;
-- performance with slow weights frozen;
-- performance after context-prior shuffling;
-- retention after intervening contexts.
+## Gate 5B — delayed crystallization
 
-Do not report only final reward.
+At the end of an encounter, the best self-generated probe is retained as a small local packet:
 
-## Pass / kill interpretation
+```text
+(context, candidate_angle, scalar_consequence)
+```
 
-A strong result would be:
+The consequence is delivered only after two later encounters.
 
-1. fast relevance helps on the first encounter while slow weights remain unchanged;
-2. delayed consequence later changes bounded slow structure;
-3. on recurrence, the system starts with a measurably better prior before receiving the old fast cue;
-4. phase/context shuffling damages that benefit;
-5. the benefit survives ordinary attacker comparisons or exposes a specific tradeoff such as continuity, storage, or delayed-address robustness.
+When it matures, the bounded slow learner performs a local circular update and projects the complete slow structure back into a finite L1 budget.
 
-A weak but useful result is that an ordinary EMA/table wins. That would tell us that fast-slow separation is useful but theta/phase machinery is unnecessary for this task.
+No intervening fast-state trajectory is stored for reverse differentiation.
 
-Gate 5 is where the architecture should either start becoming a machine or start getting pruned.
+Results:
+
+```text
+                                  first acq   late acq   late start error   slow capacity
+bounded delayed slow prior           92.6       37.1        0.082 rad          5.73
+slow frozen                           92.6       87.1        1.560 rad          0
+context credit shuffled               80.0      109.7        1.760 rad          2.14
+explicit EMA table                    92.6       45.4        0.083 rad          6.93
+engineered sweep + bounded prior     102.7       12.9        0.082 rad          5.73
+random dither + bounded prior         94.1        1.6        0.090 rad          5.71
+```
+
+Late success is 100% for all correctly addressed learning systems above.
+
+### Earned
+
+> **Delayed local consequence can crystallize a successful fast computation into slow structure that improves later behavior.**
+
+The key causal control is the shuffled-context condition. With the same number of slow updates but the delayed packets applied to random contexts, the learned starting error is worse than the frozen system and late acquisition slows to about 110 steps.
+
+Persistent addressability matters.
+
+### Attacker result
+
+The explicit EMA table reaches essentially the same learned starting error as the bounded structural prior.
+
+The engineered sweep and random dither use the same slow learner and outperform the adaptation scanner on raw acquisition speed.
+
+So Gate 5 supports the **fast-state / slow-memory decomposition**, not the necessity of the Ji-like attractor.
+
+Random dither still has a major continuity cost:
+
+```text
+adaptation scanner     0.0135 rad travel / step
+random dither          0.3996 rad travel / step
+```
+
+That is now the motivation for Gate 6: make path continuity itself consequential.
+
+## Where phase is—and is not
+
+Gate 5 does not require phase. Its delayed packet explicitly retains context plus candidate angle.
+
+That is intentional scientific bookkeeping.
+
+Gate 2 separately established that theta phase can serve as an address when multiple otherwise-identical candidate events occur within one sweep and consequence arrives later.
+
+The stronger combined system remains untested:
+
+```text
+self-generated attractor sweep
+        |
+multiple candidate events
+        |
+phase/context-local eligibility
+        |
+later consequence
+        |
+slow prior
+```
+
+Do not cite Gate 5 as evidence for that combined claim.
+
+## Answer to Gate 5
+
+**Yes, with an important qualifier.**
+
+Fast state can solve the immediate task without slow learning. Delayed, correctly addressed local consequence can later make that solution available as slow prior knowledge, with no BPTT.
+
+But nothing in Gate 5 says that the biological-looking attractor is necessary. On this simple latent-search world, cheap proposal mechanisms are better searchers.
+
+The next useful attack is therefore not “add more hippocampus.” It is:
+
+> **Does continuous internal trajectory become advantageous when transitions themselves carry state, cost, hysteresis, eligibility, or causal consequences?**

@@ -250,6 +250,7 @@ python experiments/gate1_fast_slow_consolidation.py
 python experiments/gate2_phase_address.py
 python experiments/gate3_adaptation_attractor.py
 python experiments/gate4_internal_search.py
+python experiments/gate5_fast_slow_memory.py
 python run_all.py
 python -m unittest discover -s tests
 ```
@@ -334,44 +335,64 @@ It does **not** earn:
 
 If internal trajectory continuity, transition cost, or state-dependent computation does not matter in later tasks, the random/engineered attackers should kill the extra attractor machinery.
 
-## Next gates — consolidated line
+## Gate 5 — fast state becomes slow memory
 
-The response-comparison sibling independently converged on a useful missing experiment: **do not jump directly from "the sweep can search" to "slow learning." First let relevance alter the fast sweep itself, then ask whether repeated successful fast searches become slow priors.** That idea is now part of the canonical roadmap; its local code was never committed.
+`experiments/gate5_fast_slow_memory.py`
 
-### Gate 5 — fast relevance -> slow prior
+Gate 5 finally asks the architectural question directly:
 
-Gate 5 joins the pieces that Gates 0–4 tested separately:
+> **Can fast continuously evolving state do useful temporary computation, and can delayed local consequence crystallize successful fast states into slow structure without BPTT?**
+
+Six recurring contexts each hide a noisy target location on a circular latent manifold. The scanner receives no target direction or derivative. A self-generated probe receives only scalar relevance. The continuous attractor population is never reset between probe steps.
+
+### 5A — useful computation exists before learning
+
+Slow structure is frozen at exactly zero.
 
 ```text
-context / stable anchor
-        |
-        v
-self-generated sweep
-        |
-scalar relevance arrives during the sweep
-        |
-        +--> fast retarget / narrow / accelerate
-        |        (no slow weight change yet)
-        |
-later consequence
-        |
-phase/context-local trace
-        |
-        v
-bounded slow prior
-        |
-next encounter starts closer to where experience says to search
+                                      first acquisition   success   mean sample value
+fast directional state                    92.6 steps      100.0%       0.921
+no fast relevance                        700.0 steps        0.0%       0.503
+naive axis + focus modulation             334.1 steps       64.6%       0.884
 ```
 
-This gate has two required halves.
+The directional fast state therefore earns a strong result: useful target-seeking behavior appears during the encounter while **slow capacity remains 0**.
 
-**5A — fast modulation before learning.** Relevance must change direction/sector/frequency immediately while slow weights are frozen. This is the Vollan-shaped part that the current adaptation scanner has not yet earned.
+The naive Vollan-inspired focus control did *not* help this task. It sped theta and reduced adaptation to narrow the sweep, cutting probe travel from about 0.0146 to 0.0049 rad/step, but acquisition became much slower and less reliable. Biological modulation is therefore not automatically an engineering optimization.
 
-**5B — consolidation after success.** Repeated successful searches must alter bounded slow structure so that a later recurrence of the same context begins with a better prior even when the original fast relevance cue is absent.
+### 5B — delayed success changes the next encounter
 
-Attackers must include the current engineered sweep, random dither, a simple context->target exponential moving average / bandit prior, and a frozen-slow ablation. If an ordinary EMA prior plus random search wins cleanly, the fancy mechanism loses.
+After each encounter, the best self-generated probe is retained as a tiny local credit packet. Its scalar consequence is delivered only after **two later encounters**. No intervening state trajectory is replayed or differentiated through.
 
-The proposed experimental contract is written in [GATE5.md](GATE5.md).
+```text
+                                      first acq   late acq   late starting error
+bounded delayed slow prior              92.6       37.1          0.082 rad
+slow structure frozen                   92.6       87.1          1.560 rad
+credit context shuffled                 80.0      109.7          1.760 rad
+explicit EMA table attacker             92.6       45.4          0.083 rad
+engineered sweep + same slow prior      102.7       12.9          0.082 rad
+random dither + same slow prior          94.1        1.6          0.090 rad
+```
+
+The bounded learner used about **5.73 L1 units** of slow capacity; the explicit EMA table used about **6.93** in this configuration. Their late starting errors are essentially the same. The small acquisition difference is not evidence that the bounded learner is generally superior; for one-hot recurring contexts the two slow learners are close cousins.
+
+This earns the architectural claim:
+
+> **Fast state can solve the immediate problem before slow learning occurs, and correctly addressed delayed local consequence can later crystallize that success into a prior that improves the next encounter.**
+
+The shuffled-context ablation is decisive: updating slow structure is not enough; the delayed credit has to land on the right persistent context.
+
+But the stronger biological-mechanism claim fails:
+
+> **The adaptation-generated attractor is not required for this task.**
+
+The engineered sweep is substantially faster after consolidation, and random dither is faster still. Random dither pays for that speed with about **0.400 rad/step** probe travel versus **0.0135 rad/step** for the adaptation scanner.
+
+One important limitation: Gate 5's delayed credit packet is `(context, candidate probe, consequence)`. It does **not** require theta phase. Gate 2 remains the evidence that phase can address otherwise-indistinguishable within-sweep events; a later gate must integrate that address into this fast-to-slow memory task if phase is to remain central.
+
+The full preregistered contract and interpretation are in [GATE5.md](GATE5.md), and the canonical numbers are in `results/gate5_fast_slow_memory.json`.
+
+## Next gates
 
 ### Gate 6 — continuity must matter
 

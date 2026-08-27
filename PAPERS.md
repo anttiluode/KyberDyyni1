@@ -78,10 +78,26 @@ The authors' public repository `ZilongJi/GridCellThetaSweeps` provides `Network_
 KyberDyyni does not copy their BrainPy/JAX implementation or full grid-cell network; the repo uses a small NumPy port so the mechanism can be attacked in isolation.
 
 
-## What Gate 4 still does not test from Vollan et al.
+## Gate 5: what survived contact with the Vollan-inspired control idea
 
-Gate 0 demonstrated engineered direction/width/frequency control, and Gate 4 demonstrated useful search with the adaptation-driven scanner. Those are not yet the same result.
+Gate 5 tested two distinct translations of the empirical fast-sampling observations.
 
-The current `AdaptationRingScanner` does **not** yet demonstrate rapid relevance-driven narrowing and frequency changes of its own emergent sweep. The consolidated Gate-5 plan therefore treats this as an explicit missing test rather than assuming the biological observation transfers automatically to the artificial mechanism.
+First, scalar relevance was allowed to move a **fast directional/anchor state** while all slow structure was frozen. That worked strongly: the adaptation-driven scanner acquired the hidden target in about 93 steps with 100% first-encounter success, while the same scanner with no fast relevance state failed within the 700-step budget.
 
-If fast relevance modulation can be implemented only by externally commanding parameters in a way that adds no benefit over the engineered `ThetaScanner`, that is evidence against paying the cost of the attractor mechanism.
+Second, a deliberately naive focus control tried to mimic the reported pursuit pattern by:
+
+- increasing theta frequency;
+- reducing adaptation strength to reduce excursion;
+- strengthening the external anchor.
+
+That intervention reduced internal probe travel from about 0.0146 to 0.0049 rad/step, but acquisition worsened from about 93 to 334 steps and first-encounter success fell to about 65%.
+
+So the current engineering conclusion is asymmetric:
+
+> **rapid fast-state retargeting is useful here; our naive translation of narrower/faster sweeps is not.**
+
+This does not contradict Vollan et al. Their paper reports how the biological system changes under behavioral relevance; it does not claim that arbitrarily reproducing those parameter changes is an optimal generic search algorithm.
+
+The artificial control circuit that would convert relevance into the reported direction/width/frequency changes remains unspecified.
+
+Gate 5 also demonstrates delayed context-local consolidation, but its retained credit packet stores context plus candidate angle directly. It does **not** use theta phase. The phase-address result remains Gate 2, and integration of phase-addressed eligibility with fast-to-slow consolidation is still open.
