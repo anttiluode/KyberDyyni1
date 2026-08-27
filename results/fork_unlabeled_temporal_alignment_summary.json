@@ -1,0 +1,102 @@
+{
+  "settings": {
+    "observed_dimension": 16,
+    "rank": 4,
+    "sequence_length": 5000,
+    "n_seeds": 24,
+    "observation_noise_std": 0.01,
+    "correction_norm": 0.6,
+    "success_radius": 0.18,
+    "lags": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "views_are_independent_trajectories": true,
+    "explicit_context_correspondence_labels": 0
+  },
+  "sawtooth": {
+    "pca_static": {
+      "error": 0.8554825262,
+      "success": 0.0094401042,
+      "axis_recovery": 0.7039
+    },
+    "fastica_static": {
+      "error": 0.7664145139,
+      "success": 0.0442708333,
+      "axis_recovery": 0.99988
+    },
+    "fastica_temporal_unsigned": {
+      "error": 0.7510507647,
+      "success": 0.1041666667,
+      "axis_recovery": 0.99988
+    },
+    "fastica_temporal_signed": {
+      "error": 0.011486307,
+      "success": 1,
+      "cosine": 0.9997872336,
+      "axis_recovery": 0.99988
+    },
+    "temporal_unsigned": {
+      "error": 0.7727881608,
+      "success": 0.1090494792,
+      "axis_recovery": 0.99881
+    },
+    "temporal_signed": {
+      "error": 0.0292642793,
+      "success": 1,
+      "cosine": 0.9985519724,
+      "axis_recovery": 0.99881
+    },
+    "paired_time_ridge": {
+      "error": 0.0003686849,
+      "success": 1
+    }
+  },
+  "gaussian_ar": {
+    "pca_static": {
+      "error": 0.8376547915,
+      "success": 0.0022786458,
+      "axis_recovery": 0.6985
+    },
+    "fastica_static": {
+      "error": 0.813736477,
+      "success": 0.0048828125,
+      "axis_recovery": 0.7924
+    },
+    "temporal_unsigned": {
+      "error": 0.8009937383,
+      "success": 0.0921223958,
+      "axis_recovery": 0.99891
+    },
+    "temporal_signed": {
+      "error": 0.7411188391,
+      "success": 0.1695963542,
+      "axis_recovery": 0.99891
+    },
+    "paired_time_ridge": {
+      "error": 0.0003812678,
+      "success": 1
+    }
+  },
+  "sawtooth_shuffled_time": {
+    "fastica_temporal_signed": {
+      "error": 0.8575728548,
+      "success": 0.0032552083
+    },
+    "temporal_signed": {
+      "error": 0.7911377112,
+      "success": 0.0071614583,
+      "axis_recovery": 0.78934
+    },
+    "paired_time_ridge": {
+      "error": 0.0003686849,
+      "success": 1
+    }
+  },
+  "conclusion": "Dynamics can supply unlabeled cross-view correspondence information. In sawtooth sources with identical symmetric marginals, static FastICA recovers axes but cannot align permutation/sign; temporal fingerprints plus a sign-sensitive increment asymmetry yield 100% transfer, and shuffling time destroys the result. In symmetric Gaussian AR sources, second-order temporal decomposition recovers axes almost perfectly while static methods do not, but oriented transfer remains blocked by the unavoidable sign symmetry. The earned primitive is temporal fingerprint plus orientation asymmetry, not SOBI/ICA as a uniquely privileged algorithm."
+}
