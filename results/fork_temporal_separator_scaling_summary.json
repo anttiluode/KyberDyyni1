@@ -1,0 +1,188 @@
+{
+  "settings": {
+    "ranks": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "lengths": [
+      512,
+      2048,
+      4096
+    ],
+    "observation_noise_stds": [
+      0,
+      0.1
+    ],
+    "signatures": [
+      "wide",
+      "crowded",
+      "degenerate_pair"
+    ],
+    "methods": [
+      "pca_static",
+      "amuse_lag1",
+      "sobi_multilag"
+    ],
+    "n_seeds": 8,
+    "source_family": "independent stationary unit-variance Gaussian AR(1)",
+    "views_are_independent_runs": true
+  },
+  "selected_results": {
+    "wide": {
+      "rank4_n2048": {
+        "pca": {
+          "axis": 0.4143631268,
+          "identity": 0.234375,
+          "transfer_success": 0.00439453125
+        },
+        "amuse": {
+          "axis": 0.997412211,
+          "identity": 1,
+          "transfer_success": 1,
+          "error": 0.0611436408
+        },
+        "sobi": {
+          "axis": 0.9973547543,
+          "identity": 1,
+          "transfer_success": 1,
+          "error": 0.0582741502
+        }
+      },
+      "rank8_n2048": {
+        "amuse": {
+          "axis": 0.9853116833,
+          "identity": 1,
+          "transfer_success": 0.8212890625,
+          "error": 0.1378367366
+        },
+        "sobi": {
+          "axis": 0.9831453964,
+          "identity": 1,
+          "transfer_success": 0.8017578125,
+          "error": 0.1437903227
+        }
+      },
+      "rank16_n4096_noise01": {
+        "amuse": {
+          "axis": 0.9443519835,
+          "identity": 0.984375,
+          "transfer_success": 0.103515625,
+          "error": 0.2561306166
+        },
+        "sobi": {
+          "axis": 0.9394563277,
+          "identity": 0.9765625,
+          "transfer_success": 0.07861328125,
+          "error": 0.2764454752
+        }
+      },
+      "rank32_n4096_noise01": {
+        "amuse": {
+          "axis": 0.7594166854,
+          "identity": 0.802734375,
+          "transfer_success": 0,
+          "error": 0.5284254958
+        },
+        "sobi": {
+          "axis": 0.7404452746,
+          "identity": 0.783203125,
+          "transfer_success": 0,
+          "error": 0.5527854481
+        }
+      }
+    },
+    "crowded": {
+      "rank8_n2048": {
+        "amuse": {
+          "axis": 0.879603821,
+          "identity": 0.9375,
+          "transfer_success": 0.0419921875,
+          "error": 0.398075275
+        },
+        "sobi": {
+          "axis": 0.8623378323,
+          "identity": 0.8984375,
+          "transfer_success": 0.0419921875,
+          "error": 0.4221633046
+        }
+      },
+      "rank16_n2048": {
+        "amuse": {
+          "axis": 0.5266667038,
+          "identity": 0.484375,
+          "transfer_success": 0,
+          "error": 0.705927757
+        },
+        "sobi": {
+          "axis": 0.5076580441,
+          "identity": 0.45703125,
+          "transfer_success": 0,
+          "error": 0.733627817
+        }
+      },
+      "rank32_n4096_noise01": {
+        "amuse": {
+          "axis": 0.3703952343,
+          "identity": 0.314453125,
+          "transfer_success": 0,
+          "error": 0.7875623073
+        },
+        "sobi": {
+          "axis": 0.3552026205,
+          "identity": 0.2890625,
+          "transfer_success": 0,
+          "error": 0.7880794828
+        }
+      }
+    },
+    "exact_degenerate_pair_rank4": {
+      "n512_amuse": {
+        "axis": 0.8628426944,
+        "identity": 0.84375,
+        "pair_subspace": 0.992836364,
+        "transfer_success": 0.20458984375
+      },
+      "n2048_amuse": {
+        "axis": 0.8614407555,
+        "identity": 0.8125,
+        "pair_subspace": 0.9985468147,
+        "transfer_success": 0.435546875
+      },
+      "n4096_noise01_amuse": {
+        "axis": 0.8485949728,
+        "identity": 0.71875,
+        "pair_subspace": 0.9989897081,
+        "transfer_success": 0.33349609375
+      }
+    },
+    "shuffled_time_rank8_n4096": {
+      "pca": {
+        "axis": 0.2663559681,
+        "identity": 0.140625,
+        "subspace": 1,
+        "transfer_success": 0
+      },
+      "amuse": {
+        "axis": 0.2763005149,
+        "identity": 0.078125,
+        "subspace": 1,
+        "transfer_success": 0
+      },
+      "sobi": {
+        "axis": 0.3023656672,
+        "identity": 0.0859375,
+        "subspace": 1,
+        "transfer_success": 0
+      }
+    }
+  },
+  "derived_scaling_examples": {
+    "crowded_rank8_n2048_gap_sqrt_n": 1.6162440713,
+    "crowded_rank16_n2048_gap_sqrt_n": 0.7542472333,
+    "crowded_rank32_n4096_gap_sqrt_n": 0.5161290323,
+    "wide_rank32_n4096_gap_sqrt_n": 1.7548387097
+  },
+  "conclusion": "Temporal source identity is controlled by separation between dynamical signatures relative to finite-window estimation noise, not rank alone. Static PCA preserves the full source subspace but not source axes. One-lag AMUSE is as good as or better than the conservative multi-lag operator for pure AR(1), where extra lags are redundant. Exact equal AR signatures retain a rotational ambiguity even as the degenerate two-dimensional subspace converges to nearly perfect recovery. Time shuffling destroys source identity while leaving the subspace intact. At higher rank, small per-axis errors accumulate enough that component labels can look mostly correct while the full reusable transfer map still fails."
+}
