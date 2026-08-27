@@ -642,35 +642,93 @@ The short version:
 
 The old branches are still useful provenance, but no result now depends on remembering which branch contains it.
 
-## Next gate
+## Gate 9 — noisy fast search becomes slow amortized prior
 
-### Gate 9 — fast search -> slow consolidation
+Gate 9 reconnects the slow half of the architecture after Gate 8 deliberately froze it.
 
-The fast sampler has now been characterized hard enough. The high-dimensional experiments deliberately held:
+The world contains recurring contexts. Each context has a stable hidden correction of norm 0.60 plus a fresh nuisance correction of norm 0.08 on every encounter. Fast search receives only noisy scalar relevance through progressive Hadamard block probes. Slow memory never sees the true target or true correction.
+
+The first attack exposed an important interaction failure.
+
+Correctly addressed EMA/Kalman memories reduced late starting error from about 0.61 to about 0.17--0.24, while shuffled context credit made it worse. So slow memory was learning the repeated correction.
+
+But the legacy fast controller could then **erase the good prior**. A fixed probe radius / step designed for a 0.6 residual became destructive once slow memory had moved the state close to the solution.
+
+The fix did not require a new biological mechanism. Conventional optimizer hygiene was enough:
 
 ```text
-slow_weight_changes = 0
+1. infer rough residual distance from the noisy known relevance curve
+2. shrink probe radius / step near high relevance
+3. spend one extra scalar measurement on the proposed fast update
+4. reject the update if measured relevance does not improve
 ```
 
-That isolation was useful, but KyberDyyni is supposed to be a **fast/slow machine**, not merely a zeroth-order optimizer.
+Dense 128-D, consequence noise 0.01:
 
-The next question is therefore:
+```text
+                              late start   late final   late probes   success
+Kalman + scaled/accept          0.164        0.164          30.7      95.8%
+EMA + scaled/accept             0.162        0.162          24.2      93.3%
+frozen + scaled/accept          0.606        0.177         411.3      63.3%
+shuffled + scaled/accept        0.666        0.191         463.3      38.3%
+```
 
-> **Can slow structure extract the stable part of many noisy, incomplete fast corrections so that related future episodes require fewer probes, without simply memorizing probe noise?**
+Sparse4 gives the same qualitative result:
 
-A clean attack should compare:
+```text
+Kalman + scaled/accept          32.5 probes   94.2% success
+EMA + scaled/accept             39.9          90.8%
+frozen                         345.5          80.8%
+shuffled                       415.9          50.0%
+```
 
-- bounded context-specific slow consolidation;
-- ordinary EMA;
-- online ridge / linear regression;
-- Kalman-like state estimation;
-- replay / averaging;
-- frozen-slow control;
-- shuffled-context control.
+At noise 0.01, the learned systems save roughly **89--94%** of their first-round scalar probe cost. Most late episodes are already inside the target radius before any directional probe.
 
-The success criterion should not merely be lower late-episode error. It should be a reduction in **future probe cost** on related episodes, with transfer tests that change nuisance coordinates or latent basis.
+At consequence noise 0.02 the benefit survives but noisy stopping becomes the next boundary. Kalman + scaled/accept still saves about 71% of probes in both dense and sparse worlds, while frozen and shuffled controls remain near the full 512-probe budget.
 
-If an EMA or ordinary estimator matches the architecture, use the simpler estimator. If the fast/slow decomposition buys context-sensitive amortization that survives those attacks, then the larger KyberDyyni machine has earned another component.
+Gate 9 therefore earns:
+
+> **Repeated noisy fast corrections can become context-specific slow priors that drastically reduce future search cost, provided the fast residual optimizer becomes cautious near a learned solution.**
+
+It does **not** earn a novel slow learner. Ordinary EMA and Kalman-style estimation are sufficient.
+
+It does earn two architectural roles:
+
+- correctly addressed slow memory;
+- a fast/slow handoff that prevents exploratory dynamics from overwriting a good slow prior.
+
+Canonical evidence:
+
+- [SLOW_CONSOLIDATION_FORK.md](SLOW_CONSOLIDATION_FORK.md)
+- `experiments/fork_slow_consolidation_noise.py`
+- `experiments/fork_slow_fast_handoff.py`
+- `results/fork_slow_consolidation_summary.json`
+
+## Next gate
+
+### Gate 10 — transfer across changed coordinates
+
+Gate 9 still gives each context an explicit memory row in one fixed latent basis.
+
+That is a serious loophole.
+
+The next attack is:
+
+> **Does the slow information remain useful when the same underlying correction is rendered through changing nuisance coordinates or a changing latent basis?**
+
+This is where the project reconnects to the Tuesday/IVA-style question instead of becoming merely a context lookup table.
+
+Possible attacks:
+
+- fixed context, random orthogonal latent rotation between episodes;
+- multiple views of one hidden correction with view-specific bases;
+- train slow memory on some bases, test on an unseen basis;
+- explicit oracle alignment / Procrustes attacker;
+- ordinary regression from view features to correction;
+- shared low-rank latent correction plus view-specific rendering;
+- no-transfer context table.
+
+If the explicit table dies and a boring alignment/regression baseline solves it, use the baseline. If the fast/slow machine can infer a reusable correction across changing coordinate systems from demonstrations and local consequence, then Gate 10 would finally connect the current architecture back to the earlier matrix/source-separation line.
 
 ## Kill conditions
 
@@ -686,6 +744,7 @@ KyberDyyni should be considered unnecessary if ordinary alternatives win cleanly
 - hand-coded search;
 - finite-difference / coordinate probing;
 - SPSA and other zeroth-order optimizers;
-- ordinary EMA / online estimation for slow consolidation.
+- ordinary EMA / online estimation for slow consolidation;
+- ordinary coordinate alignment / regression for cross-basis transfer.
 
 The point is not to make biology-shaped software. The point is to see whether separating **fast sampling**, **trajectory-relative addressing**, and **slow consolidation** gives us a useful machine that ordinary static-weight thinking obscures.
