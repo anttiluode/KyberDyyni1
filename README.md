@@ -1016,42 +1016,173 @@ Canonical evidence:
 - `experiments/fork_rank_scaling_sign.py`
 - `results/fork_rank_scaling_sign_summary.json`
 
-## Next gate
+## Gate 14 — temporal separator scaling and signature crowding
 
-### Gate 14 — temporal separator scaling and signature crowding
+Gate 13 showed that the downstream scalar-consequence stage can scale to rank 32 with selective measurement. Gate 14 attacks the upstream assumption that temporal structure can still identify the latent freedoms at higher rank.
 
-Gate 13 assumes the upstream temporal stage already recovered all source axes and component identities.
+The sources are deliberately Gaussian AR(1). Their zero-lag covariance is isotropic, so PCA can recover the overall source subspace but not the individual source axes.
 
-That assumption must now be attacked.
+Each view is an independent run rendered through a different orthonormal basis. There are no synchronized samples.
 
-The question is:
+Ranks:
 
-> **Does unlabeled temporal alignment survive higher rank, finite observation windows, noise, and increasingly similar temporal signatures?**
+```text
+4 / 8 / 16 / 32
+```
 
-Gate 14 should vary:
+Observation windows:
 
-- rank: 4 / 8 / 16 / 32;
-- observation length;
-- stream noise;
-- spacing between temporal time constants / periods;
-- exact degeneracy where two components have identical temporal statistics.
+```text
+512 / 2048 / 4096
+```
 
-Attackers:
+Temporal signatures are either broadly separated, crowded into a narrow AR-coefficient range, or contain one exactly degenerate pair.
 
-- PCA / zero-lag covariance;
-- one-lag AMUSE;
-- multi-lag SOBI-style decomposition;
-- FastICA where non-Gaussian marginals exist;
-- oracle true source axes;
-- shuffled-time control.
+### Time order is the identifying information
 
-The critical metric is component identity recovery across independent views, not merely reconstruction of the latent subspace.
+A shuffled-time rank-8 control gives:
 
-A required control is exact temporal degeneracy:
+```text
+                         axis recovery   identity   subspace   transfer
 
-> If two components have identical second-order temporal statistics, the method must report or exhibit rotational ambiguity inside that subspace. A method that confidently invents a unique orientation there has failed the test.
+PCA static                   0.266          14.1%      1.000       0%
+AMUSE after shuffle          0.276           7.8%      1.000       0%
+multi-lag after shuffle      0.302           8.6%      1.000       0%
+```
 
-If performance is governed mainly by **separation between dynamical signatures relative to finite-window estimation noise**, that is a much more useful scaling law than “high dimension is hard.”
+The complete latent subspace remains intact while the reusable source coordinates disappear.
+
+So:
+
+> **Recovering a latent subspace is not the same as recovering the freedoms inside it.**
+
+### Well-separated signatures
+
+At rank 4 / 2048 samples:
+
+```text
+                         axis recovery   identity   oracle-sign transfer
+
+PCA                          0.414          23.4%            0.4%
+AMUSE                        0.997         100.0%          100.0%
+multi-lag                    0.997         100.0%          100.0%
+```
+
+At rank 8 the identities remain perfect but small axis errors already accumulate:
+
+```text
+AMUSE      axis 0.985   identity 100%   transfer 82.1%
+multi-lag  axis 0.983   identity 100%   transfer 80.2%
+```
+
+At rank 16 / 4096 samples / observation noise 0.10:
+
+```text
+AMUSE      axis 0.944   identity 98.4%   transfer 10.4%
+multi-lag  axis 0.939   identity 97.7%   transfer  7.9%
+```
+
+A high-rank vector map is therefore much less forgiving than a component-label score.
+
+### Crowded signatures
+
+When the AR coefficients are squeezed into 0.65--0.90:
+
+```text
+2048 samples
+
+rank       AMUSE axis recovery   identity   transfer
+
+8                0.880            93.8%       4.2%
+16               0.527            48.4%       0.0%
+```
+
+At rank 32 / 4096 samples / noise 0.10:
+
+```text
+AMUSE      axis 0.370   identity 31.4%   transfer 0%
+multi-lag  axis 0.355   identity 28.9%   transfer 0%
+```
+
+A useful rough scaling quantity is:
+
+```text
+minimum temporal-signature gap × sqrt(observation length)
+```
+
+Selected crowded cases:
+
+```text
+rank 8,  N=2048      ~1.62   -> identity 93.8%
+rank 16, N=2048      ~0.75   -> identity 48.4%
+rank 32, N=4096      ~0.52   -> identity 31.4%
+```
+
+This is not claimed as a universal threshold, but it describes the observed boundary much better than rank alone.
+
+### Exact degeneracy
+
+Two components are given exactly equal AR coefficients.
+
+At rank 4, AMUSE gives:
+
+```text
+samples       mean axis recovery   pair-subspace recovery
+
+512                 0.863                0.993
+2048                0.861                0.999
+4096 + noise         0.849                0.999
+```
+
+More data makes the pair's two-dimensional subspace nearly perfect, but does not select a unique rotation inside it.
+
+That is the correct identifiability result:
+
+> **Blind temporal methods cannot manufacture a distinction when two Gaussian latent freedoms have exactly the same dynamics.**
+
+### AMUSE versus multi-lag
+
+The conservative multi-lag SOBI-like operator does not earn a special role in this pure AR(1) world. One-lag AMUSE is usually equal or slightly better.
+
+For AR(1), later autocorrelations are powers of the same coefficient, so the extra lags are largely redundant and can add finite-sample estimation variance.
+
+Gate 14 therefore earns:
+
+> **Unlabeled temporal alignment works when latent freedoms have sufficiently distinct dynamical fingerprints relative to observation length and noise. It degrades as those fingerprints crowd, and it becomes fundamentally ambiguous inside exactly degenerate dynamical subspaces.**
+
+Canonical evidence:
+
+- [TEMPORAL_SCALING_FORK.md](TEMPORAL_SCALING_FORK.md)
+- `experiments/fork_temporal_separator_scaling.py`
+- `results/fork_temporal_separator_scaling_summary.json`
+
+## Pause point — Gates 1 through 14
+
+This is intentionally **not Gate 15**.
+
+The project now has enough positive results, killed mechanisms, and explicit boundaries to stop asking "what can we attack next?" for a moment.
+
+The next question is:
+
+> **What useful machine do these fourteen gates actually imply?**
+
+The surviving ingredients are:
+
+- stable reference rather than moving the whole attractor;
+- structured fast local probing;
+- local trajectory-relative addressing for delayed consequence;
+- context-specific slow priors that amortize future search;
+- cautious fast/slow handoff near a learned solution;
+- reusable low-rank correction families;
+- ordinary coordinate alignment when correspondences exist;
+- temporal fingerprints when explicit correspondences do not exist;
+- local consequence to resolve residual ambiguities that blind structure cannot;
+- selective measurement of currently informative freedoms;
+- explicit recognition that exact dynamical degeneracy is unidentifiable.
+
+The mechanisms that **did not** earn a privileged role include dynamic probe width, exotic slow plasticity, mandatory SOBI over AMUSE, and exhaustive probing of every latent coordinate.
+
+Before adding another gate, the repo should now be read as a candidate architecture for practical systems, not merely a sequence of attacks.
 
 ## Kill conditions
 
@@ -1071,6 +1202,7 @@ KyberDyyni should be considered unnecessary if ordinary alternatives win cleanly
 - ordinary coordinate alignment / regression for cross-basis transfer;
 - ordinary covariance / CCA alignment for unlabeled cross-view transfer;
 - ordinary binary evidence accumulation for sign orientation;
-- ordinary active measurement allocation for rank-scaled consequence probing.
+- ordinary active measurement allocation for rank-scaled consequence probing;
+- one-lag AMUSE when one temporal statistic already identifies the sources.
 
-The point is not to make biology-shaped software. The point is to see whether separating **fast sampling**, **trajectory-relative addressing**, **slow consolidation**, and **coordinate relation** gives us a useful machine that ordinary static-weight thinking obscures.
+The point is not to make biology-shaped software. The point is to see whether the **problem decomposition**—fast sampling, delayed addressing, slow amortization, coordinate relation, and selective consequence—reveals useful systems that a single static end-to-end mapping hides.
