@@ -210,3 +210,59 @@ Compare:
 The slow learner is useful only if later encounters **start** better before the fast sampler has to recenter again.
 
 Implementation: `experiments/fork_2d_fast_slow_calibration.py`.
+
+
+## Fork 4 result — fast calibration can crystallize
+
+Recurring contexts had stable 2-D cue-bias vectors but new targets every encounter. The successful temporary fast correction was delivered only after three later encounters.
+
+```text
+                              FIRST        LATE
+
+bounded delayed calibration
+start error                   0.435        0.231
+first-cycle hit               51.4%        82.6%
+first-cycle best distance     0.223        0.118
+
+fast only / slow frozen
+start error                   0.435        0.429
+first-cycle hit               51.4%        38.2%
+
+shuffled delayed context
+start error                   0.438        0.455
+first-cycle hit               50.0%        41.7%
+```
+
+Fast state still solves the encounter even when slow memory is absent, but delayed correctly addressed slow calibration makes later encounters begin much closer.
+
+The explicit EMA table attacker is numerically identical to the bounded learner in this setup because the structural budget never becomes active.
+
+Earned:
+
+> **Temporary 2-D calibration discovered by structured fast sampling can become delayed context-specific prior calibration without BPTT.**
+
+Not earned:
+
+> the bounded slow rule is superior to ordinary associative memory.
+
+Receipt: `results/fork_2d_fast_slow_calibration.json`.
+
+## Fork 5 — finite-difference attacker
+
+Before promoting the 2-D architecture, attack the radial sampler itself.
+
+The same fast contrast rule is now driven by:
+
+- golden radial spokes;
+- cardinal +/-x, +/-y cross;
+- diagonal cross;
+- rotating cross;
+- octagonal ring;
+- SPSA-like random +/- direction line;
+- matched-travel smooth random walk;
+- unmatched IID random;
+- point estimate.
+
+If a simple coordinate stencil matches the radial sampler, the digital architecture should use the stencil and keep the biology only as inspiration.
+
+Implementation: `experiments/fork_2d_probe_basis_attack.py`.
