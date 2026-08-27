@@ -475,25 +475,104 @@ Canonical evidence:
 - `results/fork_phase_direction_address.json`
 - [GATE6.md](GATE6.md)
 
+## Gate 7 — 2-D structured probing, fast calibration, delayed slow calibration
+
+The dimensionality attack is complete. Full details are in [GATE7.md](GATE7.md) and [TWO_D_CONCLUSION.md](TWO_D_CONCLUSION.md).
+
+The 1-D boundary shuttle does **not** generalize as one privileged 2-D path. Under equal low travel, different curves win different uncertainty regimes:
+
+- golden radial spokes are strong when the cue is approximately centered but noisy;
+- spiral/Lissajous paths are stronger when the cue is systematically biased;
+- generic smooth random walk remains poor;
+- unmatched IID random remains the high-travel coverage upper bound.
+
+A naive fast `miss -> switch geometry` controller failed. The binary miss signal detects trouble but does not say how the reference is wrong.
+
+The useful 2-D operation came from keeping a structured local probe basis and letting relative sample relevance update an elastic correction vector.
+
+Selected 12-seed means:
+
+```text
+                         fixed radial    + fast contrast
+
+RELIABLE                    90.0%            92.8%
+MIXED                       61.0%            82.5%
+SYSTEMATIC BIAS             36.8%            85.1%
+
+LOSS / RETURN
+hit-cycle fraction          78.5%            86.3%
+reacquisition               41.7 ms          30.6 ms
+```
+
+No slow weights change during that computation.
+
+Repeated contexts can then crystallize the temporary correction after delayed consequence:
+
+```text
+                              FIRST        LATE
+
+bounded delayed calibration
+start error                   0.435        0.231
+first-cycle hit               51.4%        82.6%
+
+fast only / slow frozen
+start error                   0.435        0.429
+first-cycle hit               51.4%        38.2%
+
+shuffled delayed context
+start error                   0.438        0.455
+first-cycle hit               50.0%        41.7%
+```
+
+The explicit EMA attacker is numerically identical to the current bounded slow learner because the structural budget does not activate.
+
+Finally, a conventional finite-difference-like probe basis almost matches the golden radial path:
+
+```text
+                         radial     cardinal cross
+
+RELIABLE                 92.8%          90.7%
+MIXED                    82.5%          81.4%
+SYSTEMATIC BIAS          85.1%          86.9%
+LOSS reacquisition       30.6 ms        63.9 ms
+```
+
+So Gate 7 earns a simpler engineering statement:
+
+> **A stable reference can be interrogated by a small structured local probe basis; relative relevance can alter fast calibration state immediately; repeated useful calibrations can later become delayed context memory.**
+
+The digital architecture does **not** require golden-angle sampling, a Ji attractor, or a novel slow learner.
+
+Canonical evidence:
+
+- `experiments/fork_2d_fast_recenter.py`
+- `results/fork_2d_fast_recenter.json`
+- `experiments/fork_2d_fast_slow_calibration.py`
+- `results/fork_2d_fast_slow_calibration.json`
+- `experiments/fork_2d_probe_basis_attack.py`
+- `results/fork_2d_probe_basis_attack.json`
+
 ## Next gate
 
-### Gate 7 — dimensionality attack
+### Gate 8 — dimensional scaling / probe cost
 
-The 1-D result may be geometrically easy. In 2-D there is no single left/right boundary pair.
+In 2-D, a +/-x, +/-y stencil is cheap. In a D-dimensional latent space, a full coordinate basis costs O(D) probe directions.
 
-Attack persistent structured coverage with:
+Attack:
 
-- boustrophedon/raster paths;
-- spirals;
-- Hilbert-like space-filling curves;
-- Lissajous/coupled oscillators;
-- low-discrepancy samples connected by short tours;
-- smooth random walks;
+- coordinate +/- basis;
+- random orthogonal directions;
+- Hadamard / structured sign probes;
+- SPSA two-point estimates;
+- low-rank adaptive subspaces;
+- smooth random motion;
 - IID random proposals.
 
-Match path length, probe count, wall time and compute where possible. Then ask whether a trajectory-relative delayed address can still refer to useful events.
+The key question is:
 
-If the result collapses outside one dimension, that is an important boundary rather than something to hide.
+> **Can the fast-calibration role survive increasing dimension without requiring one probe pair per latent coordinate?**
+
+If not, Gate 7 remains a useful low-dimensional control mechanism rather than a general AI primitive.
 
 ## Kill conditions
 
@@ -506,6 +585,8 @@ KyberDyyni should be considered unnecessary if ordinary alternatives win cleanly
 - GRU/RNN;
 - simple Markov statistic;
 - ordinary attention;
-- hand-coded search.
+- hand-coded search;
+- finite-difference / coordinate probing;
+- SPSA and other zeroth-order optimizers.
 
 The point is not to make biology-shaped software. The point is to see whether separating **fast sampling**, **phase-relative addressing**, and **slow consolidation** gives us a useful machine that ordinary static-weight thinking obscures.
