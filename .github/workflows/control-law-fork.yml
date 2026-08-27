@@ -27,5 +27,5 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
 
-      - name: Run cycle-level control fork
-        run: python experiments/fork_cycle_level_control.py
+      - name: Run directional-cue active-sensing fork
+        run: python experiments/fork_directional_cue.py
