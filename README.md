@@ -936,53 +936,122 @@ Canonical evidence:
 - `experiments/fork_sign_consequence_calibration.py`
 - `results/fork_sign_consequence_calibration_summary.json`
 
+## Gate 13 — rank scaling and weak excitation
+
+Gate 12 solved the residual sign ambiguity at rank 4. Gate 13 asks whether scalar-consequence calibration still behaves sensibly at rank 8 / 16 / 32, and whether every unresolved component must be probed on every context.
+
+The fork conditions on Gate 11 already having recovered the source axes and component identity. It isolates only the final orientation-calibration cost.
+
+Three context worlds were tested:
+
+- dense: every context excites every component;
+- sparse4: exactly four random components are active;
+- heavy-tail: all components exist, but later components are progressively weaker.
+
+Consequence noise was 0.02 and 0.04.
+
+### Rank 32 — selective measurement beats full probing
+
+Dense, noise 0.02, 64 calibration contexts:
+
+```text
+method           transfer success    error       scalar evaluations
+
+full bitwise          99.13%         0.0035            4096
+top-4                 99.17%         0.0034             512
+active-4              99.19%         0.0035             512
+random-4              19.72%         0.3648             512
+shuffled full          0.00%         0.8337            4096
+```
+
+The same eight-scalar-per-context ceiling reaches essentially the full solution with **8x fewer consequence measurements**.
+
+Sparse excitation makes the reason explicit:
+
+```text
+rank 32 / sparse4 / noise 0.02 / 64 contexts
+
+full bitwise    97.22% success   4096 evals
+top-4           99.11%            512
+active-4        98.92%            512
+```
+
+Twenty-eight inactive components provide zero signal but still inject consequence noise if they are probed. Measuring fewer coordinates can therefore be better than measuring all of them.
+
+### Heavy-tail world — exploration matters
+
+Always taking the four strongest currently expressed components neglects weak freedoms indefinitely.
+
+A minimal exploration discount,
+
+```text
+priority_i = |current coefficient_i| / sqrt(1 + times_probed_i)
+```
+
+keeps weak under-tested components alive.
+
+At rank 32 / noise 0.04 / 128 contexts:
+
+```text
+                    success     scalar evaluations
+
+full bitwise          79.7%          8192
+top-4                 59.0%          1024
+active-4              81.7%          1024
+```
+
+Active-4 slightly beats the full O(R)-per-context attacker while using one eighth the scalar consequence budget.
+
+Heavy-tail worlds also expose a metric problem: raw sign accuracy can be only ~82% while energy-weighted sign accuracy is already ~98.5%. The unresolved bits are mainly weak freedoms that barely affect behavior.
+
+Gate 13 therefore earns:
+
+> **A finite consequence budget should be allocated to the degrees of freedom that are informative now, while preserving exploration of under-tested freedoms. The relevant scaling variable is not rank alone but rank × excitation × consequence SNR.**
+
+No novel learning rule is claimed. The winning mechanism is ordinary active measurement allocation.
+
+Canonical evidence:
+
+- [RANK_SCALING_FORK.md](RANK_SCALING_FORK.md)
+- `experiments/fork_rank_scaling_sign.py`
+- `results/fork_rank_scaling_sign_summary.json`
+
 ## Next gate
 
-### Gate 13 — rank scaling and weak excitation
+### Gate 14 — temporal separator scaling and signature crowding
 
-Rank 4 is forgiving.
+Gate 13 assumes the upstream temporal stage already recovered all source axes and component identities.
 
-The natural attacker is now to increase the number of transferable components while keeping consequence local and noisy.
+That assumption must now be attacked.
 
-Exhaustive orientation search grows as:
+The question is:
 
-```text
-2^R
-```
+> **Does unlabeled temporal alignment survive higher rank, finite observation windows, noise, and increasingly similar temporal signatures?**
 
-while the successful bitwise strategy grows only as:
-
-```text
-2R scalar measurements per calibration context
-```
-
-The next question is:
-
-> **Does the temporal-alignment + scalar-consequence decomposition remain practical as latent rank grows, especially when some components are rarely or weakly excited?**
-
-A fair Gate 13 should vary:
+Gate 14 should vary:
 
 - rank: 4 / 8 / 16 / 32;
-- dense versus sparse context coefficients;
-- balanced versus heavy-tailed component usage;
-- consequence noise;
-- number of calibration contexts.
+- observation length;
+- stream noise;
+- spacing between temporal time constants / periods;
+- exact degeneracy where two components have identical temporal statistics.
 
 Attackers:
 
-- bitwise evidence accumulation;
-- adaptive bit selection based on uncertainty;
-- exhaustive search where still computationally feasible;
-- random signs;
-- shuffled consequence;
-- full paired-vector calibration;
-- direct ridge calibration using the same number of scalar-equivalent observations.
+- PCA / zero-lag covariance;
+- one-lag AMUSE;
+- multi-lag SOBI-style decomposition;
+- FastICA where non-Gaussian marginals exist;
+- oracle true source axes;
+- shuffled-time control.
 
-The key metric is no longer whether the signs can eventually be learned. It is:
+The critical metric is component identity recovery across independent views, not merely reconstruction of the latent subspace.
 
-> **How many scalar consequence measurements are needed per reusable degree of freedom?**
+A required control is exact temporal degeneracy:
 
-If the cost stays roughly linear in active rank, the decomposition has earned a real scaling claim. If weakly excited components make the map effectively unlearnable without vector supervision, that is the boundary to record.
+> If two components have identical second-order temporal statistics, the method must report or exhibit rotational ambiguity inside that subspace. A method that confidently invents a unique orientation there has failed the test.
+
+If performance is governed mainly by **separation between dynamical signatures relative to finite-window estimation noise**, that is a much more useful scaling law than “high dimension is hard.”
 
 ## Kill conditions
 
@@ -1001,6 +1070,7 @@ KyberDyyni should be considered unnecessary if ordinary alternatives win cleanly
 - ordinary EMA / online estimation for slow consolidation;
 - ordinary coordinate alignment / regression for cross-basis transfer;
 - ordinary covariance / CCA alignment for unlabeled cross-view transfer;
-- ordinary binary evidence accumulation for sign orientation.
+- ordinary binary evidence accumulation for sign orientation;
+- ordinary active measurement allocation for rank-scaled consequence probing.
 
 The point is not to make biology-shaped software. The point is to see whether separating **fast sampling**, **trajectory-relative addressing**, **slow consolidation**, and **coordinate relation** gives us a useful machine that ordinary static-weight thinking obscures.
