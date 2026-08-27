@@ -88,7 +88,7 @@ Adaptation destabilizes an activity bump and gives it intrinsic mobility. Theta 
 
 KyberDyyni1 steals the **functional decomposition**, not the biological implementation.
 
-The current `ThetaScanner` is deliberately simpler than their continuous-attractor model. Its left/right alternation is engineered. One of the first serious attacks is to replace that hard-coded alternation with an adaptation-generated moving attractor.
+The current `ThetaScanner` is deliberately simpler than their continuous-attractor model. Its left/right alternation is engineered. Gate 3 attacks that simplification.
 
 ### Vollan et al. 2026
 
@@ -160,55 +160,84 @@ Finally, repeated delayed local targets slowly teach the context -> axis prior. 
 10-seed receipt:
 
 ```text
-fast control before slow learning       ~0.893
-no cue before consolidation             ~0.502
-no cue after slow consolidation         ~0.891
+fast control before slow learning       0.8930
+no cue before consolidation             0.5023
+no cue after slow consolidation         0.8912
 ```
 
-This is deliberately a small result:
+This earns a small but useful separation:
 
 > **Fast state can solve an immediate problem before slow weights know it; repeated delayed local teaching can later consolidate the mapping.**
 
-The current gate does **not** prove that phase tagging is necessary. A shuffled short address queue performs nearly as well because neighboring samples often share the same context. That failed attack is informative: Gate 2 must create a task where the same context contains multiple phase-specific candidate events so delayed consequence is ambiguous without the phase coordinate.
+The first phase attack failed here: shuffling a short delayed context-address queue hardly hurt because neighboring samples usually belonged to the same context. That failure forced Gate 2 to remove temporal-neighbor ambiguity.
 
-## Phase hypothesis
+## Gate 2 — phase is an address, not decoration
 
-`PhaseBridge` emits a local coordinate containing:
+`experiments/gate2_phase_address.py`
 
-- anchor;
-- probe displacement;
-- sweep side;
-- fast axis/focus state;
-- `sin(theta)` / `cos(theta)` and a second harmonic;
-- context;
-- phase × context conjunctions.
+One continuous theta clock generates **eight candidate internal events per cycle**. Within a cycle the local event content and context are deliberately held identical; only their theta phase distinguishes them.
 
-This is an engineering hypothesis:
+Four contexts each prefer a different candidate slot. The machine chooses one event, but reward arrives **four theta cycles later**. The retained local credit record must therefore identify which within-sweep event was chosen.
 
-> **Phase may be useful as part of the address of a fast internal event, allowing slow local plasticity to distinguish different moments of an internally generated trajectory.**
+10 seeds:
 
-It is **not** yet an earned result.
+```text
+phase address                    1.0000 ± 0.0000
+no phase address                 0.1219 ± 0.0128
+shuffled phase address           0.1192 ± 0.0061
+8-way chance                     0.1250
+explicit slot-address attacker   1.0000 ± 0.0000
+```
+
+This finally earns a narrow phase claim:
+
+> **When otherwise identical candidate events coexist inside one internally generated sweep, theta phase can serve as a stable local address that lets delayed scalar consequence discriminate among them.**
+
+But the explicit slot attacker also solves the task perfectly. Therefore Gate 2 does **not** show that oscillatory phase is superior to ordinary addressing.
+
+It shows something more specific and useful:
+
+> **phase has earned a computational job: temporal addressability.**
+
+The slow update is reward-modulated local competition. A candidate's local credit vector is retained; several theta cycles later a scalar consequence changes bounded weights. No intervening state sequence is replayed or differentiated through.
+
+## Phase hypothesis: current status
+
+`PhaseBridge` and `PhaseAddressedSelector` now implement two related ideas:
+
+- phase as a coordinate describing **where an event lies inside a fast internal trajectory**;
+- phase × context conjunctions as a local address for slow plasticity.
+
+Gate 2 supports the first use in a deliberately isolated task.
+
+Still unearned:
+
+- phase outperforming an explicit counter/slot address;
+- phase solving arbitrary long-delay credit;
+- phase being necessary once candidate contents themselves are distinctive;
+- any claim that biological entorhinal cortex implements this exact code.
 
 ## No backpropagation
 
 There is no PyTorch, JAX, TensorFlow, autograd, gradient tape, reverse graph traversal, or BPTT.
 
-The slow learner uses a delayed local address and a bounded delta-like structural update:
+The slow learners use local retained addresses / eligibility-like records plus delayed consequence:
 
 ```text
-local context/address
-        |
-        +---- retained briefly
-                 |
-             consequence
-                 |
-                 v
-    local structural update
-                 |
-        finite L1 budget
+fast local event
+      |
+phase/context address
+      |
+retained local credit
+      |
+   time passes
+      |
+scalar consequence
+      |
+bounded local update
 ```
 
-This still uses a teaching/consequence signal. It is not a solution to arbitrary deep credit assignment.
+Gate 2 uses a reward-modulated local competition rule. That is still a learning rule with a teaching/reward signal; it is not a solution to arbitrary deep credit assignment.
 
 ## Run
 
@@ -216,33 +245,27 @@ This still uses a teaching/consequence signal. It is not a solution to arbitrary
 python -m pip install -r requirements.txt
 python experiments/gate0_theta_scanner.py
 python experiments/gate1_fast_slow_consolidation.py
+python experiments/gate2_phase_address.py
 python run_all.py
 python -m unittest discover -s tests
 ```
 
+Results are saved in `results/`.
+
 ## Next gates
 
-### Gate 2 — phase must matter
+### Gate 3 — adaptation must generate the sweep
 
-Construct one continuous context in which several candidate internal samples occur during every sweep. Deliver delayed consequence that identifies only one part of the trajectory.
+Replace the engineered left/right cycle parity with a small continuous-attractor-like population whose motion emerges from:
 
-Pass condition:
+- recurrent attraction;
+- firing-rate adaptation;
+- periodic modulation;
+- stable external anchoring.
 
-```text
-intact phase address >> shuffled phase address
-```
+Pass condition is not merely "it oscillates." We want a moving bump that remains bounded around an anchor and develops structured alternating sweeps without an explicit `cycle_index % 2` rule.
 
-If an ordinary delay queue or current-state statistic solves it equally well, phase has not earned a job.
-
-### Gate 3 — adaptation generates the sweep
-
-Replace hard left/right cycle parity with a small continuous attractor whose bump motion emerges from:
-
-- recurrent attraction,
-- firing-rate adaptation,
-- periodic modulation.
-
-Attack it with the simpler engineered alternator.
+Attack it with the current engineered scanner. If the engineered version is simpler and equally useful later, biology has not bought us anything.
 
 ### Gate 4 — useful internal search
 
@@ -253,13 +276,15 @@ Test whether relevance can:
 - redirect the axis;
 - narrow the sector;
 - increase sampling frequency;
-- improve decisions before slow weights change.
+- improve decisions **before** slow weights change.
+
+Attack with hand-coded search and ordinary attention.
 
 ### Gate 5 — consolidation from self-generated samples
 
-Turn off the external fast cue. Let internally generated sweeps produce candidate trajectories. Only later consequence is available.
+Remove the external fast cue. Let internally generated sweeps produce candidate trajectories. Only later consequence is available.
 
-Ask whether useful trajectories slowly become preferred by structural learning.
+Ask whether useful internally sampled trajectories slowly become preferred by structural learning.
 
 ### Gate 6 — offline / REM-like mode
 
@@ -267,12 +292,17 @@ Remove external input while keeping the internal scanner alive. Replay or genera
 
 This is an engineering test of a shared online/offline sampler, not a model of REM.
 
+### Gate 7 — coupled fast and slow populations
+
+Only after the small gates survive: make the fast scanner and slow structural population recurrently interact rather than remain cleanly separated modules.
+
 ## Kill conditions
 
 KyberDyyni should be considered unnecessary if ordinary alternatives win cleanly:
 
 - current-state MLP;
 - explicit delay features;
+- explicit phase/slot counter;
 - reservoir + linear readout;
 - GRU/RNN;
 - simple Markov statistic;
