@@ -2,6 +2,7 @@ import unittest
 import numpy as np
 
 from kyberdyyni import ThetaScanner, PhaseBridge, DelayedSlowPrior, KyberDyyni
+from phase_credit import PhaseAddressedSelector
 
 
 class CoreTests(unittest.TestCase):
@@ -39,6 +40,27 @@ class CoreTests(unittest.TestCase):
         for _ in range(100):
             m.step(0.0, np.array([1.0, 0.0]), fast_axis_control=1.0, learn=False)
         self.assertTrue(np.allclose(before, m.slow.weight))
+
+    def test_phase_selector_distinguishes_identical_events_by_phase(self):
+        s = PhaseAddressedSelector(context_dim=2, seed=2)
+        c = np.array([1.0, 0.0])
+        a = s.feature(c, 0.125)
+        b = s.feature(c, 0.625)
+        self.assertFalse(np.allclose(a, b))
+
+    def test_phase_selector_budget_is_bounded(self):
+        s = PhaseAddressedSelector(
+            context_dim=2,
+            seed=3,
+            delay_cycles=0,
+            learning_rate=2.0,
+            structural_budget=0.75,
+        )
+        c = np.array([1.0, 0.0])
+        phases = np.array([0.125, 0.375, 0.625, 0.875])
+        for _ in range(200):
+            s.step_cycle(c, phases, delayed_reward=1.0, learn=True)
+        self.assertLessEqual(s.used_capacity, 0.75 + 1e-9)
 
 
 if __name__ == "__main__":
