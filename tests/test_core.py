@@ -3,6 +3,7 @@ import numpy as np
 
 from kyberdyyni import ThetaScanner, PhaseBridge, DelayedSlowPrior, KyberDyyni
 from phase_credit import PhaseAddressedSelector
+from attractor_scanner import AdaptationRingScanner
 
 
 class CoreTests(unittest.TestCase):
@@ -61,6 +62,20 @@ class CoreTests(unittest.TestCase):
         for _ in range(200):
             s.step_cycle(c, phases, delayed_reward=1.0, learn=True)
         self.assertLessEqual(s.used_capacity, 0.75 + 1e-9)
+
+    def test_adaptation_attractor_moves_without_explicit_side_rule(self):
+        s = AdaptationRingScanner(seed=1)
+        center = np.asarray([s.step(0.0)["center"] for _ in range(1800)])
+        # After settling, the bump should leave the external anchor by a
+        # substantial angle under the full Ji-like mechanism.
+        self.assertGreater(np.max(np.abs(center[800:])), 0.35)
+
+    def test_adaptation_is_required_for_large_sweeps(self):
+        full = AdaptationRingScanner(seed=2)
+        dead = AdaptationRingScanner(seed=2, adaptation_mbar=0.0)
+        a = np.asarray([full.step(0.0)["center"] for _ in range(1600)])
+        b = np.asarray([dead.step(0.0)["center"] for _ in range(1600)])
+        self.assertGreater(np.std(a[800:]), 20.0 * np.std(b[800:]))
 
 
 if __name__ == "__main__":
