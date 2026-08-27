@@ -1,0 +1,25 @@
+name: temporal-separator-scaling-fork
+
+on:
+  push:
+    branches: [temporal-separator-scaling-fork]
+  workflow_dispatch:
+
+concurrency:
+  group: kyberdyyni-temporal-separator-scaling-fork
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m compileall -q experiments
+      - name: Run temporal separator scaling attack
+        run: python experiments/fork_temporal_separator_scaling.py
