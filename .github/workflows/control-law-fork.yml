@@ -29,3 +29,9 @@ jobs:
 
       - name: Run control-law bakeoff
         run: python experiments/fork_control_laws.py
+
+      - name: Map Ji-like mechanism knobs
+        run: python experiments/fork_mechanism_map.py
+
+      - name: Run stable-reference attention mechanisms
+        run: python experiments/fork_attention_mechanisms.py
