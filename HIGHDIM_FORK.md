@@ -66,3 +66,70 @@ Metrics include:
 Question:
 
 > **Can the Gate-7 fast-calibration role survive increasing latent dimension without paying one probe pair per coordinate?**
+
+
+## Fork 1 result — fixed directions eventually hit a horizon
+
+The first run held the number of fast update cycles at 10. Full coordinates were allowed their natural `2D+1` scalar evaluations per cycle, while block methods used at most 17.
+
+Dense-bias selected means:
+
+```text
+D=16
+full coordinate        100% success   ~118 probes to success
+coordinate block8      100%           ~92
+Hadamard block8        100%           ~94
+random orthogonal8     100%           ~98
+
+D=32
+full coordinate        100%           ~238
+coordinate block8       91.7%         ~135
+Hadamard block8         91.7%         ~136
+random orthogonal8      62.5%         ~165
+
+D=64
+full coordinate        100%           ~478
+coordinate block8       12.5%         ~169 max
+Hadamard block8         20.8%         ~169 max
+random orthogonal8       0%
+```
+
+Sparse-four-coordinate bias gives Hadamard mixing a clearer advantage at D=32:
+
+```text
+full coordinate        100% success   ~233 probes
+Hadamard block8        100%           ~125
+coordinate block8       33.3%         ~165
+```
+
+At D=64, however, even Hadamard mostly fails inside 10 cycles.
+
+SPSA's two directional probes collapse much earlier: its gradient-direction cosine falls from ~0.79 at D=2 to ~0.09 at dense D=64.
+
+This does **not** yet prove an O(D) lower bound. The fixed-block methods were simply denied the hundreds of scalar evaluations that the full-coordinate attacker consumed.
+
+Receipt: `results/fork_highdim_probe_scaling.json`.
+
+## Fork 2 — equal total scalar-probe budget
+
+The next attack fixes the actual resource.
+
+Dimensions:
+
+```text
+16, 32, 64, 128, 256
+```
+
+Budgets:
+
+```text
+64, 128, 256, 512 scalar relevance evaluations
+```
+
+Every scalar center or +/- directional evaluation costs one unit. Methods stop instead of exceeding the budget.
+
+This gives the 8-direction block methods many cheap fast cycles while a full D-coordinate gradient may get only a few—or no—updates.
+
+The relevance signal remains noiseless in this fork so the **budget/horizon** issue is isolated cleanly. If compressed probes survive, a scalar-measurement-noise attacker follows immediately.
+
+Implementation: `experiments/fork_highdim_equal_probe_budget.py`.
