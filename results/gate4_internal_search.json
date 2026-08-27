@@ -1,0 +1,60 @@
+{
+  "adaptation_attractor": {
+    "mean_acquisition_steps": 554.15,
+    "mean_acquisition_steps_std": 104.21761787241157,
+    "success_fraction": 0.95,
+    "success_fraction_std": 0.06123724356957945,
+    "mean_tracking_error_rad": 0.44312248256843534,
+    "mean_tracking_error_rad_std": 0.1552604985053133,
+    "mean_probe_travel_rad_per_step": 0.011578042383080007,
+    "mean_probe_travel_rad_per_step_std": 0.00044138007544677985,
+    "mean_sample_value": 0.881333300230847,
+    "mean_sample_value_std": 0.044350603868263325
+  },
+  "engineered_sweep_attacker": {
+    "mean_acquisition_steps": 426.9,
+    "mean_acquisition_steps_std": 100.13425050900416,
+    "success_fraction": 0.9875,
+    "success_fraction_std": 0.0375,
+    "mean_tracking_error_rad": 0.32974942944414165,
+    "mean_tracking_error_rad_std": 0.11336436555750135,
+    "mean_probe_travel_rad_per_step": 0.011712207192646845,
+    "mean_probe_travel_rad_per_step_std": 0.00006846951520981886,
+    "mean_sample_value": 0.8974657953712674,
+    "mean_sample_value_std": 0.03368632935018902
+  },
+  "random_dither_attacker": {
+    "mean_acquisition_steps": 312.5625,
+    "mean_acquisition_steps_std": 60.48631689274856,
+    "success_fraction": 1.0,
+    "success_fraction_std": 0.0,
+    "mean_tracking_error_rad": 0.24020417138757272,
+    "mean_tracking_error_rad_std": 0.0776617898945969,
+    "mean_probe_travel_rad_per_step": 0.4000196043063717,
+    "mean_probe_travel_rad_per_step_std": 0.002677629066874534,
+    "mean_sample_value": 0.9161981946592339,
+    "mean_sample_value_std": 0.02372771857692474
+  },
+  "static_no_sweep_control": {
+    "mean_acquisition_steps": 1170.0,
+    "mean_acquisition_steps_std": 60.0,
+    "success_fraction": 0.025,
+    "success_fraction_std": 0.05000000000000001,
+    "mean_tracking_error_rad": 1.756848991557947,
+    "mean_tracking_error_rad_std": 0.378855195946998,
+    "mean_probe_travel_rad_per_step": 0.0,
+    "mean_probe_travel_rad_per_step_std": 0.0,
+    "mean_sample_value": 0.4211535191825492,
+    "mean_sample_value_std": 0.14657250403741376
+  },
+  "settings": {
+    "n_seeds": 10,
+    "target_jumps_per_seed": 8,
+    "steps_per_target": 1200,
+    "acquired_threshold_rad": 0.15,
+    "probe_amplitude_rad": 0.6,
+    "slow_weight_changes": 0
+  },
+  "claim": "a continuous internally generated sweep can support useful zeroth-order target search before any slow structural learning",
+  "boundary": "the adaptation-driven scanner is not the fastest searcher here: engineered sweeps and especially random dither acquire targets faster; its distinguishing property in this gate is smooth low-travel sampling rather than raw search speed"
+}
