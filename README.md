@@ -247,6 +247,7 @@ python experiments/gate0_theta_scanner.py
 python experiments/gate1_fast_slow_consolidation.py
 python experiments/gate2_phase_address.py
 python experiments/gate3_adaptation_attractor.py
+python experiments/gate4_internal_search.py
 python run_all.py
 python -m unittest discover -s tests
 ```
@@ -293,18 +294,43 @@ This earns:
 
 It does **not** show that this population is more useful than the tiny engineered `ThetaScanner`. The engineered scanner remains dramatically simpler and alternates perfectly by construction. Gate 4 must make the dynamical scanner perform useful search before the added mechanism has earned its engineering cost.
 
-### Gate 4 — useful internal search
+## Gate 4 — useful internal search, with an attacker win
 
-Put a target in a small latent world. The anchor represents "where the system is." The fast scanner samples nearby alternatives.
+`experiments/gate4_internal_search.py`
 
-Test whether relevance can:
+The fast sampler now performs an actual operation rather than merely producing a sweep. A hidden target lives on a circular latent manifold and jumps eight times per seed. The system is never given target direction or a derivative. It receives only the scalar value of whichever internal point it probes.
 
-- redirect the axis;
-- narrow the sector;
-- increase sampling frequency;
-- improve decisions **before** slow weights change.
+All active searchers use the same fast zeroth-order steering rule:
 
-Attack with hand-coded search and ordinary attention.
+```text
+anchor += eta * (sample_value - running_baseline) * (probe - anchor)
+```
+
+No slow weights change.
+
+10 seeds:
+
+```text
+                              acquisition     success     tracking error   probe travel / step
+adaptation attractor          554 steps        95.0%       0.443 rad        0.0116 rad
+engineered theta sweep        427 steps        98.8%       0.330 rad        0.0117 rad
+random dither                 313 steps       100.0%       0.240 rad        0.4000 rad
+static / no sweep            1170 steps         2.5%       1.757 rad        0
+```
+
+So the adaptation-driven scanner **does useful derivative-free internal search**, but it does not win the simple benchmark. The trivial engineered sweep is faster, and random dither is faster still.
+
+The interesting tradeoff is continuity: the attractor and engineered sweeps move only about 0.012 rad per step, while random dithering moves about 0.40 rad per step. Random search is roughly 34x more mobile internally in exchange for its faster acquisition.
+
+This earns:
+
+> **A continuously generated fast sweep can be used as an online search process before slow learning changes anything.**
+
+It does **not** earn:
+
+> the biological sweep mechanism is a better generic optimizer.
+
+If internal trajectory continuity, transition cost, or state-dependent computation does not matter in later tasks, the random/engineered attackers should kill the extra attractor machinery.
 
 ### Gate 5 — consolidation from self-generated samples
 
