@@ -1,0 +1,387 @@
+{
+  "one_factor_mechanism_map": {
+    "adaptation_mbar": {
+      "6.0": {
+        "mean_cycle_peak_abs_rad": 0.0036548979553146055,
+        "mean_cycle_peak_abs_rad_std": 0.000409934840037441,
+        "alternation_fraction": 0.5434782608695652,
+        "alternation_fraction_std": 0.09962121075990955,
+        "mean_step_travel_rad": 0.00027879405039500307,
+        "mean_step_travel_rad_std": 7.800422194467881e-06,
+        "mean_bump_coherence": 0.9230785637777904,
+        "mean_bump_coherence_std": 1.0841353173664911e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "9.0": {
+        "mean_cycle_peak_abs_rad": 0.18750344288934986,
+        "mean_cycle_peak_abs_rad_std": 0.03279499283068625,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.003741635935626882,
+        "mean_step_travel_rad_std": 0.0006499492301107791,
+        "mean_bump_coherence": 0.9247782064000657,
+        "mean_bump_coherence_std": 0.00041434906434059064,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "12.0": {
+        "mean_cycle_peak_abs_rad": 0.5931613839381566,
+        "mean_cycle_peak_abs_rad_std": 0.0001360946709662026,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.011862526117369276,
+        "mean_step_travel_rad_std": 2.2614769881904497e-06,
+        "mean_bump_coherence": 0.9337875142835481,
+        "mean_bump_coherence_std": 2.080553734475003e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "15.0": {
+        "mean_cycle_peak_abs_rad": 0.7814884312423267,
+        "mean_cycle_peak_abs_rad_std": 0.00039098002739489384,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.015627151641201778,
+        "mean_step_travel_rad_std": 8.311766965379131e-06,
+        "mean_bump_coherence": 0.9356330066041122,
+        "mean_bump_coherence_std": 2.668290772320384e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "18.0": {
+        "mean_cycle_peak_abs_rad": 1.2062229009369672,
+        "mean_cycle_peak_abs_rad_std": 0.251985072278161,
+        "alternation_fraction": 0.9130434782608696,
+        "alternation_fraction_std": 0.10649955403405124,
+        "mean_step_travel_rad": 0.026337341070437555,
+        "mean_step_travel_rad_std": 0.006851032399435915,
+        "mean_bump_coherence": 0.9273051022952192,
+        "mean_bump_coherence_std": 0.006929097298791397,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      }
+    },
+    "theta_period_ms": {
+      "70.0": {
+        "mean_cycle_peak_abs_rad": 0.12090115687818392,
+        "mean_cycle_peak_abs_rad_std": 0.008352157610218068,
+        "alternation_fraction": 0.8409090909090909,
+        "alternation_fraction_std": 0.013121597027036936,
+        "mean_step_travel_rad": 0.0032735784446172827,
+        "mean_step_travel_rad_std": 0.0002142426231817285,
+        "mean_bump_coherence": 0.9241738371047429,
+        "mean_bump_coherence_std": 0.00013048118864149153,
+        "cycles_per_second": 14.285714285714286,
+        "cycles_per_second_std": 0.0
+      },
+      "85.0": {
+        "mean_cycle_peak_abs_rad": 0.4898685911884414,
+        "mean_cycle_peak_abs_rad_std": 0.00039752602917339573,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.0115039816135354,
+        "mean_step_travel_rad_std": 9.554738112347256e-06,
+        "mean_bump_coherence": 0.9335282760814099,
+        "mean_bump_coherence_std": 1.4889046104977372e-05,
+        "cycles_per_second": 11.764705882352942,
+        "cycles_per_second_std": 0.0
+      },
+      "100.0": {
+        "mean_cycle_peak_abs_rad": 0.5931613839381566,
+        "mean_cycle_peak_abs_rad_std": 0.0001360946709662026,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.011862526117369276,
+        "mean_step_travel_rad_std": 2.2614769881904497e-06,
+        "mean_bump_coherence": 0.9337875142835481,
+        "mean_bump_coherence_std": 2.080553734475003e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "115.0": {
+        "mean_cycle_peak_abs_rad": 0.6715065127874689,
+        "mean_cycle_peak_abs_rad_std": 0.0005406603656176914,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.011733529802163203,
+        "mean_step_travel_rad_std": 1.2158684562131588e-05,
+        "mean_bump_coherence": 0.9323410628677411,
+        "mean_bump_coherence_std": 3.404348486640148e-05,
+        "cycles_per_second": 8.695652173913043,
+        "cycles_per_second_std": 0.0
+      },
+      "130.0": {
+        "mean_cycle_peak_abs_rad": 0.7283392291063745,
+        "mean_cycle_peak_abs_rad_std": 0.0006403067443152284,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.011303580104301426,
+        "mean_step_travel_rad_std": 1.323187033513333e-05,
+        "mean_bump_coherence": 0.9304127536245836,
+        "mean_bump_coherence_std": 1.1406360067233474e-05,
+        "cycles_per_second": 7.6923076923076925,
+        "cycles_per_second_std": 0.0
+      }
+    },
+    "theta_modulation": {
+      "0.15": {
+        "mean_cycle_peak_abs_rad": 0.10138673832745794,
+        "mean_cycle_peak_abs_rad_std": 0.06372056139192665,
+        "alternation_fraction": 0.967391304347826,
+        "alternation_fraction_std": 0.05647991763811557,
+        "mean_step_travel_rad": 0.0020975923440833847,
+        "mean_step_travel_rad_std": 0.0011893276373306535,
+        "mean_bump_coherence": 0.924002267785816,
+        "mean_bump_coherence_std": 0.0007206317811502451,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "0.28": {
+        "mean_cycle_peak_abs_rad": 0.4089147947118272,
+        "mean_cycle_peak_abs_rad_std": 0.06063851247140172,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.00818113583020844,
+        "mean_step_travel_rad_std": 0.001199412236092839,
+        "mean_bump_coherence": 0.9301062272643907,
+        "mean_bump_coherence_std": 0.0012450029538550054,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "0.4": {
+        "mean_cycle_peak_abs_rad": 0.5931613839381566,
+        "mean_cycle_peak_abs_rad_std": 0.0001360946709662026,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.011862526117369276,
+        "mean_step_travel_rad_std": 2.2614769881904497e-06,
+        "mean_bump_coherence": 0.9337875142835481,
+        "mean_bump_coherence_std": 2.080553734475003e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "0.55": {
+        "mean_cycle_peak_abs_rad": 0.7606368482354255,
+        "mean_cycle_peak_abs_rad_std": 0.00024276192282194918,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.015212123072233377,
+        "mean_step_travel_rad_std": 4.847824064654007e-06,
+        "mean_bump_coherence": 0.9350563147121164,
+        "mean_bump_coherence_std": 2.1622481331715537e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "0.7": {
+        "mean_cycle_peak_abs_rad": 3.1024024640650687,
+        "mean_cycle_peak_abs_rad_std": 0.008635193160546199,
+        "alternation_fraction": 0.5434782608695652,
+        "alternation_fraction_std": 0.08963273099168828,
+        "mean_step_travel_rad": 0.09089490799562015,
+        "mean_step_travel_rad_std": 0.0007260253935241072,
+        "mean_bump_coherence": 0.8760512226762383,
+        "mean_bump_coherence_std": 0.0008010834198868043,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      }
+    },
+    "external_gain": {
+      "1.8": {
+        "mean_cycle_peak_abs_rad": 0.658827111866145,
+        "mean_cycle_peak_abs_rad_std": 0.0004612932641508902,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.013171717480505232,
+        "mean_step_travel_rad_std": 9.425976005681767e-06,
+        "mean_bump_coherence": 0.9378123595102111,
+        "mean_bump_coherence_std": 2.5334543711100833e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "2.4": {
+        "mean_cycle_peak_abs_rad": 0.6385195247593951,
+        "mean_cycle_peak_abs_rad_std": 0.0001952973399702656,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.012765799754656153,
+        "mean_step_travel_rad_std": 4.740087203109587e-06,
+        "mean_bump_coherence": 0.9357334160033588,
+        "mean_bump_coherence_std": 1.7885094582352478e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "3.0": {
+        "mean_cycle_peak_abs_rad": 0.5931613839381566,
+        "mean_cycle_peak_abs_rad_std": 0.0001360946709662026,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.011862526117369276,
+        "mean_step_travel_rad_std": 2.2614769881904497e-06,
+        "mean_bump_coherence": 0.9337875142835481,
+        "mean_bump_coherence_std": 2.080553734475003e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "3.6": {
+        "mean_cycle_peak_abs_rad": 0.5350364182604486,
+        "mean_cycle_peak_abs_rad_std": 0.00026897980390065603,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.010701125705753295,
+        "mean_step_travel_rad_std": 7.60260692097167e-06,
+        "mean_bump_coherence": 0.9316920787218119,
+        "mean_bump_coherence_std": 0.00011467863666730433,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "4.2": {
+        "mean_cycle_peak_abs_rad": 0.44027312544594427,
+        "mean_cycle_peak_abs_rad_std": 0.02896585167494408,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.008806703772564588,
+        "mean_step_travel_rad_std": 0.0005784421134866301,
+        "mean_bump_coherence": 0.9290901190438947,
+        "mean_bump_coherence_std": 0.0005458187045646547,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      }
+    },
+    "recurrent_gain": {
+      "2.5": {
+        "mean_cycle_peak_abs_rad": 0.23599635739036082,
+        "mean_cycle_peak_abs_rad_std": 0.04144298027763435,
+        "alternation_fraction": 0.9782608695652174,
+        "alternation_fraction_std": 0.0376532784254104,
+        "mean_step_travel_rad": 0.004743263861641544,
+        "mean_step_travel_rad_std": 0.0008095774205976755,
+        "mean_bump_coherence": 0.9247649881372236,
+        "mean_bump_coherence_std": 0.00045340505656289547,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "3.25": {
+        "mean_cycle_peak_abs_rad": 0.5186619527977834,
+        "mean_cycle_peak_abs_rad_std": 0.0027731350960494617,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.0103727834629492,
+        "mean_step_travel_rad_std": 5.909553394005816e-05,
+        "mean_bump_coherence": 0.9309577316713908,
+        "mean_bump_coherence_std": 0.00018303830218252938,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "4.0": {
+        "mean_cycle_peak_abs_rad": 0.5931613839381566,
+        "mean_cycle_peak_abs_rad_std": 0.0001360946709662026,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.011862526117369276,
+        "mean_step_travel_rad_std": 2.2614769881904497e-06,
+        "mean_bump_coherence": 0.9337875142835481,
+        "mean_bump_coherence_std": 2.080553734475003e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "4.75": {
+        "mean_cycle_peak_abs_rad": 0.6312039549236558,
+        "mean_cycle_peak_abs_rad_std": 0.00010606674105454947,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.012619903882292257,
+        "mean_step_travel_rad_std": 2.922301382854359e-06,
+        "mean_bump_coherence": 0.9354964176218442,
+        "mean_bump_coherence_std": 1.270734619968508e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "5.5": {
+        "mean_cycle_peak_abs_rad": 0.6506463156093942,
+        "mean_cycle_peak_abs_rad_std": 0.00020920355007785047,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.013006424552017826,
+        "mean_step_travel_rad_std": 4.54163982124962e-06,
+        "mean_bump_coherence": 0.9367132380797252,
+        "mean_bump_coherence_std": 1.2123511781771544e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      }
+    },
+    "width_rad": {
+      "0.3": {
+        "mean_cycle_peak_abs_rad": 0.4916022683879931,
+        "mean_cycle_peak_abs_rad_std": 0.00013769973373968066,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.009827756128243477,
+        "mean_step_travel_rad_std": 3.6816687141587823e-06,
+        "mean_bump_coherence": 0.9648964996843628,
+        "mean_bump_coherence_std": 1.6360568551369317e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "0.35": {
+        "mean_cycle_peak_abs_rad": 0.5647372943219255,
+        "mean_cycle_peak_abs_rad_std": 0.00021405479626817838,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.011289899003344218,
+        "mean_step_travel_rad_std": 4.783443621483669e-06,
+        "mean_bump_coherence": 0.950816782125885,
+        "mean_bump_coherence_std": 1.2858169084419796e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "0.4": {
+        "mean_cycle_peak_abs_rad": 0.5931613839381566,
+        "mean_cycle_peak_abs_rad_std": 0.0001360946709662026,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.011862526117369276,
+        "mean_step_travel_rad_std": 2.2614769881904497e-06,
+        "mean_bump_coherence": 0.9337875142835481,
+        "mean_bump_coherence_std": 2.080553734475003e-05,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "0.45": {
+        "mean_cycle_peak_abs_rad": 0.5687329685149247,
+        "mean_cycle_peak_abs_rad_std": 0.004070309872021623,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.011373423620811954,
+        "mean_step_travel_rad_std": 8.517762834252383e-05,
+        "mean_bump_coherence": 0.9130094998714915,
+        "mean_bump_coherence_std": 0.00024874992782358867,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      },
+      "0.5": {
+        "mean_cycle_peak_abs_rad": 0.39424287544988085,
+        "mean_cycle_peak_abs_rad_std": 0.0405830398637331,
+        "alternation_fraction": 1.0,
+        "alternation_fraction_std": 0.0,
+        "mean_step_travel_rad": 0.007897274821176496,
+        "mean_step_travel_rad_std": 0.0008016270698251698,
+        "mean_bump_coherence": 0.8871233405388608,
+        "mean_bump_coherence_std": 0.0006293393384550172,
+        "cycles_per_second": 10.0,
+        "cycles_per_second_std": 0.0
+      }
+    }
+  },
+  "base_parameters": {
+    "adaptation_mbar": 12.0,
+    "theta_period_ms": 100.0,
+    "theta_modulation": 0.4,
+    "external_gain": 3.0,
+    "recurrent_gain": 4.0,
+    "width_rad": 0.4
+  },
+  "n_seeds": 4,
+  "question": "Which Ji-like mechanism knobs actually change sweep angle, alternation, temporal rate, continuity and bump coherence when varied one at a time?",
+  "warning": "These are mechanism sensitivities, not biological identifications. A population-level Vollan observation should not be assigned to one cellular parameter merely because that parameter can move the same summary statistic."
+}

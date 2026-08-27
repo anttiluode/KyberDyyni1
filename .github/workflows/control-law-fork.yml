@@ -27,11 +27,5 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
 
-      - name: Run control-law bakeoff
-        run: python experiments/fork_control_laws.py
-
-      - name: Map Ji-like mechanism knobs
-        run: python experiments/fork_mechanism_map.py
-
-      - name: Run stable-reference attention mechanisms
-        run: python experiments/fork_attention_mechanisms.py
+      - name: Run cycle-level control fork
+        run: python experiments/fork_cycle_level_control.py
