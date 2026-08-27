@@ -1,0 +1,60 @@
+{
+  "full_adaptation_theta_recurrence": {
+    "mean_cycle_peak_abs_rad": 0.5931175654797405,
+    "mean_cycle_peak_abs_rad_std": 0.0005149735385662924,
+    "cycle_to_cycle_alternation": 1.0,
+    "cycle_to_cycle_alternation_std": 0.0,
+    "center_std_rad": 0.34379297934334285,
+    "center_std_rad_std": 0.00026215676246796305,
+    "mean_center_abs_rad": 0.2837519330929674,
+    "mean_center_abs_rad_std": 0.0001938627557377725,
+    "max_center_abs_rad": 0.6111331132110411,
+    "max_center_abs_rad_std": 0.0028055592974287665
+  },
+  "no_adaptation": {
+    "mean_cycle_peak_abs_rad": 0.0024981552177858564,
+    "mean_cycle_peak_abs_rad_std": 0.00008772088920553999,
+    "cycle_to_cycle_alternation": 0.45714285714285713,
+    "cycle_to_cycle_alternation_std": 0.07369579626639913,
+    "center_std_rad": 0.0011149955488047114,
+    "center_std_rad_std": 0.00005138015005526005,
+    "mean_center_abs_rad": 0.0008746573335317904,
+    "mean_center_abs_rad_std": 0.000035641588316717154,
+    "max_center_abs_rad": 0.0046230121780961855,
+    "max_center_abs_rad_std": 0.0006160767624755789
+  },
+  "no_theta_modulation": {
+    "mean_cycle_peak_abs_rad": 0.013527479893645819,
+    "mean_cycle_peak_abs_rad_std": 0.0012173914545885076,
+    "cycle_to_cycle_alternation": 0.7571428571428571,
+    "cycle_to_cycle_alternation_std": 0.06084918986071663,
+    "center_std_rad": 0.008443601339302234,
+    "center_std_rad_std": 0.0009097067415030322,
+    "mean_center_abs_rad": 0.006834208277817963,
+    "mean_center_abs_rad_std": 0.0007386629149777452,
+    "max_center_abs_rad": 0.025296193174066783,
+    "max_center_abs_rad_std": 0.0028053100282947802
+  },
+  "no_recurrence": {
+    "mean_cycle_peak_abs_rad": 0.025152681547725004,
+    "mean_cycle_peak_abs_rad_std": 0.0010165328142284066,
+    "cycle_to_cycle_alternation": 0.5408163265306122,
+    "cycle_to_cycle_alternation_std": 0.040043707898670566,
+    "center_std_rad": 0.007302326640427072,
+    "center_std_rad_std": 0.00032589672754956183,
+    "mean_center_abs_rad": 0.004447340269979614,
+    "mean_center_abs_rad_std": 0.00016054262640623283,
+    "max_center_abs_rad": 0.05504081283792295,
+    "max_center_abs_rad_std": 0.015183926189235567
+  },
+  "settings": {
+    "n_seeds": 10,
+    "duration_ms": 6000,
+    "burn_ms": 1000,
+    "theta_period_ms": 100,
+    "n_cells": 100,
+    "anchor_angle_rad": 0.0
+  },
+  "claim": "bounded alternating bump sweeps emerge from recurrent attraction, slow adaptation and theta modulation; no explicit left/right parity rule appears in the scanner",
+  "attacker_note": "the engineered ThetaScanner remains much simpler and alternates by construction; Gate 3 establishes emergence, not engineering superiority"
+}
