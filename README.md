@@ -853,49 +853,136 @@ Canonical evidence:
 - `experiments/fork_unlabeled_temporal_alignment.py`
 - `results/fork_unlabeled_temporal_alignment_summary.json`
 
-## Next gate
+## Gate 12 — scalar consequence resolves residual sign bits
 
-### Gate 12 — resolve the residual sign bits with local consequence
-
-Gate 11 reduces a difficult arbitrary cross-basis problem to something much smaller in the symmetric Gaussian case.
-
-After temporal decomposition we know:
-
-- the relevant low-rank subspace;
-- which component is which across views;
-- the axis geometry.
-
-What remains is one binary orientation choice per component.
-
-For rank 4:
+Gate 11 reduced the symmetric Gaussian cross-basis problem to a small exact ambiguity:
 
 ```text
-arbitrary 16-D relation
-        ↓ temporal separation
-four unresolved sign bits
-        ↓ ?
-usable transfer map
+arbitrary basis relation
+        ↓ temporal decomposition
+axes + component identity
+        ↓
+one unresolved sign bit per component
 ```
 
-KyberDyyni already has exactly the missing kind of signal: local scalar consequence.
+For rank 4 that means only 16 possible orientation maps.
+
+Gate 12 asks whether KyberDyyni's existing local scalar consequence can finish that job without restoring explicit cross-view labels.
+
+The answer is yes, and the winning update rule is deliberately ordinary.
+
+### Bitwise consequence attack
+
+For each unresolved component, compare two candidate maps that differ only in that sign bit. Accumulate the scalar relevance difference across unrelated calibration contexts.
+
+No vector-valued B-side correction is exposed.
+
+```text
+no consequence noise
+
+method                    contexts   scalar evals   sign accuracy   transfer success
+
+random signs                  --           0           52.1%             15.8%
+hill climb                     1           5           96.4%             88.3%
+bitwise                        1           8           95.8%             86.6%
+bitwise                        2          16          100.0%            100.0%
+exhaustive 16 patterns         2          32          100.0%            100.0%
+shuffled consequence          32         256           51.6%             13.8%
+```
+
+The exact sign oracle's transfer floor is about:
+
+```text
+error   0.0376
+success 100%
+```
+
+and ordinary bitwise accumulation reaches that floor.
+
+### Consequence noise
+
+More contexts supply repeated evidence naturally:
+
+```text
+consequence noise      contexts to oracle floor      scalar evals
+
+0.00                               2                         16
+0.01                               4                         32
+0.02                               8                         64
+0.04                              16                        128
+```
+
+At sigma 0.04:
+
+```text
+K=4    success 96.6%   sign accuracy 99.0%
+K=8            98.3%                 99.5%
+K=16          100.0%                100.0%
+```
+
+Repeatedly measuring the same +/- pair twice is not worth its doubled cost here. Different contexts are the better repetitions because they excite different components with different strengths.
+
+The shuffled-consequence control stays at chance sign accuracy and poor transfer even after 256 scalar evaluations.
+
+So Gate 12 earns:
+
+> **Blind temporal alignment can compress an arbitrary coordinate problem into a handful of global binary ambiguities, and ordinary local scalar consequence can resolve and retain those bits for future transfer.**
+
+It does **not** earn a novel sign learner.
+
+Canonical evidence:
+
+- [SIGN_CONSEQUENCE_FORK.md](SIGN_CONSEQUENCE_FORK.md)
+- `experiments/fork_sign_consequence_calibration.py`
+- `results/fork_sign_consequence_calibration_summary.json`
+
+## Next gate
+
+### Gate 13 — rank scaling and weak excitation
+
+Rank 4 is forgiving.
+
+The natural attacker is now to increase the number of transferable components while keeping consequence local and noisy.
+
+Exhaustive orientation search grows as:
+
+```text
+2^R
+```
+
+while the successful bitwise strategy grows only as:
+
+```text
+2R scalar measurements per calibration context
+```
 
 The next question is:
 
-> **Can a few fast scalar-consequence probes resolve the global sign bits left by blind temporal alignment, then consolidate them so future contexts transfer without repeating the search?**
+> **Does the temporal-alignment + scalar-consequence decomposition remain practical as latent rank grows, especially when some components are rarely or weakly excited?**
 
-A fair attack should compare:
+A fair Gate 13 should vary:
 
-- exhaustive search over all 2^R sign patterns;
-- one-bit-at-a-time sign probes;
-- noisy bandit / Bayesian sign estimation;
-- random-sign baseline;
-- one fully paired vector as an oracle;
-- frozen wrong-sign map;
-- shuffled consequence control.
+- rank: 4 / 8 / 16 / 32;
+- dense versus sparse context coefficients;
+- balanced versus heavy-tailed component usage;
+- consequence noise;
+- number of calibration contexts.
 
-The important metric is total scalar evaluations required to recover a reusable global orientation map, not just per-context success.
+Attackers:
 
-If a handful of ordinary binary probes solve it, that is good. The architectural claim would be that **blind dynamics compress a hard coordinate problem into a tiny residual search that local consequence can finish and slow memory can retain**.
+- bitwise evidence accumulation;
+- adaptive bit selection based on uncertainty;
+- exhaustive search where still computationally feasible;
+- random signs;
+- shuffled consequence;
+- full paired-vector calibration;
+- direct ridge calibration using the same number of scalar-equivalent observations.
+
+The key metric is no longer whether the signs can eventually be learned. It is:
+
+> **How many scalar consequence measurements are needed per reusable degree of freedom?**
+
+If the cost stays roughly linear in active rank, the decomposition has earned a real scaling claim. If weakly excited components make the map effectively unlearnable without vector supervision, that is the boundary to record.
 
 ## Kill conditions
 
@@ -914,6 +1001,6 @@ KyberDyyni should be considered unnecessary if ordinary alternatives win cleanly
 - ordinary EMA / online estimation for slow consolidation;
 - ordinary coordinate alignment / regression for cross-basis transfer;
 - ordinary covariance / CCA alignment for unlabeled cross-view transfer;
-- ordinary binary search / bandit estimation for the residual sign ambiguity.
+- ordinary binary evidence accumulation for sign orientation.
 
 The point is not to make biology-shaped software. The point is to see whether separating **fast sampling**, **trajectory-relative addressing**, **slow consolidation**, and **coordinate relation** gives us a useful machine that ordinary static-weight thinking obscures.
