@@ -1,0 +1,26 @@
+name: high-dimensional-probe-fork
+
+on:
+  push:
+    branches: [high-dimensional-probe-fork]
+  workflow_dispatch:
+
+concurrency:
+  group: kyberdyyni-highdim-probe-fork
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - name: Run equal-total-probe high-D fork
+        run: python experiments/fork_highdim_equal_probe_budget.py
+      - name: Run noisy-consequence high-D attack
+        run: python experiments/fork_highdim_measurement_noise.py

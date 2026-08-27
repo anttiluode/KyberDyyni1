@@ -1,0 +1,333 @@
+# 2-D sampling fork
+
+Starting point: consolidated `main` at `d695d8d`.
+
+Gate 6 found that in one dimension, a continuous boundary-to-boundary shuttle can nearly match IID-random coverage while moving roughly thirty times less internal distance. It also found that delayed event addresses must live in the current trajectory coordinate frame.
+
+This branch attacks the likely loophole:
+
+> **1-D intervals make the shuttle geometrically obvious. What replaces it in two dimensions?**
+
+## Equal-budget competitors
+
+Every continuous path gets:
+
+- 100 probes per 100-ms cycle;
+- persistent trajectory state across cycle boundaries;
+- the same noisy 2-D directional/control cue;
+- the same uncertainty-radius rule;
+- exactly the same nominal internal path budget: `4 * radius` per cycle;
+- no slow learning.
+
+Competitors:
+
+- persistent boustrophedon/raster;
+- persistent Hilbert order-3 curve;
+- square spiral;
+- Lissajous path;
+- golden-angle radial spokes;
+- Halton points connected by a greedy short tour;
+- matched-step smooth random walk;
+- point estimate;
+- unmatched IID-random upper bound.
+
+Worlds:
+
+1. reliable moving cue;
+2. changing cue reliability;
+3. systematic 2-D cue bias;
+4. cue loss and return.
+
+The first pass asks only geometry/coverage. A later pass will address delayed events on the winning 2-D trajectory if any structured path survives.
+
+## Pass condition
+
+A candidate should not be called useful because it wins one toy world. It should:
+
+1. beat the matched-travel smooth random walk in multiple regimes;
+2. approach IID-random hit coverage without IID-random travel;
+3. remain useful under systematic cue bias or cue loss;
+4. preserve continuous state across cycles.
+
+If no deterministic trajectory does that, the strong 1-D result does not generalize.
+
+
+## Fork 1 result — no universal 2-D path
+
+10-seed means:
+
+```text
+RELIABLE
+IID random, unmatched       100.0%   travel 0.581
+golden radial                 90.2%   travel 0.0222
+point estimate                79.8%
+Halton short tour             60.5%
+Hilbert                       54.5%
+smooth random walk            26.8%
+
+MIXED RELIABILITY
+IID random                    91.2%
+golden radial                62.3%
+Halton short tour            46.7%
+point estimate               41.7%
+smooth random walk           17.8%
+
+SYSTEMATIC CUE BIAS
+IID random                    97.3%
+Lissajous                     54.3%
+square spiral                 54.0%
+boustrophedon                 42.5%
+golden radial                 36.0%
+point estimate                 3.7%
+
+LOSS / RETURN
+IID random                     0 ms
+golden radial                 36.7 ms
+Halton short tour             56.7 ms
+boustrophedon                120 ms
+point estimate               126.7 ms
+smooth random walk           340 ms
+```
+
+The 1-D result generalizes only partially:
+
+> **structured low-travel paths still beat generic smooth motion in 2-D, but the best geometry depends on the uncertainty/failure mode.**
+
+Radial coverage is strong when the cue is approximately centered but noisy. Spiral/Lissajous coverage is much stronger when the cue is systematically biased.
+
+Receipt: `results/fork_2d_sampling_geometry.json`.
+
+## Fork 2 — let failure switch geometry
+
+The next question is architectural rather than geometric:
+
+> **Can failure of the current sampler become a fast state that changes how the machine samples, without changing slow weights?**
+
+Each cycle returns one binary hit/miss consequence. An EMA-like fast miss state may:
+
+- keep golden radial sampling while recent cycles succeed;
+- switch to spiral or Lissajous after repeated misses;
+- expand the coverage radius without receiving extra movement budget;
+- return to radial sampling after success.
+
+The path remains continuous when geometry changes. The nominal movement budget still depends only on cue confidence, so a failure-driven expansion cannot buy extra travel.
+
+Implementation: `experiments/fork_2d_adaptive_geometry.py`.
+
+
+## Fork 2 result — binary miss switching is too crude
+
+The fast miss-state controller really did switch geometry, but it usually hurt.
+
+```text
+RELIABLE
+fixed radial                  90.0%
+adaptive radial -> spiral     72.1%
+
+MIXED
+fixed radial                  61.0%
+adaptive radial -> spiral     43.5%
+
+SYSTEMATIC BIAS
+fixed spiral                  54.0%
+adaptive radial -> spiral     40.7%
+fixed radial                  36.8%
+
+LOSS / RETURN
+fixed radial                  41.7 ms
+adaptive radial -> spiral    194.4 ms
+```
+
+The failure is informative:
+
+> **"I missed" says that the current policy is inadequate, but not how the internal reference is wrong.**
+
+Switching geometry also disrupts useful path persistence.
+
+Receipt: `results/fork_2d_adaptive_geometry.json`.
+
+## Fork 3 — let relevant samples calibrate the fast reference
+
+Instead of using a miss to choose a new path, keep the strong radial sampler and use *where relevant samples occurred* to update a temporary 2-D calibration offset.
+
+Two local rules are attacked:
+
+- hit-only recentering: successful sample offsets pull the fast center;
+- contrast recentering: within one sweep, samples better than the sweep mean pull the fast center while worse samples push against it.
+
+The system is not given target direction or a derivative. The fast offset decays and is never consolidated.
+
+This is the 2-D version of the earlier fast-state steering idea, but with a narrower job: **calibrate an already useful directional cue rather than discover the target from scratch**.
+
+Implementation: `experiments/fork_2d_fast_recenter.py`.
+
+
+## Fork 3 result — fast recentering works
+
+The radial trajectory now keeps its geometry and uses relative sample relevance to update an elastic 2-D center correction.
+
+12-seed means:
+
+```text
+                         fixed radial    + fast contrast
+
+RELIABLE                    90.0%            92.8%
+MIXED                       61.0%            82.5%
+SYSTEMATIC BIAS             36.8%            85.1%
+
+LOSS / RETURN
+hit-cycle fraction          78.5%            86.3%
+reacquisition               41.7 ms          30.6 ms
+```
+
+The path travel is unchanged (~0.022–0.027 units/ms).
+
+A hit-only correction is even faster after cue return (~13.9 ms) and strong on reliable cues, but the contrast rule is dramatically more robust to mixed reliability and systematic bias.
+
+The same contrast rule on a matched-travel smooth random walk remains much worse, so the gain is not merely the local update rule.
+
+The IID-random + contrast attacker still wins coverage but pays ~0.58–0.69 units/ms travel.
+
+The 2-D architecture has therefore acquired a useful fast state:
+
+> **structured samples can calibrate an already-useful but noisy/baised control reference through an elastic correction vector without slow learning.**
+
+Receipt: `results/fork_2d_fast_recenter.json`.
+
+## Fork 4 — can repeated fast calibration become slow context calibration?
+
+Six contexts now have stable cue-bias vectors but new target positions on every encounter.
+
+The radial sampler must calibrate each encounter through fast contrast state. A delayed packet containing the successful temporary correction becomes available only after three later encounters.
+
+Compare:
+
+- bounded delayed context calibration;
+- fast-only / frozen slow structure;
+- shuffled delayed context;
+- explicit EMA table attacker.
+
+The slow learner is useful only if later encounters **start** better before the fast sampler has to recenter again.
+
+Implementation: `experiments/fork_2d_fast_slow_calibration.py`.
+
+
+## Fork 4 result — fast calibration can crystallize
+
+Recurring contexts had stable 2-D cue-bias vectors but new targets every encounter. The successful temporary fast correction was delivered only after three later encounters.
+
+```text
+                              FIRST        LATE
+
+bounded delayed calibration
+start error                   0.435        0.231
+first-cycle hit               51.4%        82.6%
+first-cycle best distance     0.223        0.118
+
+fast only / slow frozen
+start error                   0.435        0.429
+first-cycle hit               51.4%        38.2%
+
+shuffled delayed context
+start error                   0.438        0.455
+first-cycle hit               50.0%        41.7%
+```
+
+Fast state still solves the encounter even when slow memory is absent, but delayed correctly addressed slow calibration makes later encounters begin much closer.
+
+The explicit EMA table attacker is numerically identical to the bounded learner in this setup because the structural budget never becomes active.
+
+Earned:
+
+> **Temporary 2-D calibration discovered by structured fast sampling can become delayed context-specific prior calibration without BPTT.**
+
+Not earned:
+
+> the bounded slow rule is superior to ordinary associative memory.
+
+Receipt: `results/fork_2d_fast_slow_calibration.json`.
+
+## Fork 5 — finite-difference attacker
+
+Before promoting the 2-D architecture, attack the radial sampler itself.
+
+The same fast contrast rule is now driven by:
+
+- golden radial spokes;
+- cardinal +/-x, +/-y cross;
+- diagonal cross;
+- rotating cross;
+- octagonal ring;
+- SPSA-like random +/- direction line;
+- matched-travel smooth random walk;
+- unmatched IID random;
+- point estimate.
+
+If a simple coordinate stencil matches the radial sampler, the digital architecture should use the stencil and keep the biology only as inspiration.
+
+Implementation: `experiments/fork_2d_probe_basis_attack.py`.
+
+
+## Fork 5 result — simple probe bases nearly match radial
+
+The same fast contrast rule was driven by several low-cost probe bases.
+
+```text
+                         radial     cardinal cross   rotating cross
+
+RELIABLE                 92.8%          90.7%           91.0%
+MIXED                    82.5%          81.4%           80.7%
+SYSTEMATIC BIAS          85.1%          86.9%           86.0%
+LOSS / RETURN            30.6 ms        63.9 ms         63.9 ms
+```
+
+All three use essentially the same low path-travel budget.
+
+Other attackers:
+
+- SPSA-like one-direction-per-cycle probing is weaker;
+- matched-travel smooth random walk is much weaker;
+- an octagonal perimeter ring is very poor because it fails to interrogate the center;
+- unmatched IID random remains the coverage upper bound at tens of times the path travel.
+
+So the surviving digital operation is not golden-angle radial sampling specifically.
+
+> **Balanced center-crossing probe directions are enough to expose a useful local relevance gradient around a stable reference.**
+
+The radial sampler remains somewhat more robust in mixed reliability and loss/reacquisition, but the ordinary +/-x, +/-y stencil gets close enough that any claim of a special radial mechanism should be rejected.
+
+Receipt: `results/fork_2d_probe_basis_attack.json`.
+
+## 2-D fork conclusion
+
+The branch now supports a compact architecture:
+
+```text
+approximate stable reference
+        |
+small structured probe basis
+        |
+relative sample relevance
+        |
+fast elastic correction vector
+        |
+        ... repeated contexts ...
+        |
+delayed correctly addressed consequence
+        |
+slow context calibration
+```
+
+What survived:
+
+1. structured low-travel sampling generalizes beyond 1-D;
+2. no single 2-D coverage curve is universally best;
+3. binary miss-driven geometry switching is too crude;
+4. local sample-relative relevance can robustly recenter a noisy/baised reference;
+5. a simple finite-difference-like probe basis nearly matches the richer radial path;
+6. repeated fast calibration can crystallize into delayed slow context calibration;
+7. an explicit EMA table matches the current bounded slow learner.
+
+The next clean attack is dimensionality/cost:
+
+> **As latent dimension grows, does an explicit coordinate probe basis become too expensive, and can structured/random orthogonal probes preserve fast calibration with sublinear or dimension-independent sample cost?**
