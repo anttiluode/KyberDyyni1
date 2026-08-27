@@ -1,0 +1,253 @@
+{
+  "source_run_id": 33039076621,
+  "source_commit": "5d3b160b1ce4045da87c56fe2b0e8cd225c76ebd",
+  "settings": {
+    "n_seeds": 24,
+    "selected_dimensions": [
+      128,
+      256
+    ],
+    "selected_probe_budget": 512,
+    "measurement_noise": 0,
+    "success_error_radius": 0.18,
+    "note": "Selected means from the equal-total-scalar-probe CI receipt."
+  },
+  "means": {
+    "dense_bias": {
+      "128": {
+        "full_coordinate_unmatched": {
+          "final_error": 0.4646294474032268,
+          "success": 0,
+          "probes_used": 257,
+          "updates": 1,
+          "mean_gradient_cosine": 0.9999924751432995
+        },
+        "coordinate_block8": {
+          "final_error": 0.18095229271200197,
+          "success": 0.875,
+          "probes_used": 497.75,
+          "updates": 17.625,
+          "mean_gradient_cosine": 0.351125925973397
+        },
+        "hadamard_block8": {
+          "final_error": 0.16690009617967036,
+          "success": 0.9583333333333334,
+          "probes_used": 496.5833333333333,
+          "updates": 16.416666666666668,
+          "mean_gradient_cosine": 0.36171359614822624
+        },
+        "random_orthogonal8": {
+          "final_error": 0.313948438102555,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.2420361259383753
+        },
+        "rademacher8": {
+          "final_error": 0.3160330803176465,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.2376122602942947
+        },
+        "gaussian8": {
+          "final_error": 0.32296968912337204,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.23633335252274587
+        },
+        "spsa_two_probe": {
+          "final_error": 0.9323691254887857,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 170,
+          "mean_gradient_cosine": 0.07121833564003062
+        },
+        "point_estimate": {
+          "final_error": 0.6046280762577315,
+          "success": 0,
+          "probes_used": 512,
+          "updates": 0,
+          "mean_gradient_cosine": 0
+        }
+      },
+      "256": {
+        "full_coordinate_unmatched": {
+          "final_error": 0.6044323966837198,
+          "success": 0,
+          "probes_used": 0,
+          "updates": 0,
+          "mean_gradient_cosine": 0
+        },
+        "coordinate_block8": {
+          "final_error": 0.2875515747710918,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.22823814216091018
+        },
+        "hadamard_block8": {
+          "final_error": 0.2955852682881949,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.22465409930073696
+        },
+        "random_orthogonal8": {
+          "final_error": 0.45441047309582333,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.17069262317762698
+        },
+        "rademacher8": {
+          "final_error": 0.451280752622405,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.17256632874057654
+        },
+        "gaussian8": {
+          "final_error": 0.45797029593488053,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.17066355743158446
+        },
+        "spsa_two_probe": {
+          "final_error": 1.1703638573940005,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 170,
+          "mean_gradient_cosine": 0.05038506683900442
+        },
+        "point_estimate": {
+          "final_error": 0.6044323966837198,
+          "success": 0,
+          "probes_used": 512,
+          "updates": 0,
+          "mean_gradient_cosine": 0
+        }
+      }
+    },
+    "sparse4_bias": {
+      "128": {
+        "full_coordinate_unmatched": {
+          "final_error": 0.4670313791217338,
+          "success": 0,
+          "probes_used": 257,
+          "updates": 1,
+          "mean_gradient_cosine": 0.9994537674858294
+        },
+        "coordinate_block8": {
+          "final_error": 0.30117891649708267,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.20477802897813288
+        },
+        "hadamard_block8": {
+          "final_error": 0.18901364638106746,
+          "success": 0.75,
+          "probes_used": 499.5,
+          "updates": 18.875,
+          "mean_gradient_cosine": 0.3460939382779216
+        },
+        "random_orthogonal8": {
+          "final_error": 0.31195034395039284,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.24399033061657316
+        },
+        "rademacher8": {
+          "final_error": 0.3144972836320286,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.2409207813460188
+        },
+        "gaussian8": {
+          "final_error": 0.31556699499615076,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.23925240320045835
+        },
+        "spsa_two_probe": {
+          "final_error": 0.9352997443947212,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 170,
+          "mean_gradient_cosine": 0.07166428716740648
+        },
+        "point_estimate": {
+          "final_error": 0.6069320811082576,
+          "success": 0,
+          "probes_used": 512,
+          "updates": 0,
+          "mean_gradient_cosine": 0
+        }
+      },
+      "256": {
+        "full_coordinate_unmatched": {
+          "final_error": 0.6047769137868709,
+          "success": 0,
+          "probes_used": 0,
+          "updates": 0,
+          "mean_gradient_cosine": 0
+        },
+        "coordinate_block8": {
+          "final_error": 0.7626549957281828,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.06450438479055705
+        },
+        "hadamard_block8": {
+          "final_error": 0.2662648301729376,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.237772536900551
+        },
+        "random_orthogonal8": {
+          "final_error": 0.4628270618732535,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.16906697101016407
+        },
+        "rademacher8": {
+          "final_error": 0.45250825447162685,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.1722422489106887
+        },
+        "gaussian8": {
+          "final_error": 0.45562989575751284,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 30,
+          "mean_gradient_cosine": 0.17118360145802924
+        },
+        "spsa_two_probe": {
+          "final_error": 1.1719488428058729,
+          "success": 0,
+          "probes_used": 510,
+          "updates": 170,
+          "mean_gradient_cosine": 0.05019487076018133
+        },
+        "point_estimate": {
+          "final_error": 0.6047769137868709,
+          "success": 0,
+          "probes_used": 512,
+          "updates": 0,
+          "mean_gradient_cosine": 0
+        }
+      }
+    }
+  }
+}

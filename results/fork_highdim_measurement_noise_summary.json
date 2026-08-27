@@ -1,0 +1,1542 @@
+{
+  "source_run_id": 33041717524,
+  "source_commit": "6c857e2db34155ce0215fbc0347bb492f16707c6",
+  "settings": {
+    "n_seeds": 32,
+    "dimensions": [
+      64,
+      128,
+      256
+    ],
+    "noise_sigmas": [
+      0,
+      0.005,
+      0.01,
+      0.02,
+      0.04
+    ],
+    "probe_budget": 512,
+    "paired_probe_radius": 0.28,
+    "fast_step_size": 0.14,
+    "success_error_radius": 0.18,
+    "note": "Means from CI compact receipt. Noise is independent additive Gaussian noise on each scalar relevance measurement, clipped to [0,1]."
+  },
+  "means": {
+    "dense_bias": {
+      "64": {
+        "0.0": {
+          "full_coordinate": {
+            "final_error": 0.1867379780773863,
+            "success": 0.21875,
+            "gradient_cosine": 0.999989285230148,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.18994575987531667,
+            "success": 0.625,
+            "gradient_cosine": 0.38636654606268916,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.18845623935359074,
+            "success": 0.6875,
+            "gradient_cosine": 0.40491936606619294,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.21093799722453563,
+            "success": 0.40625,
+            "gradient_cosine": 0.4148988410079434,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.18845623935359074,
+            "success": 0.6875,
+            "gradient_cosine": 0.40491936606619294,
+            "mean_repeats": 1
+          },
+          "random_orthogonal8": {
+            "final_error": 0.20021318361716534,
+            "success": 0.21875,
+            "gradient_cosine": 0.34017199455181735,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 0.7089134350952221,
+            "success": 0,
+            "gradient_cosine": 0.09933385678826334,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6067318773461468,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.005": {
+          "full_coordinate": {
+            "final_error": 0.18947716647898433,
+            "success": 0.15625,
+            "gradient_cosine": 0.9955316273427378,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.20125322805112916,
+            "success": 0.4375,
+            "gradient_cosine": 0.3707272947422373,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.19809288701334932,
+            "success": 0.4375,
+            "gradient_cosine": 0.3851641475257619,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.20963101536815787,
+            "success": 0.375,
+            "gradient_cosine": 0.41122274887164245,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.1988067744262283,
+            "success": 0.40625,
+            "gradient_cosine": 0.39571541466667537,
+            "mean_repeats": 1.3040072605612187
+          },
+          "random_orthogonal8": {
+            "final_error": 0.20151744731358617,
+            "success": 0.1875,
+            "gradient_cosine": 0.3395240809724502,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 0.7038986708064966,
+            "success": 0,
+            "gradient_cosine": 0.09791358022494698,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6067318773461468,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.01": {
+          "full_coordinate": {
+            "final_error": 0.19690688778864002,
+            "success": 0,
+            "gradient_cosine": 0.983286069798387,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.21561888728933912,
+            "success": 0.125,
+            "gradient_cosine": 0.3584103502879059,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.21115888674297015,
+            "success": 0.1875,
+            "gradient_cosine": 0.3654304157504128,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.21183578135012548,
+            "success": 0.28125,
+            "gradient_cosine": 0.4067619729933072,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.2154062212734406,
+            "success": 0.15625,
+            "gradient_cosine": 0.38920984749836757,
+            "mean_repeats": 1.523436972320577
+          },
+          "random_orthogonal8": {
+            "final_error": 0.20747487818867674,
+            "success": 0.125,
+            "gradient_cosine": 0.3332618335985905,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 0.7137291827897746,
+            "success": 0,
+            "gradient_cosine": 0.09781631298599769,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6067318773461468,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.02": {
+          "full_coordinate": {
+            "final_error": 0.22418653282247752,
+            "success": 0,
+            "gradient_cosine": 0.9366616310788598,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.21425667602362966,
+            "success": 0.0625,
+            "gradient_cosine": 0.34874135381861293,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.21005713855805924,
+            "success": 0.09375,
+            "gradient_cosine": 0.35139965950425184,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.20590981108938639,
+            "success": 0.21875,
+            "gradient_cosine": 0.40614483751052854,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.20657035483182806,
+            "success": 0.125,
+            "gradient_cosine": 0.39866091355365185,
+            "mean_repeats": 1.822681142769608
+          },
+          "random_orthogonal8": {
+            "final_error": 0.22539990257544626,
+            "success": 0.03125,
+            "gradient_cosine": 0.31765922787331996,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 0.9175888991045662,
+            "success": 0,
+            "gradient_cosine": 0.07858339270909932,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6067318773461468,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.04": {
+          "full_coordinate": {
+            "final_error": 0.29820743078237705,
+            "success": 0,
+            "gradient_cosine": 0.7992363285694566,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.2548465210792704,
+            "success": 0,
+            "gradient_cosine": 0.3054556533739438,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.2556578921712505,
+            "success": 0.03125,
+            "gradient_cosine": 0.30837078168910714,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.21060935941533437,
+            "success": 0.125,
+            "gradient_cosine": 0.38775380353896155,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.23674584212077093,
+            "success": 0.03125,
+            "gradient_cosine": 0.3808841402774179,
+            "mean_repeats": 2.282060517607393
+          },
+          "random_orthogonal8": {
+            "final_error": 0.2711294066329217,
+            "success": 0,
+            "gradient_cosine": 0.2712709698212393,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.4572439508646107,
+            "success": 0,
+            "gradient_cosine": 0.033335474582466634,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6067318773461468,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        }
+      },
+      "128": {
+        "0.0": {
+          "full_coordinate": {
+            "final_error": 0.46501709187106394,
+            "success": 0,
+            "gradient_cosine": 0.999994609103199,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.16187099782897282,
+            "success": 0.9375,
+            "gradient_cosine": 0.3592618907108507,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.1546948159187974,
+            "success": 0.96875,
+            "gradient_cosine": 0.3679176308904857,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.19814051193651555,
+            "success": 0.34375,
+            "gradient_cosine": 0.3532841791478334,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.1546948159187974,
+            "success": 0.96875,
+            "gradient_cosine": 0.3679176308904857,
+            "mean_repeats": 1
+          },
+          "random_orthogonal8": {
+            "final_error": 0.31450818856002,
+            "success": 0,
+            "gradient_cosine": 0.2412506226264386,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 0.9419191301902305,
+            "success": 0,
+            "gradient_cosine": 0.07094686998375536,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6050161100164139,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.005": {
+          "full_coordinate": {
+            "final_error": 0.4671271963338324,
+            "success": 0,
+            "gradient_cosine": 0.9883825794432786,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.21904152529646181,
+            "success": 0.6875,
+            "gradient_cosine": 0.3321589895644659,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.18293711737461094,
+            "success": 0.84375,
+            "gradient_cosine": 0.3538525796692765,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.2020423829359005,
+            "success": 0.3125,
+            "gradient_cosine": 0.35087474880694586,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.16755288312958702,
+            "success": 0.84375,
+            "gradient_cosine": 0.36170212711233507,
+            "mean_repeats": 1.2473008676821766
+          },
+          "random_orthogonal8": {
+            "final_error": 0.3171441381158814,
+            "success": 0,
+            "gradient_cosine": 0.23940460796737317,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.0519919707142116,
+            "success": 0,
+            "gradient_cosine": 0.06339678015677774,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6050161100164139,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.01": {
+          "full_coordinate": {
+            "final_error": 0.4727189719319622,
+            "success": 0,
+            "gradient_cosine": 0.9573550667151771,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.36622477423224936,
+            "success": 0.0625,
+            "gradient_cosine": 0.26407196341160577,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.3640583704076955,
+            "success": 0.03125,
+            "gradient_cosine": 0.270758728999788,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.2134400821644845,
+            "success": 0.09375,
+            "gradient_cosine": 0.34384518294019106,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.21160111224032474,
+            "success": 0.21875,
+            "gradient_cosine": 0.3422253829125904,
+            "mean_repeats": 1.5261529786667958
+          },
+          "random_orthogonal8": {
+            "final_error": 0.32554721035131107,
+            "success": 0,
+            "gradient_cosine": 0.23297869723020964,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.301492582866259,
+            "success": 0,
+            "gradient_cosine": 0.04632171023537997,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6050161100164139,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.02": {
+          "full_coordinate": {
+            "final_error": 0.49066854205251664,
+            "success": 0,
+            "gradient_cosine": 0.8552432022143366,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.3433423722027722,
+            "success": 0,
+            "gradient_cosine": 0.2523924695407954,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.34486799039268995,
+            "success": 0,
+            "gradient_cosine": 0.25625245947107844,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.2528706642466049,
+            "success": 0,
+            "gradient_cosine": 0.3195781571327788,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.24140984842795538,
+            "success": 0,
+            "gradient_cosine": 0.3196623750107779,
+            "mean_repeats": 1.905078125
+          },
+          "random_orthogonal8": {
+            "final_error": 0.3520814450809017,
+            "success": 0,
+            "gradient_cosine": 0.21712446725377874,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.5921959028306434,
+            "success": 0,
+            "gradient_cosine": 0.02147973029484072,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6050161100164139,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.04": {
+          "full_coordinate": {
+            "final_error": 0.5261597112269514,
+            "success": 0,
+            "gradient_cosine": 0.6420407998290725,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.38566872342496944,
+            "success": 0,
+            "gradient_cosine": 0.1973734927053914,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.39492377839956566,
+            "success": 0,
+            "gradient_cosine": 0.19532273051307725,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.3718534759298379,
+            "success": 0,
+            "gradient_cosine": 0.24776803680991355,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.4399539656204007,
+            "success": 0,
+            "gradient_cosine": 0.23221130782648564,
+            "mean_repeats": 2.654971135635198
+          },
+          "random_orthogonal8": {
+            "final_error": 0.46326209439082344,
+            "success": 0,
+            "gradient_cosine": 0.1662497145064991,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.6827513272020214,
+            "success": 0,
+            "gradient_cosine": 0.00921619512360125,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6050161100164139,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        }
+      },
+      "256": {
+        "0.0": {
+          "full_coordinate": {
+            "final_error": 0.6050152340744064,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          },
+          "coordinate_block8": {
+            "final_error": 0.29360764064121814,
+            "success": 0,
+            "gradient_cosine": 0.22686512862617592,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.291744517444014,
+            "success": 0,
+            "gradient_cosine": 0.22820826409777376,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.47037018565682664,
+            "success": 0,
+            "gradient_cosine": 0.19243821790258514,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.291744517444014,
+            "success": 0,
+            "gradient_cosine": 0.22820826409777376,
+            "mean_repeats": 1
+          },
+          "random_orthogonal8": {
+            "final_error": 0.4522014880428139,
+            "success": 0,
+            "gradient_cosine": 0.17270032343409378,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.1729291092148633,
+            "success": 0,
+            "gradient_cosine": 0.05004002331791052,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6050152340744064,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.005": {
+          "full_coordinate": {
+            "final_error": 0.6050152340744064,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          },
+          "coordinate_block8": {
+            "final_error": 0.3098075703256854,
+            "success": 0,
+            "gradient_cosine": 0.22011964321623978,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.3079972536518979,
+            "success": 0,
+            "gradient_cosine": 0.22141814342746197,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.4739453707124152,
+            "success": 0,
+            "gradient_cosine": 0.1903119728230985,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.41390070064148304,
+            "success": 0,
+            "gradient_cosine": 0.19935054198052427,
+            "mean_repeats": 1.3998855003275232
+          },
+          "random_orthogonal8": {
+            "final_error": 0.459195048524533,
+            "success": 0,
+            "gradient_cosine": 0.16978395854136907,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.542398917863062,
+            "success": 0,
+            "gradient_cosine": 0.027043521874559738,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6050152340744064,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.01": {
+          "full_coordinate": {
+            "final_error": 0.6050152340744064,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          },
+          "coordinate_block8": {
+            "final_error": 0.3557998644632957,
+            "success": 0,
+            "gradient_cosine": 0.20175799756177656,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.3547419816394811,
+            "success": 0,
+            "gradient_cosine": 0.20261268366481255,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.48489496487047373,
+            "success": 0,
+            "gradient_cosine": 0.18384714705964636,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.47597174450916313,
+            "success": 0,
+            "gradient_cosine": 0.18272142920291973,
+            "mean_repeats": 1.8116469439338236
+          },
+          "random_orthogonal8": {
+            "final_error": 0.48419897857669414,
+            "success": 0,
+            "gradient_cosine": 0.15975795355926053,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.6696648343081597,
+            "success": 0,
+            "gradient_cosine": 0.014632980476795145,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6050152340744064,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.02": {
+          "full_coordinate": {
+            "final_error": 0.6050152340744064,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          },
+          "coordinate_block8": {
+            "final_error": 0.5010282627287046,
+            "success": 0,
+            "gradient_cosine": 0.14965952629207974,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.5113283207099446,
+            "success": 0,
+            "gradient_cosine": 0.14648228957316062,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.5227117713242104,
+            "success": 0,
+            "gradient_cosine": 0.16185514491007807,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.5356627117774169,
+            "success": 0,
+            "gradient_cosine": 0.16147668743238797,
+            "mean_repeats": 2.4673458052364303
+          },
+          "random_orthogonal8": {
+            "final_error": 0.5505401243263583,
+            "success": 0,
+            "gradient_cosine": 0.13454216316175832,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.7077796712408522,
+            "success": 0,
+            "gradient_cosine": 0.008151878236335142,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6050152340744064,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.04": {
+          "full_coordinate": {
+            "final_error": 0.6050152340744064,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          },
+          "coordinate_block8": {
+            "final_error": 0.7784872351748311,
+            "success": 0,
+            "gradient_cosine": 0.06180572519968011,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.7767240925529282,
+            "success": 0,
+            "gradient_cosine": 0.06302018494573555,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.6172019266061632,
+            "success": 0,
+            "gradient_cosine": 0.10878539098784354,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.6040439700593099,
+            "success": 0,
+            "gradient_cosine": 0.11553483525109154,
+            "mean_repeats": 3.1241871843434343
+          },
+          "random_orthogonal8": {
+            "final_error": 0.7143855399262793,
+            "success": 0,
+            "gradient_cosine": 0.08069767975603359,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.7394628626951238,
+            "success": 0,
+            "gradient_cosine": 0.003534399503693787,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6050152340744064,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        }
+      }
+    },
+    "sparse4_bias": {
+      "64": {
+        "0.0": {
+          "full_coordinate": {
+            "final_error": 0.1876972458863744,
+            "success": 0.28125,
+            "gradient_cosine": 0.9996901145160249,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.1840786298567492,
+            "success": 0.65625,
+            "gradient_cosine": 0.30235201604665796,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.18885432609537908,
+            "success": 0.53125,
+            "gradient_cosine": 0.40110792867114714,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.20154678365951612,
+            "success": 0.25,
+            "gradient_cosine": 0.41794759555364436,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.18885432609537908,
+            "success": 0.53125,
+            "gradient_cosine": 0.40110792867114714,
+            "mean_repeats": 1
+          },
+          "random_orthogonal8": {
+            "final_error": 0.19643783121174338,
+            "success": 0.21875,
+            "gradient_cosine": 0.3462627958124468,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 0.6820905595922446,
+            "success": 0,
+            "gradient_cosine": 0.10218261399803355,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6075207276199179,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.005": {
+          "full_coordinate": {
+            "final_error": 0.19015224228574945,
+            "success": 0.25,
+            "gradient_cosine": 0.9957174127950754,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.18912846836942784,
+            "success": 0.4375,
+            "gradient_cosine": 0.2979607891603352,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.19534239207152407,
+            "success": 0.1875,
+            "gradient_cosine": 0.38440781558852316,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.19955202311201176,
+            "success": 0.21875,
+            "gradient_cosine": 0.4181745115519859,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.20181119311642448,
+            "success": 0.21875,
+            "gradient_cosine": 0.39466220183568246,
+            "mean_repeats": 1.2547857970603555
+          },
+          "random_orthogonal8": {
+            "final_error": 0.20386693817440332,
+            "success": 0.03125,
+            "gradient_cosine": 0.34277336139724,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 0.7178880437903825,
+            "success": 0,
+            "gradient_cosine": 0.09808595126018593,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6075207276199179,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.01": {
+          "full_coordinate": {
+            "final_error": 0.19681116716682528,
+            "success": 0,
+            "gradient_cosine": 0.9848030160717105,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.1961800136324171,
+            "success": 0.25,
+            "gradient_cosine": 0.2930855985296148,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.19533479094184103,
+            "success": 0.1875,
+            "gradient_cosine": 0.3792564244333533,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.19699233186404563,
+            "success": 0.1875,
+            "gradient_cosine": 0.4177837622522502,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.21075527137150887,
+            "success": 0.09375,
+            "gradient_cosine": 0.3941475742413372,
+            "mean_repeats": 1.455668168311971
+          },
+          "random_orthogonal8": {
+            "final_error": 0.20518759804364606,
+            "success": 0.0625,
+            "gradient_cosine": 0.33777517699507653,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 0.7149028641711381,
+            "success": 0,
+            "gradient_cosine": 0.09882517694229112,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6075207276199179,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.02": {
+          "full_coordinate": {
+            "final_error": 0.22170661856901688,
+            "success": 0,
+            "gradient_cosine": 0.9425857616755705,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.21377951421593958,
+            "success": 0.0625,
+            "gradient_cosine": 0.28655233043666345,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.20358169902647816,
+            "success": 0.15625,
+            "gradient_cosine": 0.35897163903907403,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.19304005325864,
+            "success": 0.25,
+            "gradient_cosine": 0.416533857771466,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.20077286539444647,
+            "success": 0.15625,
+            "gradient_cosine": 0.4021852777583932,
+            "mean_repeats": 1.7420824027939026
+          },
+          "random_orthogonal8": {
+            "final_error": 0.2195760740880331,
+            "success": 0.0625,
+            "gradient_cosine": 0.32247115260827364,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 0.8784041070353279,
+            "success": 0,
+            "gradient_cosine": 0.08214052523662162,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6075207276199179,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.04": {
+          "full_coordinate": {
+            "final_error": 0.29114438159620154,
+            "success": 0,
+            "gradient_cosine": 0.8145629542251347,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.26289556407283077,
+            "success": 0,
+            "gradient_cosine": 0.258109388452492,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.2535708708616413,
+            "success": 0,
+            "gradient_cosine": 0.3098009633996497,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.20129095229858077,
+            "success": 0.15625,
+            "gradient_cosine": 0.3949733466020605,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.22626996516649062,
+            "success": 0.09375,
+            "gradient_cosine": 0.3875846893995286,
+            "mean_repeats": 2.220796846382784
+          },
+          "random_orthogonal8": {
+            "final_error": 0.26201874968947036,
+            "success": 0,
+            "gradient_cosine": 0.2736185225830862,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.4299965222108537,
+            "success": 0,
+            "gradient_cosine": 0.036595714583385154,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6075207276199179,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        }
+      },
+      "128": {
+        "0.0": {
+          "full_coordinate": {
+            "final_error": 0.46451817684721525,
+            "success": 0,
+            "gradient_cosine": 0.9993676985886484,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.3075196769412454,
+            "success": 0,
+            "gradient_cosine": 0.20072403389688498,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.18440863237860478,
+            "success": 0.84375,
+            "gradient_cosine": 0.3556077039468559,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.18651162216829842,
+            "success": 0.65625,
+            "gradient_cosine": 0.3573487844298494,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.18440863237860478,
+            "success": 0.84375,
+            "gradient_cosine": 0.3556077039468559,
+            "mean_repeats": 1
+          },
+          "random_orthogonal8": {
+            "final_error": 0.31368039466801606,
+            "success": 0,
+            "gradient_cosine": 0.24123623497820162,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 0.927242608973182,
+            "success": 0,
+            "gradient_cosine": 0.07164820448420703,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6044029571242071,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.005": {
+          "full_coordinate": {
+            "final_error": 0.4662965098412556,
+            "success": 0,
+            "gradient_cosine": 0.989584765271204,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.31247582519706774,
+            "success": 0,
+            "gradient_cosine": 0.19653478341940622,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.16128683706565586,
+            "success": 0.78125,
+            "gradient_cosine": 0.3605619321991588,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.1909211096297323,
+            "success": 0.65625,
+            "gradient_cosine": 0.35472891218593555,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.14652201663151218,
+            "success": 0.78125,
+            "gradient_cosine": 0.367913001207063,
+            "mean_repeats": 1.2042027386393046
+          },
+          "random_orthogonal8": {
+            "final_error": 0.3181934729269431,
+            "success": 0,
+            "gradient_cosine": 0.23853351588751873,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.0126786819316997,
+            "success": 0,
+            "gradient_cosine": 0.06577419444529094,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6044029571242071,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.01": {
+          "full_coordinate": {
+            "final_error": 0.470952139157903,
+            "success": 0,
+            "gradient_cosine": 0.963797688202527,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.33131830702366327,
+            "success": 0,
+            "gradient_cosine": 0.1886087291551497,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.1933235969291505,
+            "success": 0.6875,
+            "gradient_cosine": 0.34293686221670444,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.20330801032221624,
+            "success": 0.40625,
+            "gradient_cosine": 0.34735538820554424,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.15607254446840263,
+            "success": 0.6875,
+            "gradient_cosine": 0.3613253574573659,
+            "mean_repeats": 1.3870250243862496
+          },
+          "random_orthogonal8": {
+            "final_error": 0.3215948635152856,
+            "success": 0,
+            "gradient_cosine": 0.23545633579635436,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.3497304538300068,
+            "success": 0,
+            "gradient_cosine": 0.04305520549048304,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6044029571242071,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.02": {
+          "full_coordinate": {
+            "final_error": 0.4862138922116271,
+            "success": 0,
+            "gradient_cosine": 0.8774513780697064,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.4052880724518651,
+            "success": 0,
+            "gradient_cosine": 0.16508080437368453,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.35525366359046573,
+            "success": 0,
+            "gradient_cosine": 0.2555522333079898,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.24291721874310523,
+            "success": 0,
+            "gradient_cosine": 0.32355847364066587,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.2308339403134163,
+            "success": 0.03125,
+            "gradient_cosine": 0.3250178406344997,
+            "mean_repeats": 1.8017603104152844
+          },
+          "random_orthogonal8": {
+            "final_error": 0.35553237577740765,
+            "success": 0,
+            "gradient_cosine": 0.2156861204350749,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.5677743274362101,
+            "success": 0,
+            "gradient_cosine": 0.023351785148253257,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6044029571242071,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.04": {
+          "full_coordinate": {
+            "final_error": 0.5231260471869623,
+            "success": 0,
+            "gradient_cosine": 0.6571150325667141,
+            "mean_repeats": 1
+          },
+          "coordinate_block8": {
+            "final_error": 0.584509320443721,
+            "success": 0,
+            "gradient_cosine": 0.1132951108583999,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.38284435308458836,
+            "success": 0,
+            "gradient_cosine": 0.20014968013613488,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.36504879546868785,
+            "success": 0,
+            "gradient_cosine": 0.2503266312327061,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.42496151040655755,
+            "success": 0,
+            "gradient_cosine": 0.2402441781885774,
+            "mean_repeats": 2.5984425080128206
+          },
+          "random_orthogonal8": {
+            "final_error": 0.459980652624328,
+            "success": 0,
+            "gradient_cosine": 0.1676725107071606,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.6836549744026619,
+            "success": 0,
+            "gradient_cosine": 0.008996286178548033,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6044029571242071,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        }
+      },
+      "256": {
+        "0.0": {
+          "full_coordinate": {
+            "final_error": 0.6049977564383233,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          },
+          "coordinate_block8": {
+            "final_error": 0.7663646825324775,
+            "success": 0,
+            "gradient_cosine": 0.06256567769245402,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.25320069806642087,
+            "success": 0,
+            "gradient_cosine": 0.2427452451526338,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.46358085449251707,
+            "success": 0,
+            "gradient_cosine": 0.19660452906208242,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.25320069806642087,
+            "success": 0,
+            "gradient_cosine": 0.2427452451526338,
+            "mean_repeats": 1
+          },
+          "random_orthogonal8": {
+            "final_error": 0.4606055819623821,
+            "success": 0,
+            "gradient_cosine": 0.1690783787874749,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.1747208353403167,
+            "success": 0,
+            "gradient_cosine": 0.04981053357407968,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6049977564383233,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.005": {
+          "full_coordinate": {
+            "final_error": 0.6049977564383233,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          },
+          "coordinate_block8": {
+            "final_error": 0.8077698507020754,
+            "success": 0,
+            "gradient_cosine": 0.05006721386521565,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.2697635989866588,
+            "success": 0,
+            "gradient_cosine": 0.23571148825748556,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.46689191430231947,
+            "success": 0,
+            "gradient_cosine": 0.19462891985357986,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.3740783498668457,
+            "success": 0,
+            "gradient_cosine": 0.2121334940823193,
+            "mean_repeats": 1.3248328680650827
+          },
+          "random_orthogonal8": {
+            "final_error": 0.4654480071498017,
+            "success": 0,
+            "gradient_cosine": 0.1666126746167369,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.5514220387781643,
+            "success": 0,
+            "gradient_cosine": 0.026221184017093592,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6049977564383233,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.01": {
+          "full_coordinate": {
+            "final_error": 0.6049977564383233,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          },
+          "coordinate_block8": {
+            "final_error": 0.8249614582303897,
+            "success": 0,
+            "gradient_cosine": 0.04488746634404825,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.31856932440022523,
+            "success": 0,
+            "gradient_cosine": 0.21558892777519778,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.4769684245210929,
+            "success": 0,
+            "gradient_cosine": 0.18868144313890875,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.4509076529325104,
+            "success": 0,
+            "gradient_cosine": 0.19115685168677232,
+            "mean_repeats": 1.693160469829878
+          },
+          "random_orthogonal8": {
+            "final_error": 0.48816177637217817,
+            "success": 0,
+            "gradient_cosine": 0.15732953105723113,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.639355441532917,
+            "success": 0,
+            "gradient_cosine": 0.01712497878818808,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6049977564383233,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.02": {
+          "full_coordinate": {
+            "final_error": 0.6049977564383233,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          },
+          "coordinate_block8": {
+            "final_error": 0.8473802488307007,
+            "success": 0,
+            "gradient_cosine": 0.03830264457764081,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.47360964845640774,
+            "success": 0,
+            "gradient_cosine": 0.1587332060050392,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.5140707628191921,
+            "success": 0,
+            "gradient_cosine": 0.1670410964715708,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.5261184282499539,
+            "success": 0,
+            "gradient_cosine": 0.16683213109968897,
+            "mean_repeats": 2.3811627174908425
+          },
+          "random_orthogonal8": {
+            "final_error": 0.5581902755085072,
+            "success": 0,
+            "gradient_cosine": 0.13103907297593706,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.7185975738425991,
+            "success": 0,
+            "gradient_cosine": 0.0074351862671720005,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6049977564383233,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        },
+        "0.04": {
+          "full_coordinate": {
+            "final_error": 0.6049977564383233,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          },
+          "coordinate_block8": {
+            "final_error": 0.876786922664644,
+            "success": 0,
+            "gradient_cosine": 0.030042605804474674,
+            "mean_repeats": 1
+          },
+          "hadamard_block8": {
+            "final_error": 0.7723052501004181,
+            "success": 0,
+            "gradient_cosine": 0.06451431118329434,
+            "mean_repeats": 1
+          },
+          "hadamard_repeat2": {
+            "final_error": 0.6136938621150747,
+            "success": 0,
+            "gradient_cosine": 0.11079607200147737,
+            "mean_repeats": 2
+          },
+          "hadamard_adaptive_repeat": {
+            "final_error": 0.6005969921529271,
+            "success": 0,
+            "gradient_cosine": 0.11919158628682418,
+            "mean_repeats": 3.0617187500000003
+          },
+          "random_orthogonal8": {
+            "final_error": 0.7225629015068818,
+            "success": 0,
+            "gradient_cosine": 0.07828027493936211,
+            "mean_repeats": 1
+          },
+          "spsa_two_probe": {
+            "final_error": 1.7300959822227258,
+            "success": 0,
+            "gradient_cosine": 0.004172610258290726,
+            "mean_repeats": 1
+          },
+          "point_estimate": {
+            "final_error": 0.6049977564383233,
+            "success": 0,
+            "gradient_cosine": 0,
+            "mean_repeats": 0
+          }
+        }
+      }
+    }
+  }
+}

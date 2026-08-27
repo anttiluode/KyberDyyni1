@@ -111,3 +111,20 @@ When two implementations or model variants disagree:
 4. never tune away an attacker win merely because another line told a prettier story.
 
 The response-comparison event was funny. The repo should remain less confused than the event that produced it.
+
+
+## 2026-08-27 branch consolidation
+
+After Gate 7, several explicit experimental forks accumulated around control laws, structured sampling, 2-D probing, high-dimensional probe cost, and probe-width control.
+
+Those branches remain intact as provenance, but their useful artifacts are now copied into the canonical tree. See [BRANCHES.md](BRANCHES.md).
+
+The consolidation rule is intentionally conservative:
+
+- do not replace the canonical README with an older branch snapshot;
+- preserve branch-specific experiment code and result receipts;
+- preserve negative conclusions as well as positive ones;
+- keep branch workflows for reproducibility;
+- let `main` state the current interpretation.
+
+The high-dimensional fork became Gate 8. The probe-width fork remains a negative subfork rather than a new architectural component.
