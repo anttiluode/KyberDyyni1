@@ -62,9 +62,7 @@ Receipt: `results/fork_cycle_level_control.json`.
 
 ## Fork 5 — give the fast sampler a direction / attention vector
 
-The next interpretation supplies a noisy directional cue outside the sweep, as an analogue of visual salience or an internally generated movement-plan vector.
-
-That changes the picture sharply.
+Supplying a noisy directional cue outside the sweep changes the picture sharply.
 
 ### Reliable moving-target pursuit
 
@@ -80,20 +78,7 @@ axis only                               87.7%              9.96        0.0016
 no directional cue                      17.3%              5.96        0.0118
 ```
 
-Important: `axis_only` has extremely high mean value when the noisy cue is accurate, but **fewer cycles actually hit the true target region**. The sweep hedges directional cue error.
-
-### Changing cue reliability
-
-```text
-random around axis                       88.1% hit cycles
-adaptive downstream width               77.1%
-adaptive adaptation                      76.9%
-adaptive tether                          75.4%
-wide frequency adaptation                75.2%
-axis only                                55.2%
-```
-
-The continuous adaptive policies give up some target-hit probability relative to IID random proposals, but at roughly 30× lower path travel.
+The sweep hedges directional-cue error: axis-only stares close to the noisy point estimate, but fewer cycles actually hit the true target region.
 
 ### Cue loss and return
 
@@ -112,31 +97,73 @@ This is the first fork that gives the broad↔focused distinction a clean comput
 
 > **When a direction cue is reliable, focused/high-rate sampling concentrates effort and tracks well. After cue loss, broader sampling reacquires sooner.**
 
-This is compatible with the active-sensing interpretation rather than the scalar-optimizer interpretation.
-
 Receipt: `results/fork_directional_cue.json`.
 
 ## Fork 6 — attack the attractive result
 
-Do not stop at the first biologically pleasing story.
+Confidence controls angular spread/rate, but now the Ji attractor competes with cheap continuous samplers.
 
-Fork 6 asks whether the Ji-like population dynamics are actually needed once we have discovered the useful abstraction.
+### Reliable cue
 
-Confidence now controls both empirical-like frequency and angular spread. Compare:
+```text
+                                  target-hit cycles    path travel
+IID random                             100.0%             0.324
+engineered speed-matched               99.1%             0.0100
+Ji adaptation switch                   98.1%             0.0108
+Ji width switch                        96.9%             0.0100
+Ji frequency + width                   91.7%             0.0100
+axis only                              84.5%             0.0015
+smooth random walk                     62.0%             0.0140
+```
 
-- Ji attractor: confidence controls frequency + downstream width;
-- Ji frequency only;
-- Ji width only;
-- Ji adaptation switch;
-- **engineered speed-matched alternating sweep** with no attractor;
-- **smooth bounded random walk** with similar step scale and no theta oscillator;
-- IID random samples;
-- axis only.
+### Mixed cue reliability
 
-The cheap engineered sweep is intentionally strong: it moves a single continuous state toward alternating side targets with a 0.013-rad/ms speed limit, close to the observed path-travel scale of the Ji sampler.
+```text
+IID random                              85.8%
+engineered speed-matched               83.9%
+Ji adaptation switch                   75.6%
+Ji width switch                        72.9%
+Ji frequency + width                   66.3%
+axis only                              51.2%
+smooth random walk                     47.4%
+```
 
-Question:
+### Cue loss / return
 
-> **Is the useful thing the Ji/adaptation mechanism, or simply a continuously moving confidence-controlled sampling policy?**
+```text
+engineered speed-matched                0 ms reacquisition
+IID random                              0 ms
+Ji width / adaptation                  29 ms
+Ji frequency controls                  34 ms
+axis only                             135 ms
+smooth random walk                    208 ms
+```
 
-Implementation: `experiments/fork_mode_switch_attack.py`.
+The strongest result of the fork is therefore **not** that the Ji-like attractor is required.
+
+A trivial deterministic continuous alternator nearly matches IID random target coverage while moving about **30× less distance**, and it beats the Ji variants in the mixed/loss worlds.
+
+But the matched-travel smooth random walk performs badly.
+
+So the surviving abstraction is narrower:
+
+> **Structured alternating coverage matters; generic continuity does not.**
+
+The Ji dynamics are a biologically plausible way to *generate* such a scanner. They are not currently the best digital implementation of the operation.
+
+Receipt: `results/fork_mode_switch_attack.json`.
+
+## What survived the six forks
+
+1. **Stable reference + elastic sampler** is a useful decomposition.
+2. Relevance should often act on a **downstream sampling coordinate**, not overwrite the stable reference.
+3. Faster theta changes sweep dynamics by itself; do not automatically translate population observations into adaptation/tether changes.
+4. Sparse scalar consequence is a poor source for immediate sampling direction in these tasks.
+5. A separate fast directional/control signal makes the sweep useful as **active sensing**.
+6. Broad sampling helps after uncertainty/loss; focused/high-rate sampling helps when the cue is reliable.
+7. IID random proposals remain a brutal coverage attacker but pay enormous path-travel cost.
+8. **Deterministic structured alternation** captures most of that coverage at low travel.
+9. A smooth random walk with similar travel does not, so the result is not “continuity alone.”
+10. The Ji attractor remains biologically interesting but is not currently necessary for the digital architecture.
+
+The next research fork, if pursued, should attack **structured sampling sequences themselves**: alternating sweeps versus other low-discrepancy / deterministic coverage schedules under equal path, compute, and delayed-credit budgets.
