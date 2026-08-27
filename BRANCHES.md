@@ -16,6 +16,7 @@ Consolidation source heads:
 | `slow-consolidation-noise-fork` | `114e05fdf7f426e978a97801915d95b64767ebb5` | merged as Gate 9 |
 | `cross-basis-transfer-fork` | `3d31aad757d808c395fb739ca317458755e5e8b9` | merged as Gate 10 |
 | `unlabeled-temporal-alignment-fork` | `0cc316c8718eccff35dd530749eaf0aed43060e8` | merged as Gate 11 |
+| `sign-consequence-calibration-fork` | `07f8ba7399c457d6ff47b70b93b9d411b0f88977` | merged as Gate 12 |
 
 ## Control-law line
 
@@ -112,6 +113,19 @@ Preserved experiment/receipt:
 - `results/fork_unlabeled_temporal_alignment_summary.json`
 
 This line established that independent unpaired streams can reveal cross-view component identity through temporal fingerprints and can reveal orientation when the dynamics contain a sign-sensitive temporal asymmetry. The Gaussian AR control recovers axes but leaves an irreducible sign ambiguity; shuffling time kills the positive result.
+
+## Sign-consequence calibration line
+
+Preserved narrative:
+
+- [SIGN_CONSEQUENCE_FORK.md](SIGN_CONSEQUENCE_FORK.md)
+
+Preserved experiment/receipt:
+
+- `experiments/fork_sign_consequence_calibration.py`
+- `results/fork_sign_consequence_calibration_summary.json`
+
+This line established that the residual sign ambiguity left by blind temporal alignment can be resolved with ordinary scalar consequence. Simple bitwise evidence accumulation reaches the oracle transfer floor; shuffled consequence stays at chance.
 
 ## Workflow files
 
