@@ -552,27 +552,125 @@ Canonical evidence:
 - `experiments/fork_2d_probe_basis_attack.py`
 - `results/fork_2d_probe_basis_attack.json`
 
+## Gate 8 — high-dimensional scaling and consequence SNR
+
+The dimensional attack is now complete. Full details are in [HIGHDIM_FORK.md](HIGHDIM_FORK.md).
+
+The first 10-cycle experiment made the fixed-size structured probe bank look as if it simply collapsed with dimension. Equalizing the **actual scalar-relevance budget** changed that conclusion.
+
+At 128 dimensions with 512 scalar evaluations:
+
+```text
+dense hidden correction
+
+full coordinate        final 0.465    success  0.0%
+coordinate block8      final 0.181    success 87.5%
+Hadamard block8        final 0.167    success 95.8%
+random orthogonal8     final 0.314    success  0.0%
+SPSA two-probe         final 0.932    success  0.0%
+no probing             final 0.605    success  0.0%
+```
+
+For a sparse four-coordinate hidden correction:
+
+```text
+coordinate block8      final 0.301    success  0.0%
+Hadamard block8        final 0.189    success 75.0%
+no probing             final 0.607
+```
+
+So the earlier fixed-cycle failure was partly a horizon artifact. A sequence of small structured measurements can use a finite scalar budget much more effectively than insisting on a complete coordinate gradient before every update.
+
+But the mechanism is not dimension-free. At 256 dimensions / 512 evaluations, neither compressed method reaches the strict 0.18 success radius. Hadamard still reduces error substantially, especially for sparse hidden corrections, while a complete 256-D coordinate batch cannot even fit inside the budget.
+
+The stronger boundary appeared when noise was added to the scalar consequence.
+
+At 128-D dense:
+
+```text
+noise sigma      plain Hadamard    repeat x2    adaptive repeat
+0.000                 0.155           0.198          0.155
+0.005                 0.183           0.202          0.168
+0.010                 0.364           0.213          0.212
+0.020                 0.345           0.253          0.241
+0.040                 0.395           0.372          0.440
+```
+
+At tiny noise, spending the budget on more directions is best. At intermediate noise, repeated evidence becomes worth more than additional movement. At sufficiently high dimension/noise, partial probes can become worse than doing nothing.
+
+Gate 8 therefore earns a more precise statement:
+
+> **Fast structured probing is limited by probe-induced consequence signal relative to consequence noise, not by latent dimension alone. Structured mixed probes can postpone the dimensional collapse, but cannot abolish the information limit.**
+
+Canonical evidence:
+
+- `experiments/fork_highdim_probe_scaling.py`
+- `experiments/fork_highdim_equal_probe_budget.py`
+- `experiments/fork_highdim_measurement_noise.py`
+- `results/fork_highdim_probe_scaling.json`
+- `results/fork_highdim_equal_probe_budget_summary.json`
+- `results/fork_highdim_measurement_noise_summary.json`
+
+### Probe-width subfork — negative result
+
+The Vollan-style observation that biological sweep width can change dynamically motivated one further engineering test:
+
+> If consequence SNR is poor, should the artificial sampler widen its probes, then narrow them again when evidence becomes clear?
+
+That mechanism did **not** earn a place.
+
+Under the harder 256-D conditions, a fixed probe radius around 0.40 beat the adaptive-width controllers across every tested noise level in both dense and sparse worlds. The literal low-SNR -> widen rule often made things worse by treating noisy evidence as a command to make still larger excursions.
+
+So dynamic sweep width is frozen as a negative result in [PROBE_WIDTH_FORK.md](PROBE_WIDTH_FORK.md).
+
+The biological paper motivated the question. The toy rejected the mechanism.
+
+## Branch consolidation
+
+The experimental branch history is now preserved inside the canonical tree rather than requiring branch archaeology.
+
+See [BRANCHES.md](BRANCHES.md) for the frozen branch heads and the files brought into `main`.
+
+The short version:
+
+- control-law fork -> preserved;
+- structured-sampling fork -> preserved;
+- two-dimensional fork -> preserved;
+- high-dimensional probe fork -> preserved;
+- probe-width-control fork -> preserved;
+- `main` remains the canonical narrative and implementation.
+
+The old branches are still useful provenance, but no result now depends on remembering which branch contains it.
+
 ## Next gate
 
-### Gate 8 — dimensional scaling / probe cost
+### Gate 9 — fast search -> slow consolidation
 
-In 2-D, a +/-x, +/-y stencil is cheap. In a D-dimensional latent space, a full coordinate basis costs O(D) probe directions.
+The fast sampler has now been characterized hard enough. The high-dimensional experiments deliberately held:
 
-Attack:
+```text
+slow_weight_changes = 0
+```
 
-- coordinate +/- basis;
-- random orthogonal directions;
-- Hadamard / structured sign probes;
-- SPSA two-point estimates;
-- low-rank adaptive subspaces;
-- smooth random motion;
-- IID random proposals.
+That isolation was useful, but KyberDyyni is supposed to be a **fast/slow machine**, not merely a zeroth-order optimizer.
 
-The key question is:
+The next question is therefore:
 
-> **Can the fast-calibration role survive increasing dimension without requiring one probe pair per latent coordinate?**
+> **Can slow structure extract the stable part of many noisy, incomplete fast corrections so that related future episodes require fewer probes, without simply memorizing probe noise?**
 
-If not, Gate 7 remains a useful low-dimensional control mechanism rather than a general AI primitive.
+A clean attack should compare:
+
+- bounded context-specific slow consolidation;
+- ordinary EMA;
+- online ridge / linear regression;
+- Kalman-like state estimation;
+- replay / averaging;
+- frozen-slow control;
+- shuffled-context control.
+
+The success criterion should not merely be lower late-episode error. It should be a reduction in **future probe cost** on related episodes, with transfer tests that change nuisance coordinates or latent basis.
+
+If an EMA or ordinary estimator matches the architecture, use the simpler estimator. If the fast/slow decomposition buys context-sensitive amortization that survives those attacks, then the larger KyberDyyni machine has earned another component.
 
 ## Kill conditions
 
@@ -587,6 +685,7 @@ KyberDyyni should be considered unnecessary if ordinary alternatives win cleanly
 - ordinary attention;
 - hand-coded search;
 - finite-difference / coordinate probing;
-- SPSA and other zeroth-order optimizers.
+- SPSA and other zeroth-order optimizers;
+- ordinary EMA / online estimation for slow consolidation.
 
-The point is not to make biology-shaped software. The point is to see whether separating **fast sampling**, **phase-relative addressing**, and **slow consolidation** gives us a useful machine that ordinary static-weight thinking obscures.
+The point is not to make biology-shaped software. The point is to see whether separating **fast sampling**, **trajectory-relative addressing**, and **slow consolidation** gives us a useful machine that ordinary static-weight thinking obscures.
