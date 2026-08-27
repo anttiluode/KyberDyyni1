@@ -1,0 +1,36 @@
+{
+  "phase_address": {
+    "accuracy": 1.0,
+    "accuracy_std": 0.0,
+    "used_capacity": 11.294479400951017,
+    "used_capacity_std": 0.4327615516724177
+  },
+  "no_phase_address": {
+    "accuracy": 0.12189999999999998,
+    "accuracy_std": 0.01279413928328123,
+    "used_capacity": 0.0,
+    "used_capacity_std": 0.0
+  },
+  "shuffled_phase_address": {
+    "accuracy": 0.11920000000000001,
+    "accuracy_std": 0.006144916598294886,
+    "used_capacity": 1.7135783507320894,
+    "used_capacity_std": 0.4222059874832228
+  },
+  "explicit_slot_address_attacker": {
+    "accuracy": 1.0,
+    "accuracy_std": 0.0,
+    "used_capacity": 20.0,
+    "used_capacity_std": 6.0500533883805474e-15
+  },
+  "chance_accuracy": 0.125,
+  "settings": {
+    "n_seeds": 10,
+    "n_contexts": 4,
+    "candidate_events_per_theta_cycle": 8,
+    "reward_delay_theta_cycles": 4,
+    "train_cycles": 1500,
+    "test_cycles": 1000
+  },
+  "claim": "phase can serve as a local address for delayed credit when otherwise identical candidate events coexist within one sweep; explicit slot addresses solve the same problem, so phase is not uniquely privileged"
+}
